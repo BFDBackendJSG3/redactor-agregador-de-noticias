@@ -1,3 +1,5 @@
+//link para o modeligado (inclui essas informações no site que o diagrama é gerado): //https://matheusgr.github.io/modeligado/edit.html
+
 // diagrama de classes de exemplo
 // duas barras definem comentários
 
