@@ -1,1 +1,1 @@
-# redactor-agregador-de-noticias-
+# redactor-agregador-de-noticias
