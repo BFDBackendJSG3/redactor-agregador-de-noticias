@@ -51,7 +51,7 @@ async function crawler(html, baseUrl, limit = 20) {
 async function printNews(links) {
   for (const link of links) {
     const html = await fetchHtml(link);
-    console.log(links);
+    console.log("URL da notícia: ", link);
     scrape(html);
     console.log("################");
   }
