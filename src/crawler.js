@@ -23,17 +23,29 @@ async function crawler(html) {
   return links;
 }
 
+async function printNews(links){
+    for(const link of links){
+        const html = await fetchHtml(link)
+        scrape(html);
+        console.log("################")
+    }
 
+}
 
 async function main() {
   const url = "https://g1.globo.com/";
 
-  const html = await fetchHtml(url); // ✅ await
-  if (!html) return;
-
-  const links = await crawler(html); // ✅ await
-
-  console.log(links);
+  try {
+      const html = await fetchHtml(url);
+      if (!html) return;
+    
+      const links = await crawler(html);
+    
+      await printNews(links);
+    
+  } catch (error) {
+    console.log("Ocoreu o erro: ", error)
+  }
 }
 
 main();

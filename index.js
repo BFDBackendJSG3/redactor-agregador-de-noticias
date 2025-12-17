@@ -1,33 +1,31 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-
-async function fetchHtml(url){
-    try{
-        const response = await axios.get(url,{
-            timeout:10000,
-            headers:{
-                'User-Agent':
-                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'
-            }
-        });
-        return response.data;
-        
-    } catch(error){
-        console.error('Erro ao acessar:', url);
-        return null;
-    }
+async function fetchHtml(url) {
+  try {
+    const response = await axios.get(url, {
+      timeout: 10000,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao acessar:", url);
+    return null;
+  }
 }
 
 async function scrape(html) {
-  paragraphs = [];
-  let date = null;
+  let title = "";
+  let dateText = null;
   let author = null;
+  paragraphs = [];
 
   // Carregar o html para manipulação
   const $ = cheerio.load(html);
 
-  
   const timeEl = $("article time").first();
 
   if (timeEl.length) {
@@ -36,9 +34,9 @@ async function scrape(html) {
 
   author = $(".top__signature__text__author-name").text();
 
-  const dateText = $(".content-publication-data__updated").first().text().trim();
+  dateText = $(".content-publication-data__updated").first().text().trim();
 
-  const title = $("h1").text();
+  title = $("h1").text();
   $("article p").each((_, el) => {
     const text = $(el).text().trim();
     if (text.length > 0) {
@@ -52,9 +50,6 @@ async function scrape(html) {
   console.log("Data: ", dateText);
   console.log("Autor:", author);
   console.log("Parágrafos:", paragraphs.length);
-
-
-  
 }
 
 async function main() {
@@ -68,7 +63,6 @@ async function main() {
 }
 
 module.exports = {
-    fetchHtml,
-    scrape
-}
-
+  fetchHtml,
+  scrape,
+};
