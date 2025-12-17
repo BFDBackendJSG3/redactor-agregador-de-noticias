@@ -51,9 +51,14 @@ async function crawler(html, baseUrl, limit = 20) {
 async function printNews(links) {
   for (const link of links) {
     const html = await fetchHtml(link);
+    console.log(links)
     scrape(html);
     console.log("################");
   }
+}
+
+function extractEstadoFromUrl(url){
+  sections = url.split("/")
 }
 
 async function main() {

@@ -50,6 +50,7 @@ async function scrape(html) {
   console.log("Data: ", dateText);
   console.log("Autor:", author);
   console.log("Parágrafos:", paragraphs.length);
+  console.log("Notícia: ", paragraphs.join(" "));
 }
 
 async function main() {
