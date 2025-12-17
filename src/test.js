@@ -42,3 +42,7 @@ function extractEstadoFromUrl(url) {
 extractEstadoFromUrl(
   "https://g1.globo.com/pb/paraiba/videos-jpb1/video/natal-sem-fome-mobiliza-doacoes-em-campina-grande-14185555.ghtml"
 );
+
+module.exports = {
+  extractEstadoFromUrl,
+};
