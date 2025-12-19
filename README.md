@@ -1,1 +1,2 @@
-# redactor-agregador-de-noticias
+# comuniq
+
