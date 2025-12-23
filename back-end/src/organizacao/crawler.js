@@ -1,6 +1,6 @@
 const cheerio = require("cheerio");
-const { fetchHtml } = require(".."); // index.js
-const { scrape } = require(".."); // index.js
+const { fetchHtml } = require("."); // index.js
+const { scrape } = require("."); // index.js
 
 // async function crawler(html) {
 //   const $ = cheerio.load(html);
