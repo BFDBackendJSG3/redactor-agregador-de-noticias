@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/BFDBackendJSG3/redactor-agregador-de-noticias-#readme",
   "dependencies": {
+    "@prisma/client": "^7.2.0",
     "axios": "^1.13.2",
     "cheerio": "^1.1.2",
     "dotenv": "^17.2.3",
@@ -26,5 +27,8 @@
     "router": "^2.2.0",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "prisma": "^7.2.0"
   }
 }
