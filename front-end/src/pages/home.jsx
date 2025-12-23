@@ -1,11 +1,11 @@
+import { Button } from "@/components/ui/button";
 import ThemeToggleButton from "../components/ThemeToggleButton";
 
 function Home() {
     return (
         <div>
-            HelloW
-            <ThemeToggleButton/>
-            </div>
+            HelloWorld
+        </div>
     );
 }
 
