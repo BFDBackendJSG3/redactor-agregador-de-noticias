@@ -4,7 +4,12 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Municipio extends Model {
     static associate(models) {
-      // define association here
+      Municipio.belongsToMany(models.Noticia, {
+        through: models.NoticiaMunicipio,
+        foreignKey: 'municipioId',
+        otherKey: 'noticiaId',
+        as: 'noticias'
+      });
     }
   }
 
