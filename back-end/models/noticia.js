@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'noticiaId',
         as: 'tags'
       });
+
+      Noticia.hasMany(models.Favorito, {
+        foreignKey: 'noticiaId',
+        as: 'favoritos'
+      });
     }
   }
   Noticia.init({

@@ -6,8 +6,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // Associações futuras:
       // User.hasMany(models.Noticia)
-      // User.hasMany(models.Favorito)
       // User.hasMany(models.Alerta)
+
+      User.hasMany(models.Favorito, {
+        foreignKey: 'userId',
+        as: 'favoritos'
+      });
     }
   }
 
