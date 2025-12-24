@@ -1,34 +1,26 @@
 {
-  "name": "redactor-agregador-de-noticias-",
+  "name": "back-end",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BFDBackendJSG3/redactor-agregador-de-noticias-.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/BFDBackendJSG3/redactor-agregador-de-noticias-/issues"
-  },
-  "homepage": "https://github.com/BFDBackendJSG3/redactor-agregador-de-noticias-#readme",
   "dependencies": {
-    "@prisma/client": "^7.2.0",
-    "axios": "^1.13.2",
-    "cheerio": "^1.1.2",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "router": "^2.2.0",
-    "sequelize": "^6.37.7",
-    "sqlite3": "^5.1.7"
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
   },
   "devDependencies": {
-    "prisma": "^7.2.0"
+    "nodemon": "^3.1.11",
+    "sequelize-cli": "^6.6.3"
   }
 }
