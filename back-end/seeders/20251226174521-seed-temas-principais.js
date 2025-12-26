@@ -1,46 +1,55 @@
-'use strict';
+"use strict";
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface) {
-    await queryInterface.bulkInsert(
-      'TemasPrincipais',
-      [
+  async up(queryInterface, Sequelize) {
+    const temas = [
+      {
+        nome: "Geral",
+        descricao: "Tema padrão",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        nome: "Política",
+        descricao: "Notícias sobre política",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        nome: "Saúde",
+        descricao: "Notícias sobre saúde pública",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        nome: "Educação",
+        descricao: "Notícias sobre educação",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
+
+    for (const tema of temas) {
+      const [resultado] = await queryInterface.sequelize.query(
+        `
+        SELECT id FROM "TemasPrincipais"
+        WHERE nome = :nome
+        LIMIT 1
+        `,
         {
-          nome: 'Geral',
-          descricao: 'Tema padrão do sistema',
-          parentId: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          nome: 'Política',
-          descricao: 'Notícias sobre política',
-          parentId: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          nome: 'Saúde',
-          descricao: 'Notícias sobre saúde pública',
-          parentId: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          nome: 'Educação',
-          descricao: 'Notícias sobre educação',
-          parentId: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      {}
-    );
+          replacements: { nome: tema.nome },
+        }
+      );
+
+      if (resultado.length === 0) {
+        await queryInterface.bulkInsert("TemasPrincipais", [tema]);
+      }
+    }
   },
 
-  async down(queryInterface) {
-    await queryInterface.bulkDelete('TemasPrincipais', null, {});
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete("TemasPrincipais", null, {});
   },
 };
+
 
