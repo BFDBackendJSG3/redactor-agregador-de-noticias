@@ -1,9 +1,12 @@
 function Home() {
-    return (
-        <div>
-            HelloWorld
-        </div>
-    );
+  return (
+    <div>
+      <div>HelloWorld</div>
+      <div>HelloWorld</div>
+      <div>HelloWorld</div>
+      <div>HelloWorld</div>
+    </div>
+  );
 }
 
 export default Home;
