@@ -1,3 +1,5 @@
+import ThemeToggleButton from '@/components/ThemeToggleButton';
+
 function Home() {
   return (
     <div>
@@ -5,6 +7,7 @@ function Home() {
       <div>HelloWorld</div>
       <div>HelloWorld</div>
       <div>HelloWorld</div>
+      <ThemeToggleButton />
     </div>
   );
 }
