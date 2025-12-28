@@ -45,7 +45,7 @@ function Navbar() {
           <div className="flex justify-end">
             <Button
               size="icon"
-              //className="border-none shadow-none"
+              className="md:hidden"
               variant="outline"
               onClick={() => setIsSearchMenuOpen((prev) => !prev)}
             >
