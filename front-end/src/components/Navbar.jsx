@@ -2,17 +2,16 @@ import {
   CircleUserRound,
   House,
   Info,
-  LogIn,
   Mail,
   Menu,
   Newspaper,
   Search,
-  SendHorizonal,
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
-import ThemeToggleButton from './ThemeToggleButton';
+//import ThemeToggleButton from './ThemeToggleButton';
 import { useState } from 'react';
 import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 function Navbar() {
   const location = useLocation();
@@ -22,58 +21,51 @@ function Navbar() {
 
   return (
     <div className="bg-background fixed top-0 z-40 w-full border-b">
-      <div className="mx-auto max-w-5xl px-4">
-        <div className="flex h-16 items-center justify-between">
-          {/** Mobile menu button */}
-          <div className="flex items-center gap-4 md:hidden md:gap-8">
-            <button
-              className="text-foreground"
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid h-16 grid-cols-3 items-center">
+          {/* Coluna 1 */}
+          <div className="justify-start">
+            <Button
+              variant="outline"
+              size="icon"
               onClick={() => setIsMenuOpen((prev) => !prev)}
             >
-              <Menu strokeWidth={1.5} />
-            </button>
+              <Menu strokeWidth={1.5} className="size-6" />
+            </Button>
           </div>
 
-          <Link to="/" className="font-mono text-xl">
-            Comuniq<span className="text-green-700">.PB</span>
-          </Link>
+          {/* Coluna 2 */}
+          <div className="flex justify-center">
+            <Link to="/" className="font-mono text-xl">
+              Comuniq<span className="text-green-700">.PB</span>
+            </Link>
+          </div>
 
-          <div className="flex items-center gap-4 md:hidden md:gap-8">
-            <button
-              className="text-foreground"
+          {/* Coluna 3 */}
+          <div className="flex justify-end">
+            <Button
+              size="icon"
+              className="md:hidden"
+              variant="outline"
               onClick={() => setIsSearchMenuOpen((prev) => !prev)}
             >
-              <Search strokeWidth={1.5} />
-            </button>
-          </div>
-
-          {/* Desktop Navbar */}
-          <div className="hidden items-center space-x-8 md:flex">
-            <Link
-              to="/"
-              className={
-                location.pathname === '/' ? 'text-muted-foreground' : ''
-              }
-            >
-              Inicio
-            </Link>
-            <Link
-              to="/sobre"
-              className={
-                location.pathname === '/sobre' ? 'text-muted-foreground' : ''
-              }
-            >
-              Sobre
-            </Link>
-            <ThemeToggleButton />
-            <Link to="/login" className="text-md font-mono">
-              <LogIn />
-            </Link>
+              <Search strokeWidth={1.5} className="size-6" />
+            </Button>
+            {/* Desktop search */}
+            <div className="hidden md:flex">
+              <Input placeholder="Buscar" className="rounded-r-none" />
+              <Button
+                size="icon"
+                className="rounded-l-none bg-green-700 shadow-xs hover:bg-green-800"
+              >
+                <Search className="size-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Abre ao clicar no componente acima */}
+      {/* Side bar - Abre ao clicar no componente acima */}
       {isMenuOpen && (
         <>
           {/* overlay clicável */}
@@ -83,7 +75,7 @@ function Navbar() {
           />
 
           {/* sidebar */}
-          <div className="bg-background fixed top-0 left-0 z-50 h-full w-65 border-r shadow-lg md:hidden">
+          <div className="bg-card fixed top-0 left-0 z-50 h-full w-65 border-r shadow-lg md:w-90">
             <div className="flex h-16 items-center justify-center">
               <Link
                 to="/"
@@ -160,15 +152,21 @@ function Navbar() {
       )}
       {/* Barra de pesquisa */}
       {isSearchMenuOpen && (
-        <div className="bg-background fixed top-16 right-0 left-0 z-30 mx-auto flex h-20 w-85 items-center gap-2 rounded-b-md border px-4 shadow-lg">
-          <Input placeholder="Buscar por:" className="md:text text-[13px]" />
-          <button
-            type="button"
-            className="border-input bg-background hover:bg-accent hover:text-accent-foreground flex h-9 items-center justify-center rounded-md border px-3 transition"
-          >
-            <SendHorizonal className="h-6 w-6" strokeWidth={1.5} />
-          </button>
-        </div>
+        <>
+          <div
+            className="fixed inset-0 z-20"
+            onClick={() => setIsSearchMenuOpen(false)}
+          ></div>
+          <div className="bg-background fixed top-16 right-0 left-0 z-30 mx-auto flex h-20 w-[85%] items-center rounded-b-md border px-4 shadow-xl">
+            <Input
+              placeholder="Buscar"
+              className="rounded-r-none placeholder:text-sm"
+            />
+            <Button className="rounded-l-none bg-green-700 shadow-xs hover:bg-green-800">
+              <Search />
+            </Button>
+          </div>
+        </>
       )}
     </div>
   );
