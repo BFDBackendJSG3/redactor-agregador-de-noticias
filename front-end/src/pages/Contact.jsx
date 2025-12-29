@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -21,7 +22,7 @@ function Contact() {
             <p>Nome Completo:</p>
             <Input />
           </div>
-          <div className="flex flex-col md:flex-row md:gap-4">
+          <div className="flex flex-col space-y-3 md:flex-row md:gap-4 md:space-y-0">
             <div className="w-full md:basis-[65%]">
               <p>Email:</p>
               <Input type="email" />
@@ -39,6 +40,9 @@ function Contact() {
             <p>Mensagem:</p>
             <Textarea className="min-h-30" />
           </div>
+          <Button aria-label="Submit" className="mt-2 w-full">
+            Enviar
+          </Button>
         </CardContent>
       </Card>
     </div>
