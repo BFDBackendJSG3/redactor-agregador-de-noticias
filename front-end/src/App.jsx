@@ -11,7 +11,7 @@ function App() {
     <ThemeProvider storageKey="vite-ui-theme" defaultTheme="light">
       <div className="min-h-screen pt-20">
         <Navbar />
-        <div className="container mx-auto px-6 py-2">
+        <div className="container mx-auto px-3 py-2 md:px-6">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

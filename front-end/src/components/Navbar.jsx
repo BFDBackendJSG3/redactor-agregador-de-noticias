@@ -21,7 +21,7 @@ function Navbar() {
 
   return (
     <div className="bg-background fixed top-0 z-40 w-full border-b">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-3 md:px-6">
         <div className="grid h-16 grid-cols-3 items-center">
           {/* Coluna 1 */}
           <div className="justify-start">
