@@ -4,7 +4,7 @@ import {
   Info,
   Mail,
   Menu,
-  Newspaper,
+  //Newspaper,
   Search,
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
@@ -37,7 +37,7 @@ function Navbar() {
           {/* Coluna 2 */}
           <div className="flex justify-center">
             <Link to="/" className="font-mono text-xl">
-              Comuniq<span className="text-green-700">.PB</span>
+              Comuniq<span className="text-emerald-600">.PB</span>
             </Link>
           </div>
 
@@ -56,7 +56,7 @@ function Navbar() {
               <Input placeholder="Buscar" className="rounded-r-none" />
               <Button
                 size="icon"
-                className="rounded-l-none bg-green-700 shadow-xs hover:bg-green-800"
+                className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700"
               >
                 <Search className="size-5" />
               </Button>
@@ -82,7 +82,7 @@ function Navbar() {
                 className="font-mono text-xl"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Comuniq<span className="text-green-700">.PB</span>
+                Comuniq<span className="text-emerald-600">.PB</span>
               </Link>
             </div>
             <div>
@@ -110,6 +110,7 @@ function Navbar() {
                 <House strokeWidth={1.25} />
                 Inicio
               </Link>
+              {/* 
               <Link
                 to="/"
                 className={
@@ -122,6 +123,7 @@ function Navbar() {
                 <Newspaper strokeWidth={1.25} />
                 Últimas Notícias
               </Link>
+              */}
               <Link
                 to="/sobre"
                 className={
@@ -162,7 +164,7 @@ function Navbar() {
               placeholder="Buscar"
               className="rounded-r-none placeholder:text-sm"
             />
-            <Button className="rounded-l-none bg-green-700 shadow-xs hover:bg-green-800">
+            <Button className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700">
               <Search />
             </Button>
           </div>
