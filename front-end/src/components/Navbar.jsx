@@ -22,16 +22,53 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchMenuOpen, setIsSearchMenuOpen] = useState(false);
 
+  //desktop links
   const navLinks = [
-    { to: '/login', label: 'Login' },
-    { to: '/', label: 'Início' },
-    { to: '/ultimas-noticias', label: 'Últimas Notícias' },
-    { to: '/politica', label: 'Política' },
-    { to: '/saude', label: 'Saúde' },
-    { to: '/educacao', label: 'Educação' },
-    { to: '/sobre', label: 'Quem Somos' },
-    { to: '/contato', label: 'Contato' },
+    {
+      label: 'Login',
+      to: '/login',
+      match: ['/login', '/cadastro'],
+    },
+    {
+      label: 'Início',
+      to: '/',
+      match: ['/'],
+    },
+    {
+      label: 'Últimas Notícias',
+      to: '/ultimas-noticias',
+      match: ['/ultimas-noticias'],
+    },
+    {
+      label: 'Política',
+      to: '/politica',
+      match: ['/politica'],
+    },
+    {
+      label: 'Saúde',
+      to: '/saude',
+      match: ['/saude'],
+    },
+    {
+      label: 'Educação',
+      to: '/educacao',
+      match: ['/educacao'],
+    },
+    {
+      label: 'Quem Somos',
+      to: '/sobre',
+      match: ['/sobre'],
+    },
+    {
+      label: 'Contato',
+      to: '/contato',
+      match: ['/contato'],
+    },
   ];
+
+  const isAuthRoute =
+    location.pathname === '/login' || location.pathname === '/cadastro';
+
   return (
     <div>
       <div className="bg-background fixed top-0 z-40 w-full border-b">
@@ -105,8 +142,8 @@ function Navbar() {
                 <Link
                   to="/login"
                   className={
-                    location.pathname === '/login'
-                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                    isAuthRoute
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
                   onClick={() => setIsMenuOpen(false)}
@@ -118,7 +155,7 @@ function Navbar() {
                   to="/"
                   className={
                     location.pathname === '/'
-                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
                   onClick={() => setIsMenuOpen(false)}
@@ -130,7 +167,7 @@ function Navbar() {
                   to="/"
                   className={
                     location.pathname === '/ultimas-noticias'
-                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
                   onClick={() => setIsMenuOpen(false)}
@@ -142,7 +179,7 @@ function Navbar() {
                   to="/"
                   className={
                     location.pathname === '/ultimas-noticias'
-                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
                   onClick={() => setIsMenuOpen(false)}
@@ -154,7 +191,7 @@ function Navbar() {
                   to="/"
                   className={
                     location.pathname === '/ultimas-noticias'
-                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
                   onClick={() => setIsMenuOpen(false)}
@@ -166,7 +203,7 @@ function Navbar() {
                   to="/"
                   className={
                     location.pathname === '/ultimas-noticias'
-                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
                   onClick={() => setIsMenuOpen(false)}
@@ -178,7 +215,7 @@ function Navbar() {
                   to="/sobre"
                   className={
                     location.pathname === '/sobre'
-                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
                   onClick={() => setIsMenuOpen(false)}
@@ -189,8 +226,8 @@ function Navbar() {
                 <Link
                   to="/contato"
                   className={
-                    location.pathname === '/contact'
-                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                    location.pathname === '/contato'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
                   onClick={() => setIsMenuOpen(false)}
@@ -221,22 +258,26 @@ function Navbar() {
           </>
         )}
       </div>
-
+      {/* Barra de links desktop */}
       <div className="bg-background hidden h-10 w-full border-b md:block">
         <div className="mx-auto flex h-full max-w-7xl items-center justify-center gap-6 px-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={`text-sm transition-colors hover:text-emerald-600 ${
-                location.pathname === link.to
-                  ? 'font-semibold text-emerald-600'
-                  : 'text-muted-foreground'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = link.match.includes(location.pathname);
+
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`text-sm transition-colors hover:text-emerald-600 ${
+                  isActive
+                    ? 'font-semibold text-emerald-600'
+                    : 'text-muted-foreground'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
