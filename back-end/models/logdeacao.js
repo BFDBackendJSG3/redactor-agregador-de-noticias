@@ -1,24 +1,24 @@
 'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class LogDeAcao extends Model {
     static associate(models) {
-      LogDeAcao.belongsTo(models.User, {
-        foreignKey: 'userId',
+      LogDeAcao.belongsTo(models.Usuario, {
+        foreignKey: 'usuarioId',
         as: 'usuario',
       });
     }
   }
   LogDeAcao.init(
     {
-      userId: DataTypes.INTEGER,
+      usuarioId: DataTypes.INTEGER,
       acao: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       entidade: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       entidadeId: DataTypes.INTEGER,
       descricao: DataTypes.TEXT,

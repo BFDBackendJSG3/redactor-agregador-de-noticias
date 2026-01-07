@@ -1,17 +1,18 @@
 'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class LogAcesso extends Model {
     static associate(models) {
-      LogAcesso.belongsTo(models.User, {
-        foreignKey: 'userId',
+      LogAcesso.belongsTo(models.Usuario, {
+        foreignKey: 'usuarioId',
         as: 'usuario',
       });
     }
   }
   LogAcesso.init(
     {
-      userId: DataTypes.INTEGER,
+      usuarioId: DataTypes.INTEGER,
       ip: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -1,11 +1,12 @@
 'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Favorito extends Model {
     static associate(models) {
       // Favorito pertence a um usuário
-      Favorito.belongsTo(models.User, {
-        foreignKey: 'userId',
+      Favorito.belongsTo(models.Usuario, {
+        foreignKey: 'usuarioId',
         as: 'usuario',
       });
 
@@ -18,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Favorito.init(
     {
-      userId: {
+      usuarioId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -31,6 +32,12 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'Favorito',
       tableName: 'Favoritos',
+      indexes: [
+        {
+          unique: true,
+          fields: ['usuarioId', 'noticiaId'],
+        },
+      ],
     }
   );
 

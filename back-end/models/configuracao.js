@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
   class Configuracao extends Model {
     static associate(models) {
       // Configuração pode pertencer a um usuário
-      Configuracao.belongsTo(models.User, {
-        foreignKey: 'userId',
+      Configuracao.belongsTo(models.Usuario, {
+        foreignKey: 'usuarioId',
         as: 'usuario',
       });
     }
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       descricao: DataTypes.STRING,
-      userId: DataTypes.INTEGER,
+      usuarioId: DataTypes.INTEGER,
     },
     {
       sequelize,

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       // Usuario.hasMany(models.Alerta)
 
       Usuario.hasMany(models.Favorito, {
-        foreignKey: 'userId',
+        foreignKey: 'usuarioId',
         as: 'favoritos',
       });
     }
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Usuario.init(
     {
-      name: DataTypes.STRING,
+      nome: DataTypes.STRING,
       email: DataTypes.STRING,
       passwordHash: DataTypes.STRING,
       dataDeNascimento: DataTypes.DATEONLY,

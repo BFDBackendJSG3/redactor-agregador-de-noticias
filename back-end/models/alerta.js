@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   class Alerta extends Model {
     static associate(models) {
       // Alerta pertence a um usuário
-      Alerta.belongsTo(models.User, {
-        foreignKey: 'userId',
+      Alerta.belongsTo(models.Usuario, {
+        foreignKey: 'usuarioId',
         as: 'usuario',
       });
 
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Alerta.init(
     {
-      userId: {
+      usuarioId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
