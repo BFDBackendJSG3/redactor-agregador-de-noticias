@@ -9,17 +9,10 @@ module.exports = {
     );
 
     // Remove FK antiga (nome padrão do Postgres)
-    await queryInterface.removeConstraint(
-      'Favoritos',
-      'Favoritos_userId_fkey'
-    );
+    await queryInterface.removeConstraint('Favoritos', 'Favoritos_userId_fkey');
 
     // Renomeia coluna
-    await queryInterface.renameColumn(
-      'Favoritos',
-      'userId',
-      'usuarioId'
-    );
+    await queryInterface.renameColumn('Favoritos', 'userId', 'usuarioId');
 
     // Cria nova FK apontando para Usuarios
     await queryInterface.addConstraint('Favoritos', {
@@ -35,14 +28,10 @@ module.exports = {
     });
 
     // Cria novo índice único
-    await queryInterface.addIndex(
-      'Favoritos',
-      ['usuarioId', 'noticiaId'],
-      {
-        unique: true,
-        name: 'favoritos_usuario_id_noticia_id',
-      }
-    );
+    await queryInterface.addIndex('Favoritos', ['usuarioId', 'noticiaId'], {
+      unique: true,
+      name: 'favoritos_usuario_id_noticia_id',
+    });
   },
 
   async down(queryInterface, Sequelize) {
@@ -56,11 +45,7 @@ module.exports = {
       'Favoritos_usuarioId_fkey'
     );
 
-    await queryInterface.renameColumn(
-      'Favoritos',
-      'usuarioId',
-      'userId'
-    );
+    await queryInterface.renameColumn('Favoritos', 'usuarioId', 'userId');
 
     await queryInterface.addConstraint('Favoritos', {
       fields: ['userId'],
@@ -74,14 +59,9 @@ module.exports = {
       onDelete: 'CASCADE',
     });
 
-    await queryInterface.addIndex(
-      'Favoritos',
-      ['userId', 'noticiaId'],
-      {
-        unique: true,
-        name: 'favoritos_user_id_noticia_id',
-      }
-    );
+    await queryInterface.addIndex('Favoritos', ['userId', 'noticiaId'], {
+      unique: true,
+      name: 'favoritos_user_id_noticia_id',
+    });
   },
 };
-

@@ -12,11 +12,7 @@ module.exports = {
     await queryInterface.removeIndex('Configuracoes', ['userId']);
 
     // Renomeia coluna
-    await queryInterface.renameColumn(
-      'Configuracoes',
-      'userId',
-      'usuarioId'
-    );
+    await queryInterface.renameColumn('Configuracoes', 'userId', 'usuarioId');
 
     // Cria nova FK
     await queryInterface.addConstraint('Configuracoes', {
@@ -37,4 +33,3 @@ module.exports = {
 
   async down() {},
 };
-

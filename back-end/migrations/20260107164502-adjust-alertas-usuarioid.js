@@ -32,4 +32,3 @@ module.exports = {
     // rollback opcional (pode deixar vazio se quiser)
   },
 };
-

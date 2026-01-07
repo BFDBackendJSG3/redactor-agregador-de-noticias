@@ -9,5 +9,4 @@ router.post('/noticias', NoticiasController.criar);
 router.put('/noticias/:id', NoticiasController.atualizar);
 router.delete('/noticias/:id', NoticiasController.deletar);
 
-
 module.exports = router;
