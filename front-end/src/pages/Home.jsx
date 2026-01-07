@@ -4,9 +4,6 @@ function Home() {
   return (
     <div>
       <div>HelloWorld</div>
-      <div>HelloWorld</div>
-      <div>HelloWorld</div>
-      <div>HelloWorld</div>
       <ThemeToggleButton />
     </div>
   );

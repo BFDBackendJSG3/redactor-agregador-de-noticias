@@ -10,9 +10,9 @@ import { Textarea } from '@/components/ui/textarea';
 
 function Contact() {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center md:py-10">
       <Card className="w-full max-w-4xl">
-        <CardTitle className="text-center">Contato</CardTitle>
+        <CardTitle className="text-center text-xl">Contato</CardTitle>
         <CardDescription className="px-3 text-center">
           Seu contato é muito importante para nós. Preencha os campos abaixo
           corretamente, que entraremos em contato o mais rápido possível.{' '}

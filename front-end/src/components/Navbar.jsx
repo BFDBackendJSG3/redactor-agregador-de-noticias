@@ -5,6 +5,9 @@ import {
   Mail,
   Menu,
   Newspaper,
+  HeartHandshake,
+  Scale,
+  Notebook,
   Search,
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
@@ -19,155 +22,264 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchMenuOpen, setIsSearchMenuOpen] = useState(false);
 
+  //desktop links
+  const navLinks = [
+    {
+      label: 'Login',
+      to: '/login',
+      match: ['/login', '/cadastro'],
+    },
+    {
+      label: 'Início',
+      to: '/',
+      match: ['/'],
+    },
+    {
+      label: 'Últimas Notícias',
+      to: '/ultimas-noticias',
+      match: ['/ultimas-noticias'],
+    },
+    {
+      label: 'Política',
+      to: '/politica',
+      match: ['/politica'],
+    },
+    {
+      label: 'Saúde',
+      to: '/saude',
+      match: ['/saude'],
+    },
+    {
+      label: 'Educação',
+      to: '/educacao',
+      match: ['/educacao'],
+    },
+    {
+      label: 'Quem Somos',
+      to: '/sobre',
+      match: ['/sobre'],
+    },
+    {
+      label: 'Contato',
+      to: '/contato',
+      match: ['/contato'],
+    },
+  ];
+
+  const isAuthRoute =
+    location.pathname === '/login' || location.pathname === '/cadastro';
+
   return (
-    <div className="bg-background fixed top-0 z-40 w-full border-b">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid h-16 grid-cols-3 items-center">
-          {/* Coluna 1 */}
-          <div className="justify-start">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setIsMenuOpen((prev) => !prev)}
-            >
-              <Menu strokeWidth={1.5} className="size-6" />
-            </Button>
-          </div>
+    <div>
+      <div className="bg-background fixed top-0 z-40 w-full border-b">
+        <div className="mx-auto max-w-7xl px-3 md:px-6">
+          <div className="flex h-16 items-center justify-between">
+            {/* Coluna 1 */}
+            <div className="md:hidden">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setIsMenuOpen((prev) => !prev)}
+              >
+                <Menu strokeWidth={1.5} className="size-6" />
+              </Button>
+            </div>
 
-          {/* Coluna 2 */}
-          <div className="flex justify-center">
-            <Link to="/" className="font-mono text-xl">
-              Comuniq<span className="text-green-700">.PB</span>
-            </Link>
-          </div>
+            {/* Coluna 2 */}
+            <div className="flex justify-center">
+              <Link to="/" className="font-mono text-xl">
+                Comuniq<span className="text-emerald-600">.PB</span>
+              </Link>
+            </div>
 
-          {/* Coluna 3 */}
-          <div className="flex justify-end">
-            <Button
-              size="icon"
-              className="md:hidden"
-              variant="outline"
-              onClick={() => setIsSearchMenuOpen((prev) => !prev)}
-            >
-              <Search strokeWidth={1.5} className="size-6" />
-            </Button>
-            {/* Desktop search */}
-            <div className="hidden md:flex">
-              <Input placeholder="Buscar" className="rounded-r-none" />
+            {/* Coluna 3 */}
+            <div className="flex justify-end">
+              {/* Mobile search */}
               <Button
                 size="icon"
-                className="rounded-l-none bg-green-700 shadow-xs hover:bg-green-800"
+                className="md:hidden"
+                variant="outline"
+                onClick={() => setIsSearchMenuOpen((prev) => !prev)}
               >
-                <Search className="size-5" />
+                <Search strokeWidth={1.5} className="size-6" />
               </Button>
+
+              {/* Desktop search */}
+              <div className="hidden md:flex">
+                <Input placeholder="Buscar" className="rounded-r-none" />
+                <Button
+                  size="icon"
+                  className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700"
+                >
+                  <Search className="size-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Side bar - Abre ao clicar no componente acima */}
-      {isMenuOpen && (
-        <>
-          {/* overlay clicável */}
-          <div
-            className="bg-background/20 fixed inset-0 z-40 backdrop-blur-xs"
-            onClick={() => setIsMenuOpen(false)}
-          />
-
-          {/* sidebar */}
-          <div className="bg-card fixed top-0 left-0 z-50 h-full w-65 border-r shadow-lg md:w-90">
-            <div className="flex h-16 items-center justify-center">
-              <Link
-                to="/"
-                className="font-mono text-xl"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Comuniq<span className="text-green-700">.PB</span>
-              </Link>
-            </div>
-            <div>
-              <Link
-                to="/login"
-                className={
-                  location.pathname === '/login'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <CircleUserRound strokeWidth={1.25} />
-                Login
-              </Link>
-              <Link
-                to="/"
-                className={
-                  location.pathname === '/'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <House strokeWidth={1.25} />
-                Inicio
-              </Link>
-              <Link
-                to="/"
-                className={
-                  location.pathname === '/ultimas-noticias'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Newspaper strokeWidth={1.25} />
-                Últimas Notícias
-              </Link>
-              <Link
-                to="/sobre"
-                className={
-                  location.pathname === '/sobre'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Info strokeWidth={1.25} />
-                Quem Somos
-              </Link>
-              <Link
-                to="/contact"
-                className={
-                  location.pathname === '/contact'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Mail strokeWidth={1.25} />
-                Entre em Contato
-              </Link>
-            </div>
-          </div>
-        </>
-      )}
-      {/* Barra de pesquisa */}
-      {isSearchMenuOpen && (
-        <>
-          <div
-            className="fixed inset-0 z-20"
-            onClick={() => setIsSearchMenuOpen(false)}
-          ></div>
-          <div className="bg-background fixed top-16 right-0 left-0 z-30 mx-auto flex h-20 w-[85%] items-center rounded-b-md border px-4 shadow-xl">
-            <Input
-              placeholder="Buscar"
-              className="rounded-r-none placeholder:text-sm"
+        {/* Side bar - Abre ao clicar no componente acima */}
+        {isMenuOpen && (
+          <>
+            {/* overlay clicável */}
+            <div
+              className="bg-background/20 fixed inset-0 z-40 backdrop-blur-xs"
+              onClick={() => setIsMenuOpen(false)}
             />
-            <Button className="rounded-l-none bg-green-700 shadow-xs hover:bg-green-800">
-              <Search />
-            </Button>
-          </div>
-        </>
-      )}
+
+            {/* sidebar */}
+            <div className="bg-card fixed top-0 left-0 z-50 h-full w-65 border-r shadow-lg md:w-90">
+              <div className="flex h-16 items-center justify-center">
+                <Link
+                  to="/"
+                  className="font-mono text-xl"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Comuniq<span className="text-emerald-600">.PB</span>
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to="/login"
+                  className={
+                    isAuthRoute
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <CircleUserRound strokeWidth={1.25} />
+                  Login
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <House strokeWidth={1.25} />
+                  Inicio
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/ultimas-noticias'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Newspaper strokeWidth={1.25} />
+                  Últimas Notícias
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/ultimas-noticias'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Scale strokeWidth={1.25} />
+                  Política
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/ultimas-noticias'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <HeartHandshake strokeWidth={1.25} />
+                  Saúde
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/ultimas-noticias'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Notebook strokeWidth={1.25} />
+                  Educação
+                </Link>
+                <Link
+                  to="/sobre"
+                  className={
+                    location.pathname === '/sobre'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Info strokeWidth={1.25} />
+                  Quem Somos
+                </Link>
+                <Link
+                  to="/contato"
+                  className={
+                    location.pathname === '/contato'
+                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Mail strokeWidth={1.25} />
+                  Entre em Contato
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
+        {/* Barra de pesquisa */}
+        {isSearchMenuOpen && (
+          <>
+            <div
+              className="fixed inset-0 z-20"
+              onClick={() => setIsSearchMenuOpen(false)}
+            ></div>
+            <div className="bg-background fixed top-16 right-0 left-0 z-30 mx-auto flex h-20 w-[85%] items-center rounded-b-md border px-4 shadow-xl">
+              <Input
+                placeholder="Buscar"
+                className="rounded-r-none placeholder:text-sm"
+              />
+              <Button className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700">
+                <Search />
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+      {/* Barra de links desktop */}
+      <div className="bg-background hidden h-10 w-full border-b md:block">
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-center gap-6 px-4">
+          {navLinks.map((link) => {
+            const isActive = link.match.includes(location.pathname);
+
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`text-sm transition-colors hover:text-emerald-600 ${
+                  isActive
+                    ? 'font-semibold text-emerald-600'
+                    : 'text-muted-foreground'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

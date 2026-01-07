@@ -1,0 +1,64 @@
+{
+  "id": 1,
+  "titulo": "Prefeitura anuncia novo projeto de mobilidade urbana",
+  "conteudo": "A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana, A prefeitura anunciou nesta semana um novo projeto voltado à melhoria da mobilidade urbana...",
+  "url": "https://exemplo.com/noticias/mobilidade-urbana",
+  "dataDePublicacao": "2025-01-10T10:00:00Z",
+  "dataDeImportacao": "2025-01-11T08:30:00Z",
+  "status": "publicada",
+  "tipoNoticia": "importada",
+  "fonteId": 1,
+  "temaPrincipalId": 2,
+  "fonte": {
+    "id": 1,
+    "nome": "G1",
+    "url": "https://g1.globo.com"
+  },
+
+  "temaPrincipal": {
+    "id": 2,
+    "nome": "Mobilidade Urbana"
+  },
+
+  "municipios": [
+    {
+      "id": 10,
+      "nome": "São Paulo",
+      "uf": "SP",
+      "NoticiaMunicipio": {
+        "noticiaId": 1,
+        "municipioId": 10
+      }
+    },
+    {
+      "id": 11,
+      "nome": "Campinas",
+      "uf": "SP",
+      "NoticiaMunicipio": {
+        "noticiaId": 1,
+        "municipioId": 11
+      }
+    }
+  ],
+
+  "tags": [
+    {
+      "id": 100,
+      "nome": "transporte",
+      "noticiaId": 1
+    },
+    {
+      "id": 101,
+      "nome": "infraestrutura",
+      "noticiaId": 1
+    }
+  ],
+
+  "favoritos": [
+    {
+      "id": 1,
+      "usuarioId": 5,
+      "noticiaId": 1
+    }
+  ]
+}

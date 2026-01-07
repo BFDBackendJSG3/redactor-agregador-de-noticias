@@ -5,18 +5,20 @@ import { ThemeProvider } from './components/ThemeProvider';
 import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Register from './pages/Register';
 
 function App() {
   return (
     <ThemeProvider storageKey="vite-ui-theme" defaultTheme="light">
-      <div className="min-h-screen pt-20">
+      <div className="min-h-screen pt-20 md:pt-16">
         <Navbar />
-        <div className="container mx-auto px-6 py-2">
+        <div className="container mx-auto px-3 py-2 md:px-6">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/cadastro" element={<Register />} />
             <Route path="/sobre" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/contato" element={<Contact />} />
           </Routes>
         </div>
       </div>
