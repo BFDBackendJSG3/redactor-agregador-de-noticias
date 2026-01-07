@@ -10,7 +10,7 @@ import Register from './pages/Register';
 function App() {
   return (
     <ThemeProvider storageKey="vite-ui-theme" defaultTheme="light">
-      <div className="min-h-screen pt-20">
+      <div className="min-h-screen pt-20 md:pt-16">
         <Navbar />
         <div className="container mx-auto px-3 py-2 md:px-6">
           <Routes>

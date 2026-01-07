@@ -13,7 +13,6 @@ import {
 function AuthCard({ name, description, buttonName, routeTo }) {
   const navigete = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   return (
     <card className="bg-card flex min-h-110 w-full max-w-4xl flex-col rounded-xl border shadow-sm md:flex-row">
@@ -46,9 +45,11 @@ function AuthCard({ name, description, buttonName, routeTo }) {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Redefinir senha</DialogTitle>
+                <DialogTitle className="mb-3 text-center">
+                  Redefinir senha
+                </DialogTitle>
                 <DialogDescription>
-                  Insira o endereço de e-mail verificado da sua conta de usuário
+                  Insira o endereço de e-mail cadastrado da sua conta de usuário
                   e enviaremos um link para redefinir sua senha.
                 </DialogDescription>
               </DialogHeader>

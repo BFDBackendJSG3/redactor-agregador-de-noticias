@@ -4,7 +4,10 @@ import {
   Info,
   Mail,
   Menu,
-  //Newspaper,
+  Newspaper,
+  HeartHandshake,
+  Scale,
+  Notebook,
   Search,
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
@@ -19,157 +22,223 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchMenuOpen, setIsSearchMenuOpen] = useState(false);
 
+  const navLinks = [
+    { to: '/login', label: 'Login' },
+    { to: '/', label: 'Início' },
+    { to: '/ultimas-noticias', label: 'Últimas Notícias' },
+    { to: '/politica', label: 'Política' },
+    { to: '/saude', label: 'Saúde' },
+    { to: '/educacao', label: 'Educação' },
+    { to: '/sobre', label: 'Quem Somos' },
+    { to: '/contato', label: 'Contato' },
+  ];
   return (
-    <div className="bg-background fixed top-0 z-40 w-full border-b">
-      <div className="mx-auto max-w-7xl px-3 md:px-6">
-        <div className="grid h-16 grid-cols-3 items-center">
-          {/* Coluna 1 */}
-          <div className="justify-start">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setIsMenuOpen((prev) => !prev)}
-            >
-              <Menu strokeWidth={1.5} className="size-6" />
-            </Button>
-          </div>
-
-          {/* Coluna 2 */}
-          <div className="flex justify-center">
-            <Link to="/" className="font-mono text-xl">
-              Comuniq<span className="text-emerald-600">.PB</span>
-            </Link>
-          </div>
-
-          {/* Coluna 3 */}
-          <div className="flex justify-end">
-            <Button
-              size="icon"
-              className="md:hidden"
-              variant="outline"
-              onClick={() => setIsSearchMenuOpen((prev) => !prev)}
-            >
-              <Search strokeWidth={1.5} className="size-6" />
-            </Button>
-            {/* Desktop search */}
-            <div className="hidden md:flex">
-              <Input placeholder="Buscar" className="rounded-r-none" />
+    <div>
+      <div className="bg-background fixed top-0 z-40 w-full border-b">
+        <div className="mx-auto max-w-7xl px-3 md:px-6">
+          <div className="flex h-16 items-center justify-between">
+            {/* Coluna 1 */}
+            <div className="md:hidden">
               <Button
+                variant="outline"
                 size="icon"
-                className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700"
+                onClick={() => setIsMenuOpen((prev) => !prev)}
               >
-                <Search className="size-5" />
+                <Menu strokeWidth={1.5} className="size-6" />
               </Button>
             </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Side bar - Abre ao clicar no componente acima */}
-      {isMenuOpen && (
-        <>
-          {/* overlay clicável */}
-          <div
-            className="bg-background/20 fixed inset-0 z-40 backdrop-blur-xs"
-            onClick={() => setIsMenuOpen(false)}
-          />
-
-          {/* sidebar */}
-          <div className="bg-card fixed top-0 left-0 z-50 h-full w-65 border-r shadow-lg md:w-90">
-            <div className="flex h-16 items-center justify-center">
-              <Link
-                to="/"
-                className="font-mono text-xl"
-                onClick={() => setIsMenuOpen(false)}
-              >
+            {/* Coluna 2 */}
+            <div className="flex justify-center">
+              <Link to="/" className="font-mono text-xl">
                 Comuniq<span className="text-emerald-600">.PB</span>
               </Link>
             </div>
-            <div>
-              <Link
-                to="/login"
-                className={
-                  location.pathname === '/login'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
+
+            {/* Coluna 3 */}
+            <div className="flex justify-end">
+              {/* Mobile search */}
+              <Button
+                size="icon"
+                className="md:hidden"
+                variant="outline"
+                onClick={() => setIsSearchMenuOpen((prev) => !prev)}
               >
-                <CircleUserRound strokeWidth={1.25} />
-                Login
-              </Link>
-              <Link
-                to="/"
-                className={
-                  location.pathname === '/'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <House strokeWidth={1.25} />
-                Inicio
-              </Link>
-              {/* 
-              <Link
-                to="/"
-                className={
-                  location.pathname === '/ultimas-noticias'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Newspaper strokeWidth={1.25} />
-                Últimas Notícias
-              </Link>
-              */}
-              <Link
-                to="/sobre"
-                className={
-                  location.pathname === '/sobre'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Info strokeWidth={1.25} />
-                Quem Somos
-              </Link>
-              <Link
-                to="/contato"
-                className={
-                  location.pathname === '/contact'
-                    ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
-                    : 'flex gap-1 border-b px-4 py-4'
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Mail strokeWidth={1.25} />
-                Entre em Contato
-              </Link>
+                <Search strokeWidth={1.5} className="size-6" />
+              </Button>
+
+              {/* Desktop search */}
+              <div className="hidden md:flex">
+                <Input placeholder="Buscar" className="rounded-r-none" />
+                <Button
+                  size="icon"
+                  className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700"
+                >
+                  <Search className="size-5" />
+                </Button>
+              </div>
             </div>
           </div>
-        </>
-      )}
-      {/* Barra de pesquisa */}
-      {isSearchMenuOpen && (
-        <>
-          <div
-            className="fixed inset-0 z-20"
-            onClick={() => setIsSearchMenuOpen(false)}
-          ></div>
-          <div className="bg-background fixed top-16 right-0 left-0 z-30 mx-auto flex h-20 w-[85%] items-center rounded-b-md border px-4 shadow-xl">
-            <Input
-              placeholder="Buscar"
-              className="rounded-r-none placeholder:text-sm"
+        </div>
+
+        {/* Side bar - Abre ao clicar no componente acima */}
+        {isMenuOpen && (
+          <>
+            {/* overlay clicável */}
+            <div
+              className="bg-background/20 fixed inset-0 z-40 backdrop-blur-xs"
+              onClick={() => setIsMenuOpen(false)}
             />
-            <Button className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700">
-              <Search />
-            </Button>
-          </div>
-        </>
-      )}
+
+            {/* sidebar */}
+            <div className="bg-card fixed top-0 left-0 z-50 h-full w-65 border-r shadow-lg md:w-90">
+              <div className="flex h-16 items-center justify-center">
+                <Link
+                  to="/"
+                  className="font-mono text-xl"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Comuniq<span className="text-emerald-600">.PB</span>
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to="/login"
+                  className={
+                    location.pathname === '/login'
+                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <CircleUserRound strokeWidth={1.25} />
+                  Login
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/'
+                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <House strokeWidth={1.25} />
+                  Inicio
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/ultimas-noticias'
+                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Newspaper strokeWidth={1.25} />
+                  Últimas Notícias
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/ultimas-noticias'
+                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Scale strokeWidth={1.25} />
+                  Política
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/ultimas-noticias'
+                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <HeartHandshake strokeWidth={1.25} />
+                  Saúde
+                </Link>
+                <Link
+                  to="/"
+                  className={
+                    location.pathname === '/ultimas-noticias'
+                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Notebook strokeWidth={1.25} />
+                  Educação
+                </Link>
+                <Link
+                  to="/sobre"
+                  className={
+                    location.pathname === '/sobre'
+                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Info strokeWidth={1.25} />
+                  Quem Somos
+                </Link>
+                <Link
+                  to="/contato"
+                  className={
+                    location.pathname === '/contact'
+                      ? 'text-muted-foreground flex gap-1 border-b px-4 py-4'
+                      : 'flex gap-1 border-b px-4 py-4'
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Mail strokeWidth={1.25} />
+                  Entre em Contato
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
+        {/* Barra de pesquisa */}
+        {isSearchMenuOpen && (
+          <>
+            <div
+              className="fixed inset-0 z-20"
+              onClick={() => setIsSearchMenuOpen(false)}
+            ></div>
+            <div className="bg-background fixed top-16 right-0 left-0 z-30 mx-auto flex h-20 w-[85%] items-center rounded-b-md border px-4 shadow-xl">
+              <Input
+                placeholder="Buscar"
+                className="rounded-r-none placeholder:text-sm"
+              />
+              <Button className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700">
+                <Search />
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+
+      <div className="bg-background hidden h-10 w-full border-b md:block">
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-center gap-6 px-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className={`text-sm transition-colors hover:text-emerald-600 ${
+                location.pathname === link.to
+                  ? 'font-semibold text-emerald-600'
+                  : 'text-muted-foreground'
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
