@@ -2,20 +2,20 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Usuario extends Model {
     static associate(models) {
       // Associações futuras:
-      // User.hasMany(models.Noticia)
-      // User.hasMany(models.Alerta)
+      // Usuario.hasMany(models.Noticia)
+      // Usuario.hasMany(models.Alerta)
 
-      User.hasMany(models.Favorito, {
+      Usuario.hasMany(models.Favorito, {
         foreignKey: 'userId',
         as: 'favoritos',
       });
     }
   }
 
-  User.init(
+  Usuario.init(
     {
       name: DataTypes.STRING,
       email: DataTypes.STRING,
@@ -32,10 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'User',
+      modelName: 'Usuario',
       tableName: 'Usuarios',
     }
   );
 
-  return User;
+  return Usuario;
 };
