@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 
 function AuthCard({ name, description, buttonName, routeTo }) {
-  const navigete = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
 
@@ -33,11 +33,11 @@ function AuthCard({ name, description, buttonName, routeTo }) {
   }
 
   return (
-    <card className="bg-card flex min-h-110 w-full max-w-4xl flex-col rounded-xl border shadow-sm md:flex-row">
+    <div className="bg-card flex min-h-110 w-full max-w-4xl flex-col rounded-xl border shadow-sm md:flex-row">
       <div className="flex basis-[40%] flex-col items-center justify-center gap-3 rounded-t-xl rounded-b-[60px] bg-emerald-600 p-4 md:basis-[50%] md:rounded-l-xl md:rounded-r-[100px]">
         <h1 className="text-2xl font-semibold md:text-3xl">Olá, Bem Vindo!</h1>
         <p className="text-foreground text-sm">{description}</p>
-        <Button onClick={() => navigete(routeTo)} variant="outline" size="sm">
+        <Button onClick={() => navigate(routeTo)} variant="outline" size="sm">
           {buttonName}
         </Button>
       </div>
@@ -82,7 +82,7 @@ function AuthCard({ name, description, buttonName, routeTo }) {
           </Dialog>
         )}
       </div>
-    </card>
+    </div>
   );
 }
 
