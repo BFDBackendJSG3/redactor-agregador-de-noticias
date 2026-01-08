@@ -13,7 +13,6 @@ import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { criarUsuario } from '@/services/users-service';
 
-
 function AuthCard({ name, description, buttonName, routeTo }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,7 +28,7 @@ function AuthCard({ name, description, buttonName, routeTo }) {
       alert('Preencha todos os campos');
       return;
     }
-    
+
     try {
       if (isLogin) {
         await login(email, password);
@@ -47,7 +46,6 @@ function AuthCard({ name, description, buttonName, routeTo }) {
       alert(err.response?.data?.message || 'Erro ao processar requisição');
     }
   }
-  
 
   return (
     <div className="bg-card flex min-h-110 w-full max-w-4xl flex-col rounded-xl border shadow-sm md:flex-row">
@@ -63,8 +61,19 @@ function AuthCard({ name, description, buttonName, routeTo }) {
           <h1 className="text-center text-xl font-semibold md:text-2xl">
             {name}
           </h1>
-          {!isLogin && ( <Input placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} /> )}
-          <Input placeholder="Email" className="placeholder:text-sm" value={email} onChange={(e) => setEmail(e.target.value)} />
+          {!isLogin && (
+            <Input
+              placeholder="Nome"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+            />
+          )}
+          <Input
+            placeholder="Email"
+            className="placeholder:text-sm"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Input
             placeholder="Senha"
             type="password"
@@ -72,7 +81,9 @@ function AuthCard({ name, description, buttonName, routeTo }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button onClick={handleSubmit} className="w-full">{name}</Button>
+          <Button onClick={handleSubmit} className="w-full">
+            {name}
+          </Button>
         </div>
         {location.pathname === '/login' && (
           <Dialog>
