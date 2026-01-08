@@ -9,10 +9,28 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog';
+import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 function AuthCard({ name, description, buttonName, routeTo }) {
   const navigete = useNavigate();
   const location = useLocation();
+  const { login } = useAuth();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const isLogin = location.pathname === '/login';
+
+  async function handleSubmit() {
+    if (!isLogin) return;
+
+    try {
+      await login(email, password);
+      navigate('/');
+    } catch (err) {
+      alert('Email ou senha inválidos');
+    }
+  }
 
   return (
     <card className="bg-card flex min-h-110 w-full max-w-4xl flex-col rounded-xl border shadow-sm md:flex-row">
@@ -28,13 +46,15 @@ function AuthCard({ name, description, buttonName, routeTo }) {
           <h1 className="text-center text-xl font-semibold md:text-2xl">
             {name}
           </h1>
-          <Input placeholder="Email" className="placeholder:text-sm" />
+          <Input placeholder="Email" className="placeholder:text-sm" value={email} onChange={(e) => setEmail(e.target.value)} />
           <Input
             placeholder="Senha"
             type="password"
             className="placeholder:text-sm"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          <Button className="w-full">{name}</Button>
+          <Button onClick={handleSubmit} className="w-full">{name}</Button>
         </div>
         {location.pathname === '/login' && (
           <Dialog>

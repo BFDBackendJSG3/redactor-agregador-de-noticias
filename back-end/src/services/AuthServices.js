@@ -1,11 +1,11 @@
-const { User } = require('../../models');
+const { Usuario } = require('../../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 class AuthService {
   async login(email, password) {
     // buscar usuário pelo email
-    const user = await User.findOne({ where: { email } });
+    const user = await Usuario.findOne({ where: { email } });
 
     if (!user) {
       throw new Error('Email ou senha inválidos');
@@ -33,7 +33,7 @@ class AuthService {
       token,
       user: {
         id: user.id,
-        name: user.name,
+        nome: user.name,
         email: user.email,
         tipoUsuario: user.tipoUsuario,
       },

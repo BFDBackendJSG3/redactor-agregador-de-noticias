@@ -3,8 +3,8 @@ const UserService = require('../services/userService');
 class UserController {
   static async listar(req, res) {
     try {
-      const users = await UserService.listarTodos();
-      return res.json(users);
+      const usuarios = await UserService.listarTodos();
+      return res.json(usuarios);
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -12,17 +12,17 @@ class UserController {
 
   static async buscar(req, res) {
     try {
-      const user = await UserService.buscarPorId(req.params.id);
-      return res.json(user);
+      const usuario = await UserService.buscarPorId(req.params.id);
+      return res.json(usuario);
     } catch (err) {
       return res.status(404).json({ error: err.message });
     }
   }
 
   static async criar(req, res) {
-    const { name, email, password, tipoUsuario } = req.body;
+    const { nome, email, password, tipoUsuario } = req.body;
 
-    if (!name || !email || !password || !tipoUsuario) {
+    if (!nome || !email || !password || !tipoUsuario) {
       return res.status(400).json({
         error: 'Campos obrigatórios não preenchidos',
       });
@@ -35,14 +35,14 @@ class UserController {
     }
 
     try {
-      const user = await UserService.criar({
-        name,
+      const usuario = await UserService.criar({
+        nome,
         email,
         password,
         tipoUsuario,
       });
 
-      return res.status(201).json(user);
+      return res.status(201).json(usuario);
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }
@@ -50,8 +50,8 @@ class UserController {
 
   static async atualizar(req, res) {
     try {
-      const user = await UserService.atualizar(req.params.id, req.body);
-      return res.json(user);
+      const usuario = await UserService.atualizar(req.params.id, req.body);
+      return res.json(usuario);
     } catch (err) {
       return res.status(400).json({ error: err.message });
     }

@@ -1,27 +1,27 @@
-const { User } = require('../../models');
+const { Usuario } = require('../../models');
 const bcrypt = require('bcryptjs');
 
 class UserService {
   static async listarTodos() {
-    return User.findAll({
+    return Usuario.findAll({
       attributes: { exclude: ['passwordHash'] },
     });
   }
 
   static async buscarPorId(id) {
-    const user = await User.findByPk(id, {
+    const usuario = await Usuario.findByPk(id, {
       attributes: { exclude: ['passwordHash'] },
     });
 
-    if (!user) {
+    if (!usuario) {
       throw new Error('Usuário não encontrado');
     }
 
-    return user;
+    return usuario;
   }
 
   static async criar(dados) {
-    const emailExiste = await User.findOne({
+    const emailExiste = await Usuario.findOne({
       where: { email: dados.email },
     });
 
@@ -31,8 +31,8 @@ class UserService {
 
     const passwordHash = await bcrypt.hash(dados.password, 8);
 
-    return User.create({
-      name: dados.name,
+    return Usuario.create({
+      nome: dados.nome,
       email: dados.email,
       passwordHash,
       tipoUsuario: dados.tipoUsuario,
@@ -41,15 +41,15 @@ class UserService {
   }
 
   static async atualizar(id, dados) {
-    const user = await User.findByPk(id);
-    if (!user) throw new Error('Usuário não encontrado');
+    const usuario = await Usuario.findByPk(id);
+    if (!usuario) throw new Error('Usuário não encontrado');
 
     if (dados.email) {
-      const emailEmUso = await User.findOne({
+      const emailEmUso = await Usuario.findOne({
         where: { email: dados.email },
       });
 
-      if (emailEmUso && emailEmUso.id !== user.id) {
+      if (emailEmUso && emailEmUso.id !== usuario.id) {
         throw new Error('Email já está em uso');
       }
     }
@@ -59,16 +59,16 @@ class UserService {
       delete dados.password;
     }
 
-    await user.update(dados);
+    await usuario.update(dados);
 
-    return user;
+    return usuario;
   }
 
   static async deletar(id) {
-    const user = await User.findByPk(id);
-    if (!user) throw new Error('Usuário não encontrado');
+    const usuario = await Usuario.findByPk(id);
+    if (!usuario) throw new Error('Usuário não encontrado');
 
-    await user.destroy();
+    await usuario.destroy();
   }
 }
 
