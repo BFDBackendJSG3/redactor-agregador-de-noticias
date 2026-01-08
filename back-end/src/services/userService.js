@@ -35,7 +35,7 @@ class UserService {
       nome: dados.nome,
       email: dados.email,
       passwordHash,
-      tipoUsuario: dados.tipoUsuario,
+      tipoUsuario: dados.tipoUsuario || 'USER',
       isActive: true,
     });
   }

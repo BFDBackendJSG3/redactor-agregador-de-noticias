@@ -25,7 +25,10 @@ module.exports = (sequelize, DataTypes) => {
       genero: DataTypes.STRING,
       telefone: DataTypes.STRING,
       endereco: DataTypes.STRING,
-      tipoUsuario: DataTypes.STRING,
+      tipoUsuario: {
+        type: DataTypes.ENUM('ADMIN', 'USER'),
+        defaultValue: 'USER',
+      },
       redesSociais: DataTypes.TEXT,
       formacao: DataTypes.STRING,
       isActive: DataTypes.BOOLEAN,

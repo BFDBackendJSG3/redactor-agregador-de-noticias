@@ -6,7 +6,7 @@ class UserController {
       const usuarios = await UserService.listarTodos();
       return res.json(usuarios);
     } catch (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ message: err.message });
     }
   }
 
@@ -15,14 +15,14 @@ class UserController {
       const usuario = await UserService.buscarPorId(req.params.id);
       return res.json(usuario);
     } catch (err) {
-      return res.status(404).json({ error: err.message });
+      return res.status(404).json({ message: err.message });
     }
   }
 
   static async criar(req, res) {
     const { nome, email, password, tipoUsuario } = req.body;
 
-    if (!nome || !email || !password || !tipoUsuario) {
+    if (!nome || !email || !password) {
       return res.status(400).json({
         error: 'Campos obrigatórios não preenchidos',
       });
@@ -44,7 +44,7 @@ class UserController {
 
       return res.status(201).json(usuario);
     } catch (err) {
-      return res.status(400).json({ error: err.message });
+      return res.status(400).json({ message: err.message });
     }
   }
 
@@ -53,7 +53,7 @@ class UserController {
       const usuario = await UserService.atualizar(req.params.id, req.body);
       return res.json(usuario);
     } catch (err) {
-      return res.status(400).json({ error: err.message });
+      return res.status(400).json({ message: err.message });
     }
   }
 
@@ -62,7 +62,7 @@ class UserController {
       await UserService.deletar(req.params.id);
       return res.status(204).send();
     } catch (err) {
-      return res.status(404).json({ error: err.message });
+      return res.status(404).json({ message: err.message });
     }
   }
 }

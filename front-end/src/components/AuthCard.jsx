@@ -11,6 +11,8 @@ import {
 } from './ui/dialog';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { criarUsuario } from '@/services/users-service';
+
 
 function AuthCard({ name, description, buttonName, routeTo }) {
   const navigate = useNavigate();
@@ -19,18 +21,33 @@ function AuthCard({ name, description, buttonName, routeTo }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nome, setNome] = useState('');
   const isLogin = location.pathname === '/login';
 
   async function handleSubmit() {
-    if (!isLogin) return;
-
+    if (!email || !password || (!isLogin && !nome)) {
+      alert('Preencha todos os campos');
+      return;
+    }
+    
     try {
-      await login(email, password);
-      navigate('/');
+      if (isLogin) {
+        await login(email, password);
+        navigate('/');
+      } else {
+        await criarUsuario({
+          nome,
+          email,
+          password,
+        });
+        alert('Conta criada com sucesso!');
+        navigate('/login');
+      }
     } catch (err) {
-      alert('Email ou senha inválidos');
+      alert(err.response?.data?.message || 'Erro ao processar requisição');
     }
   }
+  
 
   return (
     <div className="bg-card flex min-h-110 w-full max-w-4xl flex-col rounded-xl border shadow-sm md:flex-row">
@@ -46,6 +63,7 @@ function AuthCard({ name, description, buttonName, routeTo }) {
           <h1 className="text-center text-xl font-semibold md:text-2xl">
             {name}
           </h1>
+          {!isLogin && ( <Input placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} /> )}
           <Input placeholder="Email" className="placeholder:text-sm" value={email} onChange={(e) => setEmail(e.target.value)} />
           <Input
             placeholder="Senha"
