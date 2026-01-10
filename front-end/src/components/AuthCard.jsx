@@ -11,7 +11,7 @@ import {
 } from './ui/dialog';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { criarUsuario } from '@/services/users-service';
+import { register } from '@/services/auth-service';
 
 function AuthCard({ name, description, buttonName, routeTo }) {
   const navigate = useNavigate();
@@ -21,20 +21,25 @@ function AuthCard({ name, description, buttonName, routeTo }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nome, setNome] = useState('');
+  const [loading, setLoading] = useState(false); // Estado de loading...
   const isLogin = location.pathname === '/login';
 
   async function handleSubmit() {
+    if (loading) return; // evita duplo clique
+
     if (!email || !password || (!isLogin && !nome)) {
       alert('Preencha todos os campos');
       return;
     }
 
     try {
+      setLoading(true);
+
       if (isLogin) {
         await login(email, password);
         navigate('/');
       } else {
-        await criarUsuario({
+        await register({
           nome,
           email,
           password,
@@ -44,6 +49,8 @@ function AuthCard({ name, description, buttonName, routeTo }) {
       }
     } catch (err) {
       alert(err.response?.data?.message || 'Erro ao processar requisição');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -81,8 +88,8 @@ function AuthCard({ name, description, buttonName, routeTo }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button onClick={handleSubmit} className="w-full">
-            {name}
+          <Button onClick={handleSubmit} className="w-full" disabled={loading}>
+            {loading ? 'Aguarde...' : name} 
           </Button>
         </div>
         {location.pathname === '/login' && (

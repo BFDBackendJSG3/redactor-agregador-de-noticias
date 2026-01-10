@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Register from './pages/Register';
+import AdminUsers from '@/pages/AdminUsers';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/cadastro" element={<Register />} />
             <Route path="/sobre" element={<About />} />
             <Route path="/contato" element={<Contact />} />
+            <Route path="/admin/usuarios" element={<AdminUsers />} />
           </Routes>
         </div>
       </div>
