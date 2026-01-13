@@ -1,4 +1,4 @@
-const authService = require('../services/AuthServices');
+const authService = require('../services/auth.service');
 
 class AuthController {
   async login(req, res) {
@@ -15,7 +15,7 @@ class AuthController {
 
       return res.json(result);
     } catch (error) {
-      return res.status(401).json({
+      return res.status(400).json({
         message: error.message,
       });
     }

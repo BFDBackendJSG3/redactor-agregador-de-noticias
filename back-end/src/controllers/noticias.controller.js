@@ -1,8 +1,8 @@
-const ListarNoticiasService = require('../services/ListarNoticiasService');
-const DetalharNoticiaService = require('../services/DetalharNoticiaService');
-const CriarNoticiaService = require('../services/CriarNoticiaService');
-const AtualizarNoticiaService = require('../services/AtualizarNoticiaService');
-const DeletarNoticiaService = require('../services/DeletarNoticiaService');
+const ListarNoticiasService = require('../services/listar.noticia.service');
+const DetalharNoticiaService = require('../services/detalhar.noticia.service');
+const CriarNoticiaService = require('../services/criar.noticia.service');
+const AtualizarNoticiaService = require('../services/atualizar.noticia.service');
+const DeletarNoticiaService = require('../services/deletar.noticia.service');
 
 class NoticiasController {
   async listar(req, res) {

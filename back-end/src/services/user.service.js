@@ -1,5 +1,6 @@
 const { Usuario } = require('../../models');
 const bcrypt = require('bcryptjs');
+const AppError = require('../errors/AppError');
 
 class UserService {
   static async listarTodos() {
@@ -14,51 +15,61 @@ class UserService {
     });
 
     if (!usuario) {
-      throw new Error('Usuário não encontrado');
+      throw new AppError('Usuário não encontrado', 404);
     }
 
     return usuario;
   }
 
-  static async criar(dados) {
+  static async criar({ nome, email, password, tipoUsuario }) {
+    if (!nome || !email || !password) {
+      throw new AppError('Nome, email e senha são obrigatórios');
+    }
+
+    if (password.length < 6) {
+      throw new AppError('Senha deve ter no mínimo 6 caracteres');
+    }
+
     const emailExiste = await Usuario.findOne({
-      where: { email: dados.email },
+      where: { email },
     });
 
     if (emailExiste) {
-      throw new Error('Email já cadastrado');
+      throw new AppError('Email já cadastrado');
     }
 
-    const passwordHash = await bcrypt.hash(dados.password, 8);
+    const passwordHash = await bcrypt.hash(password, 8);
 
     return Usuario.create({
-      nome: dados.nome,
-      email: dados.email,
+      nome,
+      email,
       passwordHash,
-      tipoUsuario: dados.tipoUsuario || 'USER',
+      tipoUsuario: tipoUsuario || 'USER',
       isActive: true,
     });
   }
 
   static async atualizar(id, dados) {
     const usuario = await Usuario.findByPk(id);
-    if (!usuario) throw new Error('Usuário não encontrado');
+    if (!usuario) {
+      throw new AppError('Usuário não encontrado', 404);
+    }
 
     const dadosUpdate = {};
 
     // Nome
-    if (dados.nome) {
+    if (dados.nome && dados.nome.trim() !== '') {
       dadosUpdate.nome = dados.nome;
     }
 
     // Email (com verificação)
-    if (dados.email) {
+    if (dados.email && dados.email.trim() !== '') {
       const emailEmUso = await Usuario.findOne({
         where: { email: dados.email },
       });
 
       if (emailEmUso && emailEmUso.id !== usuario.id) {
-        throw new Error('Email já está em uso');
+        throw new AppError('Email já está em uso');
       }
 
       dadosUpdate.email = dados.email;
@@ -71,7 +82,7 @@ class UserService {
 
     // Só atualiza se tiver algo para atualizar
     if (Object.keys(dadosUpdate).length === 0) {
-      throw new Error('Nenhum dado para atualizar');
+      throw new AppError('Nenhum dado para atualizar');
     }
 
     await usuario.update(dadosUpdate);
@@ -81,7 +92,9 @@ class UserService {
 
   static async deletar(id) {
     const usuario = await Usuario.findByPk(id);
-    if (!usuario) throw new Error('Usuário não encontrado');
+    if (!usuario) {
+      throw new AppError('Usuário não encontrado', 404);
+    }
 
     await usuario.destroy();
   }

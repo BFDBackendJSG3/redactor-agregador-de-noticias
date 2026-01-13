@@ -1,4 +1,4 @@
-const ImportarNoticiaService = require('../services/ImportarNoticiaService');
+const ImportarNoticiaService = require('../services/importar.noticia.service');
 
 class ImportacaoController {
   async importar(req, res) {

@@ -1,20 +1,29 @@
 const { Usuario } = require('../../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const AppError = require('../errors/AppError');
 
 class AuthService {
   async login(email, password) {
+    if (!email || !password) {
+      throw new AppError('Email e senha são obrigatórios', 400);
+    }
+
     // buscar usuário pelo email
     const user = await Usuario.findOne({ where: { email } });
 
     if (!user) {
-      throw new Error('Email ou senha inválidos');
+      throw new AppError('Email ou senha inválidos', 401);
+    }
+
+    if (!user.isActive) {
+      throw new AppError('Usuário desativado', 403);
     }
     // Comparar senha digitada com o hash do banco
     const senhaValida = await bcrypt.compare(password, user.passwordHash);
 
     if (!senhaValida) {
-      throw new Error('Email ou senha inválidos');
+      throw new AppError('Email ou senha inválidos', 401);
     }
 
     // Gerar JWT
