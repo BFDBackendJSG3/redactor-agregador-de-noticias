@@ -44,6 +44,14 @@ class UserService {
     const usuario = await Usuario.findByPk(id);
     if (!usuario) throw new Error('Usuário não encontrado');
 
+    const dadosUpdate = {};
+
+    // Nome
+    if (dados.nome) {
+      dadosUpdate.nome = dados.nome;
+    }
+
+    // Email (com verificação)
     if (dados.email) {
       const emailEmUso = await Usuario.findOne({
         where: { email: dados.email },
@@ -52,14 +60,21 @@ class UserService {
       if (emailEmUso && emailEmUso.id !== usuario.id) {
         throw new Error('Email já está em uso');
       }
+
+      dadosUpdate.email = dados.email;
     }
 
-    if (dados.password) {
-      dados.passwordHash = await bcrypt.hash(dados.password, 8);
-      delete dados.password;
+    // Senha
+    if (dados.password && dados.password.trim() !== '') {
+      dadosUpdate.passwordHash = await bcrypt.hash(dados.password, 8);
     }
 
-    await usuario.update(dados);
+    // Só atualiza se tiver algo para atualizar
+    if (Object.keys(dadosUpdate).length === 0) {
+      throw new Error('Nenhum dado para atualizar');
+    }
+
+    await usuario.update(dadosUpdate);
 
     return usuario;
   }
