@@ -85,9 +85,7 @@ function CreateUserDialog() {
             <option value="ADMIN">Administrador</option>
           </select>
 
-          <Button onClick={handleCreateUser}>
-            Criar Usuário
-          </Button>
+          <Button onClick={handleCreateUser}>Criar Usuário</Button>
         </div>
       </DialogContent>
     </Dialog>

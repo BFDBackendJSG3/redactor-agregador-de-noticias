@@ -11,9 +11,7 @@ function AdminUsers() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-4 text-2xl font-semibold">
-        Administração de Usuários
-      </h1>
+      <h1 className="mb-4 text-2xl font-semibold">Administração de Usuários</h1>
 
       <CreateUserDialog />
     </div>

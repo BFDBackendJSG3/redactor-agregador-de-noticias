@@ -50,11 +50,11 @@ class UserController {
 
   static async criarPublico(req, res) {
     const { nome, email, password } = req.body;
-  
+
     if (!nome || !email || !password) {
       return res.status(400).json({ message: 'Dados obrigatórios' });
     }
-  
+
     try {
       const usuario = await UserService.criar({
         nome,
@@ -62,7 +62,7 @@ class UserController {
         password,
         tipoUsuario: 'USER',
       });
-  
+
       return res.status(201).json(usuario);
     } catch (err) {
       return res.status(400).json({ message: err.message });

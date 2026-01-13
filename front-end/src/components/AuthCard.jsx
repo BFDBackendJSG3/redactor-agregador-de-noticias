@@ -89,7 +89,7 @@ function AuthCard({ name, description, buttonName, routeTo }) {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button onClick={handleSubmit} className="w-full" disabled={loading}>
-            {loading ? 'Aguarde...' : name} 
+            {loading ? 'Aguarde...' : name}
           </Button>
         </div>
         {location.pathname === '/login' && (

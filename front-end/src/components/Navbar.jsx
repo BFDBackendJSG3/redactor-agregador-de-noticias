@@ -27,21 +27,21 @@ function Navbar() {
 
   //desktop links
   const navLinks = [
-      ...(!user
-    ? [
-        {
-          label: 'Login',
-          to: '/login',
-          match: ['/login', '/cadastro'],
-        },
-      ]
-    : [
-        {
-          label: 'Meu Perfil',
-          to: '/perfil',
-          match: ['/perfil'],
-        },
-      ]),
+    ...(!user
+      ? [
+          {
+            label: 'Login',
+            to: '/login',
+            match: ['/login', '/cadastro'],
+          },
+        ]
+      : [
+          {
+            label: 'Meu Perfil',
+            to: '/perfil',
+            match: ['/perfil'],
+          },
+        ]),
     {
       label: 'Início',
       to: '/',
@@ -77,15 +77,15 @@ function Navbar() {
       to: '/contato',
       match: ['/contato'],
     },
-      ...(user?.tipoUsuario === 'ADMIN'
-    ? [
-        {
-          label: 'Usuários',
-          to: '/admin/usuarios',
-          match: ['/admin/usuarios'],
-        },
-      ]
-    : []),
+    ...(user?.tipoUsuario === 'ADMIN'
+      ? [
+          {
+            label: 'Usuários',
+            to: '/admin/usuarios',
+            match: ['/admin/usuarios'],
+          },
+        ]
+      : []),
   ];
 
   const isAuthRoute =

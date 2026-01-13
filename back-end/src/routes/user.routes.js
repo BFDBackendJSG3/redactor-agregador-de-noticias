@@ -15,6 +15,11 @@ router.get('/:id', authMiddleware, isAdmin, UserController.buscar);
 router.delete('/:id', authMiddleware, isAdmin, UserController.deletar);
 
 // Editar perfil (ADMIN ou dono do perfil)
-router.put('/:id', authMiddleware, permitEditMiddleware, UserController.atualizar);
+router.put(
+  '/:id',
+  authMiddleware,
+  permitEditMiddleware,
+  UserController.atualizar
+);
 
 module.exports = router;
