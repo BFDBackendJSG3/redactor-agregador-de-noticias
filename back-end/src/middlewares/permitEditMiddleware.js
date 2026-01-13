@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-
   //Dados do usuário logado a partir do auth.middleware.js
   const userIdAuth = req.userId;
   const userRole = req.userRole;
@@ -21,5 +20,5 @@ module.exports = (req, res, next) => {
 
   return res.status(403).json({
     message: 'Você não possui permissão para alterar esse perfil.',
-  })
+  });
 };
