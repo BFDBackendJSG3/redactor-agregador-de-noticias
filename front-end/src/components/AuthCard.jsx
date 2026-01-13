@@ -11,7 +11,7 @@ import {
 } from './ui/dialog';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { register } from '@/services/auth-service';
+import { register } from '@/services/users-service';
 
 function AuthCard({ name, description, buttonName, routeTo }) {
   const navigate = useNavigate();

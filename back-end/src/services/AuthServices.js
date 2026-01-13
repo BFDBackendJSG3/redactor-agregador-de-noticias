@@ -33,7 +33,7 @@ class AuthService {
       token,
       user: {
         id: user.id,
-        nome: user.name,
+        nome: user.nome,
         email: user.email,
         tipoUsuario: user.tipoUsuario,
       },

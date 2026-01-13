@@ -48,6 +48,27 @@ class UserController {
     }
   }
 
+  static async criarPublico(req, res) {
+    const { nome, email, password } = req.body;
+  
+    if (!nome || !email || !password) {
+      return res.status(400).json({ message: 'Dados obrigatórios' });
+    }
+  
+    try {
+      const usuario = await UserService.criar({
+        nome,
+        email,
+        password,
+        tipoUsuario: 'USER',
+      });
+  
+      return res.status(201).json(usuario);
+    } catch (err) {
+      return res.status(400).json({ message: err.message });
+    }
+  }
+
   static async atualizar(req, res) {
     try {
       const usuario = await UserService.atualizar(req.params.id, req.body);

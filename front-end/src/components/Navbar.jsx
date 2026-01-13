@@ -10,25 +10,38 @@ import {
   Notebook,
   Search,
 } from 'lucide-react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 //import ThemeToggleButton from './ThemeToggleButton';
 import { useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 
 function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchMenuOpen, setIsSearchMenuOpen] = useState(false);
 
   //desktop links
   const navLinks = [
-    {
-      label: 'Login',
-      to: '/login',
-      match: ['/login', '/cadastro'],
-    },
+      ...(!user
+    ? [
+        {
+          label: 'Login',
+          to: '/login',
+          match: ['/login', '/cadastro'],
+        },
+      ]
+    : [
+        {
+          label: 'Meu Perfil',
+          to: '/perfil',
+          match: ['/perfil'],
+        },
+      ]),
     {
       label: 'Início',
       to: '/',
@@ -64,6 +77,15 @@ function Navbar() {
       to: '/contato',
       match: ['/contato'],
     },
+      ...(user?.tipoUsuario === 'ADMIN'
+    ? [
+        {
+          label: 'Usuários',
+          to: '/admin/usuarios',
+          match: ['/admin/usuarios'],
+        },
+      ]
+    : []),
   ];
 
   const isAuthRoute =
@@ -139,18 +161,56 @@ function Navbar() {
                 </Link>
               </div>
               <div>
-                <Link
-                  to="/login"
-                  className={
-                    isAuthRoute
-                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
-                      : 'flex gap-1 border-b px-4 py-4'
-                  }
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <CircleUserRound strokeWidth={1.25} />
-                  Login
-                </Link>
+                {!user ? (
+                  <Link
+                    to="/login"
+                    className={
+                      isAuthRoute
+                        ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                        : 'flex gap-1 border-b px-4 py-4'
+                    }
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <CircleUserRound strokeWidth={1.25} />
+                    Login
+                  </Link>
+                ) : (
+                  <>
+                    <div className="flex gap-1 border-b px-4 py-4 font-semibold">
+                      <CircleUserRound strokeWidth={1.25} />
+                      {user.nome}
+                    </div>
+
+                    <Link
+                      to="/perfil"
+                      className="flex gap-1 border-b px-4 py-4"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Meu Perfil
+                    </Link>
+
+                    {user.tipoUsuario === 'ADMIN' && (
+                      <Link
+                        to="/admin/usuarios"
+                        className="flex gap-1 border-b px-4 py-4"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Gerenciar Usuários
+                      </Link>
+                    )}
+
+                    <button
+                      className="flex w-full gap-1 border-b px-4 py-4 text-left text-red-500"
+                      onClick={() => {
+                        logout();
+                        setIsMenuOpen(false);
+                        navigate('/');
+                      }}
+                    >
+                      Sair
+                    </button>
+                  </>
+                )}
                 <Link
                   to="/"
                   className={
@@ -260,24 +320,45 @@ function Navbar() {
       </div>
       {/* Barra de links desktop */}
       <div className="bg-background hidden h-10 w-full border-b md:block">
-        <div className="mx-auto flex h-full max-w-7xl items-center justify-center gap-6 px-4">
-          {navLinks.map((link) => {
-            const isActive = link.match.includes(location.pathname);
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4">
+          <div className="flex gap-6">
+            {navLinks.map((link) => {
+              const isActive = link.match.includes(location.pathname);
 
-            return (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`text-sm transition-colors hover:text-emerald-600 ${
-                  isActive
-                    ? 'font-semibold text-emerald-600'
-                    : 'text-muted-foreground'
-                }`}
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`text-sm transition-colors hover:text-emerald-600 ${
+                    isActive
+                      ? 'font-semibold text-emerald-600'
+                      : 'text-muted-foreground'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          {user && (
+            <div className="flex items-center gap-4">
+              <span className="text-sm">
+                Olá, <strong>{user.nome}</strong>
+              </span>
+
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  logout();
+                  navigate('/');
+                }}
               >
-                {link.label}
-              </Link>
-            );
-          })}
+                Sair
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

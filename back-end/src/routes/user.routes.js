@@ -5,10 +5,6 @@ const isAdmin = require('../middlewares/isAdmin.middleware');
 
 const router = Router();
 
-// Para usuário comum não listar nem deletar usuários, foram adicionados authMiddleware, isAdmin
-// no router.get, router.post e router.delete
-
-// Apenas Admin
 router.get('/', authMiddleware, isAdmin, UserController.listar);
 router.get('/:id', authMiddleware, isAdmin, UserController.buscar);
 router.post('/', authMiddleware, isAdmin, UserController.criar);
