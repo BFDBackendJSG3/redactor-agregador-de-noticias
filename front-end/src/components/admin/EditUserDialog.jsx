@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { atualizarUsuario } from '@/services/user-service';
+import { atualizarUsuario } from '@/services/users-service';
 
 function EditUserDialog({ usuario, onUpdated }) {
   const [nome, setNome] = useState(usuario.nome);

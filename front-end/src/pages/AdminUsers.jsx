@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import CreateUserDialog from '@/components/admin/CreateUserDialog';
 import EditUserDialog from '@/components/admin/EditUserDialog';
-import { listarUsuarios, deletarUsuario } from '@/services/user-service';
+import { listarUsuarios, deletarUsuario } from '@/services/users-service';
 import { Button } from '@/components/ui/button';
 
 function AdminUsers() {
