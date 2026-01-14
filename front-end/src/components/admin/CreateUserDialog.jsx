@@ -82,6 +82,9 @@ function CreateUserDialog() {
             onChange={(e) => setTipoUsuario(e.target.value)}
           >
             <option value="USER">Usuário</option>
+            <option value="ESTAGIARIO">Estagiário</option>
+            <option value="JORNALISTA">Jornalista</option>
+            <option value="EDITOR">Editor</option>
             <option value="ADMIN">Administrador</option>
           </select>
 
