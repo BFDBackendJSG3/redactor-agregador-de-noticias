@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import CreateUserDialog from '@/components/admin/CreateUserDialog';
 import EditUserDialog from '@/components/admin/EditUserDialog';
-import {
-  listarUsuarios,
-  deletarUsuario,
-} from '@/services/user-service';
+import { listarUsuarios, deletarUsuario } from '@/services/user-service';
 import { Button } from '@/components/ui/button';
 
 function AdminUsers() {
@@ -24,7 +21,7 @@ function AdminUsers() {
     className="border-input bg-background mb-4 h-9 w-full max-w-sm rounded-md border px-3 text-sm"
     value={search}
     onChange={(e) => setSearch(e.target.value)}
-  />
+  />;
 
   async function carregarUsuarios() {
     const data = await listarUsuarios();
@@ -50,16 +47,12 @@ function AdminUsers() {
   }, []);
 
   const usuariosFiltrados = usuarios.filter((u) =>
-  `${u.nome} ${u.email}`
-    .toLowerCase()
-    .includes(search.toLowerCase())
+    `${u.nome} ${u.email}`.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div className="p-6">
-      <h1 className="mb-4 text-2xl font-semibold">
-        Administração de Usuários
-      </h1>
+      <h1 className="mb-4 text-2xl font-semibold">Administração de Usuários</h1>
 
       <CreateUserDialog />
 
@@ -79,10 +72,7 @@ function AdminUsers() {
               <td className="p-2">{u.email}</td>
               <td className="p-2">{u.tipoUsuario}</td>
               <td className="flex gap-2 p-2">
-                <EditUserDialog
-                  usuario={u}
-                  onUpdated={carregarUsuarios}
-                />
+                <EditUserDialog usuario={u} onUpdated={carregarUsuarios} />
                 <Button
                   variant="destructive"
                   size="sm"

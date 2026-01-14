@@ -60,7 +60,9 @@ function EditUserDialog({ usuario, onUpdated }) {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button onClick={handleUpdate} disabled={loading}>{loading ? 'Salvando...' : 'Salvar'}</Button>
+          <Button onClick={handleUpdate} disabled={loading}>
+            {loading ? 'Salvando...' : 'Salvar'}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

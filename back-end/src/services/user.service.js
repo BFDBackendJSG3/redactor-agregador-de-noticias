@@ -3,13 +3,7 @@ const bcrypt = require('bcryptjs');
 const AppError = require('../errors/AppError');
 
 // Tipos de usuário aceitos
-const TIPOS_USUARIO = [
-    'ADMIN',
-    'USER',
-    'ESTAGIARIO',
-    'JORNALISTA',
-    'EDITOR',
-];
+const TIPOS_USUARIO = ['ADMIN', 'USER', 'ESTAGIARIO', 'JORNALISTA', 'EDITOR'];
 
 class UserService {
   static async listarTodos() {
