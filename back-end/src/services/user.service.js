@@ -2,6 +2,15 @@ const { Usuario } = require('../../models');
 const bcrypt = require('bcryptjs');
 const AppError = require('../errors/AppError');
 
+// Tipos de usuário aceitos
+const TIPOS_USUARIO = [
+    'ADMIN',
+    'USER',
+    'ESTAGIARIO',
+    'JORNALISTA',
+    'EDITOR',
+];
+
 class UserService {
   static async listarTodos() {
     return Usuario.findAll({
@@ -36,6 +45,12 @@ class UserService {
 
     if (emailExiste) {
       throw new AppError('Email já cadastrado');
+    }
+
+    // Valida se o tipo de usuário é realmente um dos aceitos
+    // 'ADMIN','USER','ESTAGIARIO','JORNALISTA','EDITOR'
+    if (tipoUsuario && !TIPOS_USUARIO.includes(tipoUsuario)) {
+      throw new AppError('Tipo de usuário inválido');
     }
 
     const passwordHash = await bcrypt.hash(password, 8);
