@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ThemeContext } from '../contexts/themeContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 export function ThemeProvider({
   children,
@@ -10,31 +10,41 @@ export function ThemeProvider({
     return localStorage.getItem(storageKey) || defaultTheme;
   });
 
+  // Aplica classe no <html>
   useEffect(() => {
     const root = document.documentElement;
     root.classList.remove('light', 'dark');
 
+    let appliedTheme = theme;
+
     if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
+      appliedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'dark'
         : 'light';
-
-      root.classList.add(systemTheme);
-      return;
     }
 
-    root.classList.add(theme);
+    root.classList.add(appliedTheme);
   }, [theme]);
+
+  function setTheme(newTheme) {
+    localStorage.setItem(storageKey, newTheme);
+    setThemeState(newTheme);
+  }
+
+  function toggleTheme() {
+    setThemeState((current) => {
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(storageKey, next);
+      return next;
+    });
+  }
 
   return (
     <ThemeContext.Provider
       value={{
         theme,
-        setTheme: (newTheme) => {
-          localStorage.setItem(storageKey, newTheme);
-          setThemeState(newTheme);
-        },
+        setTheme,
+        toggleTheme,
       }}
     >
       {children}

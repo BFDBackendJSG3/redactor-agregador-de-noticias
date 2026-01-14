@@ -12,6 +12,7 @@ import {
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { register } from '@/services/users-service';
+import { getApiError } from '@/utils/getApiError';
 
 function AuthCard({ name, description, buttonName, routeTo }) {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ function AuthCard({ name, description, buttonName, routeTo }) {
         navigate('/login');
       }
     } catch (err) {
-      alert(err.response?.data?.message || 'Erro ao processar requisição');
+      alert(getApiError(err));
     } finally {
       setLoading(false);
     }
