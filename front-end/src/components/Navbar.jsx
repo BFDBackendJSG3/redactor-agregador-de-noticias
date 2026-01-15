@@ -16,11 +16,14 @@ import { useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/hooks/useTheme';
+import { Sun, Moon } from 'lucide-react';
 
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchMenuOpen, setIsSearchMenuOpen] = useState(false);
@@ -161,6 +164,11 @@ function Navbar() {
                 </Link>
               </div>
               <div>
+                <div className="flex items-center justify-center border-b py-3">
+                  <Button size="icon" variant="ghost" onClick={toggleTheme}>
+                    {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                  </Button>
+                </div>
                 {!user ? (
                   <Link
                     to="/login"
@@ -176,9 +184,11 @@ function Navbar() {
                   </Link>
                 ) : (
                   <>
-                    <div className="flex gap-1 border-b px-4 py-4 font-semibold">
-                      <CircleUserRound strokeWidth={1.25} />
-                      {user.nome}
+                    <div className="flex items-center justify-between border-b px-4 py-4">
+                      <div className="flex gap-1 font-semibold">
+                        <CircleUserRound strokeWidth={1.25} />
+                        {user.nome}
+                      </div>
                     </div>
 
                     <Link
@@ -341,24 +351,35 @@ function Navbar() {
             })}
           </div>
 
-          {user && (
-            <div className="flex items-center gap-4">
-              <span className="text-sm">
-                Olá, <strong>{user.nome}</strong>
-              </span>
+          <div className="flex items-center gap-4">
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={toggleTheme}
+              title="Alternar tema"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </Button>
 
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => {
-                  logout();
-                  navigate('/');
-                }}
-              >
-                Sair
-              </Button>
-            </div>
-          )}
+            {user && (
+              <>
+                <span className="text-sm">
+                  Olá, <strong>{user.nome}</strong>
+                </span>
+
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    logout();
+                    navigate('/');
+                  }}
+                >
+                  Sair
+                </Button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
