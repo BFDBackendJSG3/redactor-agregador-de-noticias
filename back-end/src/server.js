@@ -9,6 +9,8 @@ sequelize
   .authenticate()
   .then(() => {
     console.log('Banco conectado com sucesso');
+    require('./jobs/cron.job');
+
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);
     });
@@ -16,3 +18,4 @@ sequelize
   .catch((err) => {
     console.error('Erro ao conectar no banco:', err);
   });
+
