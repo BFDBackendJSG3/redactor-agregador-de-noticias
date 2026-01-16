@@ -18,4 +18,3 @@ sequelize
   .catch((err) => {
     console.error('Erro ao conectar no banco:', err);
   });
-

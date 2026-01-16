@@ -37,5 +37,4 @@ async function executarImportacao() {
   console.log('🎉 Importação de RSS finalizada');
 }
 
-
 module.exports = { executarImportacao };
