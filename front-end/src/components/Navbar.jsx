@@ -73,11 +73,16 @@ function Navbar() {
       to: '/contato',
       match: ['/contato'],
     },
-    ...(!user ? [{ label: 'Login', to: '/login', match: ['/login'] }] : []),
+    ...(!user
+      ? [{ label: 'Login', to: '/login', match: ['/login', '/cadastro'] }]
+      : []),
   ];
 
   const isAuthRoute =
     location.pathname === '/login' || location.pathname === '/cadastro';
+
+  const isUserRoute =
+    location.pathname === '/perfil' || location.pathname === '/admin/usuarios';
 
   return (
     <div>
@@ -208,7 +213,13 @@ function Navbar() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <div className="flex cursor-pointer items-center justify-between border-b px-4 py-4">
-                        <div className="flex gap-1 font-semibold">
+                        <div
+                          className={
+                            isUserRoute
+                              ? 'flex gap-1 font-semibold text-emerald-600'
+                              : 'flex gap-1 font-semibold'
+                          }
+                        >
                           <CircleUserRound strokeWidth={1.25} />
                           {user.nome}
                         </div>
