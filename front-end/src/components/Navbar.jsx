@@ -132,7 +132,12 @@ function Navbar() {
                         {user.nome?.charAt(0)?.toUpperCase()}
                       </div>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="left" className="bg-background">
+                    <DropdownMenuContent
+                      side="bottom"
+                      align="end"
+                      sideOffset={6}
+                      className="bg-background"
+                    >
                       <DropdownMenuLabel className="font-semibold">
                         Olá, {user.nome}
                       </DropdownMenuLabel>
