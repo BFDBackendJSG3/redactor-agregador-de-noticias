@@ -14,6 +14,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { register } from '@/services/users-service';
 import { getApiError } from '@/utils/getApiError';
 import { Loader2Icon } from 'lucide-react';
+import { toast } from 'sonner';
 
 function AuthCard({ name, description, buttonName, routeTo }) {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function AuthCard({ name, description, buttonName, routeTo }) {
     if (loading) return; // evita duplo clique
 
     if (!email || !password || (!isLogin && !nome)) {
-      alert('Preencha todos os campos');
+      toast.warning('Preencha todos os campos.');
       return;
     }
 
@@ -46,11 +47,11 @@ function AuthCard({ name, description, buttonName, routeTo }) {
           email,
           password,
         });
-        alert('Conta criada com sucesso!');
+        toast.success('Conta criada com sucesso!');
         navigate('/login');
       }
     } catch (err) {
-      alert(getApiError(err));
+      toast.error(getApiError(err));
     } finally {
       setLoading(false);
     }

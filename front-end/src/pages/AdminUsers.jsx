@@ -4,6 +4,7 @@ import CreateUserDialog from '@/components/admin/CreateUserDialog';
 import EditUserDialog from '@/components/admin/EditUserDialog';
 import { listarUsuarios, deletarUsuario } from '@/services/users-service';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 function AdminUsers() {
   const { user } = useAuth();
@@ -34,9 +35,10 @@ function AdminUsers() {
     try {
       setLoadingDelete(id);
       await deletarUsuario(id);
+      toast.success('Usuário Excluído.');
       carregarUsuarios();
     } catch (err) {
-      alert(err.response?.data?.message || 'Erro ao deletar usuário');
+      toast.error(err.response?.data?.message || 'Erro ao deletar usuário');
     } finally {
       setLoadingDelete(null);
     }

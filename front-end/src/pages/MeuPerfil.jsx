@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { api } from '@/services/api';
+import { toast } from 'sonner';
 
 function MeuPerfil() {
   const { user, setUser } = useAuth();
@@ -37,7 +38,7 @@ function MeuPerfil() {
       if (password.trim() !== '') payload.password = password;
 
       if (Object.keys(payload).length === 0) {
-        alert('Nada foi alterado.');
+        toast.warning('Nada foi alterado.');
         setLoading(false);
         return;
       }
@@ -49,8 +50,7 @@ function MeuPerfil() {
         nome: data.nome,
         email: data.email,
       });
-
-      alert('Perfil atualizado com sucesso! Faça login novamente.');
+      toast.success('Perfil atualizado com sucesso! Faça login novamente.');
       localStorage.removeItem('token');
       setUser(null);
       window.location.href = '/login';
@@ -59,9 +59,9 @@ function MeuPerfil() {
     } catch (err) {
       console.log('ERRO AXIOS:', err);
       if (err.response) {
-        alert(err.response.data.message);
+        toast.error(err.response.data.message);
       } else {
-        alert('Erro de comunicação com o servidor');
+        toast.error('Erro de comunicação com o servidor');
       }
     } finally {
       setLoading(false);

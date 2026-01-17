@@ -10,14 +10,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { atualizarUsuario } from '@/services/users-service';
 import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
-const TIPOS_USUARIO = [
-  'ADMIN',
-  'USER',
-  'ESTAGIARIO',
-  'JORNALISTA',
-  'EDITOR',
-];
+const TIPOS_USUARIO = ['ADMIN', 'USER', 'ESTAGIARIO', 'JORNALISTA', 'EDITOR'];
 
 function EditUserDialog({ usuario, onUpdated }) {
   const [nome, setNome] = useState(usuario.nome);
@@ -28,8 +23,7 @@ function EditUserDialog({ usuario, onUpdated }) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
 
-  const isSelfAdmin =
-    user?.tipoUsuario === 'ADMIN' && user?.id === usuario.id;
+  const isSelfAdmin = user?.tipoUsuario === 'ADMIN' && user?.id === usuario.id;
 
   async function handleUpdate() {
     try {
@@ -53,11 +47,11 @@ function EditUserDialog({ usuario, onUpdated }) {
         ...(password && { password }),
       });
 
-      alert('Usuário atualizado com sucesso');
+      toast.success('Usuário atualizado com sucesso!');
       setOpen(false);
       onUpdated();
     } catch (err) {
-      alert(err.response?.data?.message || 'Erro ao atualizar usuário');
+      toast.error(err.response?.data?.message || 'Erro ao atualizar usuário');
     } finally {
       setLoading(false);
     }

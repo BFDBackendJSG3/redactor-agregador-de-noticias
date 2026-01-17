@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { criarUsuario } from '@/services/users-service';
+import { toast } from 'sonner';
 
 function CreateUserDialog() {
   const [nome, setNome] = useState('');
@@ -19,7 +20,7 @@ function CreateUserDialog() {
 
   async function handleCreateUser() {
     if (!nome || !email || !password || !tipoUsuario) {
-      alert('Preencha todos os campos');
+      toast.warning('Preencha todos os campos.');
       return;
     }
 
@@ -31,7 +32,7 @@ function CreateUserDialog() {
         tipoUsuario,
       });
 
-      alert('Usuário criado com sucesso!');
+      toast.success('Usuário criado com sucesso!');
       setOpen(false);
 
       // limpar formulário
@@ -40,7 +41,7 @@ function CreateUserDialog() {
       setPassword('');
       setTipoUsuario('USER');
     } catch (err) {
-      alert(err.response?.data?.message || 'Erro ao criar usuário');
+      toast.error(err.response?.data?.message || 'Erro ao criar usuário');
     }
   }
 

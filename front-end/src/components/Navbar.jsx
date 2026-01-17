@@ -38,7 +38,6 @@ function Navbar() {
 
   //desktop links
   const navLinks = [
-    ...(!user ? [{ label: 'Login', to: '/login', match: ['/login'] }] : []),
     {
       label: 'Início',
       to: '/',
@@ -74,6 +73,7 @@ function Navbar() {
       to: '/contato',
       match: ['/contato'],
     },
+    ...(!user ? [{ label: 'Login', to: '/login', match: ['/login'] }] : []),
   ];
 
   const isAuthRoute =
@@ -362,7 +362,7 @@ function Navbar() {
       </div>
       {/* Barra de links desktop */}
       <div className="bg-background hidden h-10 w-full border-b md:block">
-        <div className="mx-auto flex h-full max-w-7xl items-center justify-center gap-8">
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-center gap-5.5 lg:gap-9">
           {navLinks.map((link) => {
             const isActive = link.match.includes(location.pathname);
             return (
