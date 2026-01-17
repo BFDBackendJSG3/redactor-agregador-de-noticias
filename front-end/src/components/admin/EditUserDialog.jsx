@@ -9,21 +9,47 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { atualizarUsuario } from '@/services/users-service';
+import { useAuth } from '@/contexts/AuthContext';
+
+const TIPOS_USUARIO = [
+  'ADMIN',
+  'USER',
+  'ESTAGIARIO',
+  'JORNALISTA',
+  'EDITOR',
+];
 
 function EditUserDialog({ usuario, onUpdated }) {
   const [nome, setNome] = useState(usuario.nome);
   const [email, setEmail] = useState(usuario.email);
   const [password, setPassword] = useState('');
+  const [tipoUsuario, setTipoUsuario] = useState(usuario.tipoUsuario);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
+
+  const isSelfAdmin =
+    user?.tipoUsuario === 'ADMIN' && user?.id === usuario.id;
 
   async function handleUpdate() {
     try {
       setLoading(true);
 
+      if (tipoUsuario !== usuario.tipoUsuario) {
+        const confirmar = confirm(
+          `Deseja realmente alterar o tipo de usuário de ${usuario.tipoUsuario} para ${tipoUsuario}?`
+        );
+
+        if (!confirmar) {
+          setLoading(false);
+          return;
+        }
+      }
+
       await atualizarUsuario(usuario.id, {
         nome,
         email,
+        tipoUsuario,
         ...(password && { password }),
       });
 
@@ -59,6 +85,19 @@ function EditUserDialog({ usuario, onUpdated }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {!isSelfAdmin && (
+            <select
+              className="border-input bg-background h-9 rounded-md border px-3 text-sm"
+              value={tipoUsuario}
+              onChange={(e) => setTipoUsuario(e.target.value)}
+            >
+              {TIPOS_USUARIO.map((tipo) => (
+                <option key={tipo} value={tipo}>
+                  {tipo}
+                </option>
+              ))}
+            </select>
+          )}
 
           <Button onClick={handleUpdate} disabled={loading}>
             {loading ? 'Salvando...' : 'Salvar'}

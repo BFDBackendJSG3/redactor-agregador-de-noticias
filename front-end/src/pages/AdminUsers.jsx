@@ -70,7 +70,24 @@ function AdminUsers() {
             <tr key={u.id} className="border-t">
               <td className="p-2">{u.nome}</td>
               <td className="p-2">{u.email}</td>
-              <td className="p-2">{u.tipoUsuario}</td>
+              // ADMIN → vermelho; EDITOR → roxo; JORNALISTA → azul; ESTAGIÁRIO → amarelo; USER → cinza
+              <td className="p-2">
+                <span
+                  className={`rounded px-2 py-1 text-xs font-semibold text-white ${
+                    u.tipoUsuario === 'ADMIN'
+                      ? 'bg-red-600'
+                      : u.tipoUsuario === 'EDITOR'
+                      ? 'bg-purple-600'
+                      : u.tipoUsuario === 'JORNALISTA'
+                      ? 'bg-blue-600'
+                      : u.tipoUsuario === 'ESTAGIARIO'
+                      ? 'bg-yellow-600'
+                      : 'bg-gray-600'
+                  }`}
+                >
+                  {u.tipoUsuario}
+                </span>
+              </td>
               <td className="flex gap-2 p-2">
                 <EditUserDialog usuario={u} onUpdated={carregarUsuarios} />
                 <Button
