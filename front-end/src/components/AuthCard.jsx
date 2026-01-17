@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { register } from '@/services/users-service';
 import { getApiError } from '@/utils/getApiError';
+import { Loader2Icon } from 'lucide-react';
 
 function AuthCard({ name, description, buttonName, routeTo }) {
   const navigate = useNavigate();
@@ -72,6 +73,7 @@ function AuthCard({ name, description, buttonName, routeTo }) {
           {!isLogin && (
             <Input
               placeholder="Nome"
+              className="placeholder:text-sm"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
             />
@@ -90,7 +92,7 @@ function AuthCard({ name, description, buttonName, routeTo }) {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button onClick={handleSubmit} className="w-full" disabled={loading}>
-            {loading ? 'Aguarde...' : name}
+            {loading ? <Loader2Icon className="animate-spin" /> : name}
           </Button>
         </div>
         {location.pathname === '/login' && (

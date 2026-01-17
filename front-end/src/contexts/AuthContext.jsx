@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { login as loginRequest } from '@/services/auth-service';
 
+//criacao do contexto usuario
 const AuthContext = createContext(null);
 
+//provider usuario
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -40,6 +42,7 @@ export function AuthProvider({ children }) {
   );
 }
 
+//hook usuario
 export function useAuth() {
   const context = useContext(AuthContext);
 

@@ -16,8 +16,16 @@ import { useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '../contexts/ThemeContext';
 import { Sun, Moon } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from './ui/dropdown-menu';
 
 function Navbar() {
   const location = useLocation();
@@ -30,21 +38,7 @@ function Navbar() {
 
   //desktop links
   const navLinks = [
-    ...(!user
-      ? [
-          {
-            label: 'Login',
-            to: '/login',
-            match: ['/login', '/cadastro'],
-          },
-        ]
-      : [
-          {
-            label: 'Meu Perfil',
-            to: '/perfil',
-            match: ['/perfil'],
-          },
-        ]),
+    ...(!user ? [{ label: 'Login', to: '/login', match: ['/login'] }] : []),
     {
       label: 'Início',
       to: '/',
@@ -80,15 +74,6 @@ function Navbar() {
       to: '/contato',
       match: ['/contato'],
     },
-    ...(user?.tipoUsuario === 'ADMIN'
-      ? [
-          {
-            label: 'Usuários',
-            to: '/admin/usuarios',
-            match: ['/admin/usuarios'],
-          },
-        ]
-      : []),
   ];
 
   const isAuthRoute =
@@ -118,7 +103,7 @@ function Navbar() {
             </div>
 
             {/* Coluna 3 */}
-            <div className="flex justify-end">
+            <div className="flex">
               {/* Mobile search */}
               <Button
                 size="icon"
@@ -131,13 +116,48 @@ function Navbar() {
 
               {/* Desktop search */}
               <div className="hidden md:flex">
-                <Input placeholder="Buscar" className="rounded-r-none" />
-                <Button
-                  size="icon"
-                  className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700"
-                >
-                  <Search className="size-5" />
-                </Button>
+                <div className="mr-3 flex">
+                  <Input placeholder="Buscar" className="rounded-r-none" />
+                  <Button
+                    size="icon"
+                    className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700"
+                  >
+                    <Search className="size-5" />
+                  </Button>
+                </div>
+                {user && (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <div className="transition-colors: flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-white hover:bg-emerald-700">
+                        {user.nome?.charAt(0)?.toUpperCase()}
+                      </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="left" className="bg-background">
+                      <DropdownMenuLabel className="font-semibold">
+                        Olá, {user.nome}
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={() => navigate('/perfil')}>
+                        Editar Perfil
+                      </DropdownMenuItem>
+                      {user.tipoUsuario === 'ADMIN' && (
+                        <DropdownMenuItem
+                          onClick={() => navigate('/admin/usuarios')}
+                        >
+                          Admin. Usuários
+                        </DropdownMenuItem>
+                      )}
+                      <DropdownMenuItem
+                        onClick={() => {
+                          logout();
+                          navigate('/');
+                        }}
+                      >
+                        Sair
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
               </div>
             </div>
           </div>
@@ -164,11 +184,6 @@ function Navbar() {
                 </Link>
               </div>
               <div>
-                <div className="flex items-center justify-center border-b py-3">
-                  <Button size="icon" variant="ghost" onClick={toggleTheme}>
-                    {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-                  </Button>
-                </div>
                 {!user ? (
                   <Link
                     to="/login"
@@ -183,43 +198,52 @@ function Navbar() {
                     Login
                   </Link>
                 ) : (
-                  <>
-                    <div className="flex items-center justify-between border-b px-4 py-4">
-                      <div className="flex gap-1 font-semibold">
-                        <CircleUserRound strokeWidth={1.25} />
-                        {user.nome}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <div className="flex cursor-pointer items-center justify-between border-b px-4 py-4">
+                        <div className="flex gap-1 font-semibold">
+                          <CircleUserRound strokeWidth={1.25} />
+                          {user.nome}
+                        </div>
                       </div>
-                    </div>
-
-                    <Link
-                      to="/perfil"
-                      className="flex gap-1 border-b px-4 py-4"
-                      onClick={() => setIsMenuOpen(false)}
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                      side="right"
+                      align="start"
+                      className="bg-background"
                     >
-                      Meu Perfil
-                    </Link>
-
-                    {user.tipoUsuario === 'ADMIN' && (
-                      <Link
-                        to="/admin/usuarios"
-                        className="flex gap-1 border-b px-4 py-4"
-                        onClick={() => setIsMenuOpen(false)}
+                      <DropdownMenuLabel className="font-semibold">
+                        Olá, {user.nome}
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem
+                        onClick={() => {
+                          navigate('/perfil');
+                          setIsMenuOpen(false);
+                        }}
                       >
-                        Gerenciar Usuários
-                      </Link>
-                    )}
-
-                    <button
-                      className="flex w-full gap-1 border-b px-4 py-4 text-left text-red-500"
-                      onClick={() => {
-                        logout();
-                        setIsMenuOpen(false);
-                        navigate('/');
-                      }}
-                    >
-                      Sair
-                    </button>
-                  </>
+                        Editar Perfil
+                      </DropdownMenuItem>
+                      {user.tipoUsuario === 'ADMIN' && (
+                        <DropdownMenuItem
+                          onClick={() => {
+                            navigate('/admin/usuarios');
+                            setIsMenuOpen(false);
+                          }}
+                        >
+                          Admin. Usuários
+                        </DropdownMenuItem>
+                      )}
+                      <DropdownMenuItem
+                        onClick={() => {
+                          logout();
+                          navigate('/');
+                        }}
+                      >
+                        Sair
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 )}
                 <Link
                   to="/"
@@ -330,56 +354,26 @@ function Navbar() {
       </div>
       {/* Barra de links desktop */}
       <div className="bg-background hidden h-10 w-full border-b md:block">
-        <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4">
-          <div className="flex gap-6">
-            {navLinks.map((link) => {
-              const isActive = link.match.includes(location.pathname);
-
-              return (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`text-sm transition-colors hover:text-emerald-600 ${
-                    isActive
-                      ? 'font-semibold text-emerald-600'
-                      : 'text-muted-foreground'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="flex items-center gap-4">
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={toggleTheme}
-              title="Alternar tema"
-            >
-              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-            </Button>
-
-            {user && (
-              <>
-                <span className="text-sm">
-                  Olá, <strong>{user.nome}</strong>
-                </span>
-
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    logout();
-                    navigate('/');
-                  }}
-                >
-                  Sair
-                </Button>
-              </>
-            )}
-          </div>
+        <div className="mx-auto flex h-full max-w-7xl items-center justify-center gap-8">
+          {navLinks.map((link) => {
+            const isActive = link.match.includes(location.pathname);
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`text-sm transition-colors hover:text-emerald-600 ${
+                  isActive
+                    ? 'font-semibold text-emerald-600'
+                    : 'text-muted-foreground'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+          <Button size="icon" variant="ghost" onClick={toggleTheme}>
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </Button>
         </div>
       </div>
     </div>
