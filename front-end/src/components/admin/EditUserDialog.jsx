@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { atualizarUsuario } from '@/services/users-service';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import { Loader2Icon } from 'lucide-react';
 
 const TIPOS_USUARIO = ['ADMIN', 'USER', 'ESTAGIARIO', 'JORNALISTA', 'EDITOR'];
 
@@ -22,22 +23,17 @@ function EditUserDialog({ usuario, onUpdated }) {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
+  const [confirmRoleChange, setConfirmRoleChange] = useState(false);
 
   const isSelfAdmin = user?.tipoUsuario === 'ADMIN' && user?.id === usuario.id;
 
   async function handleUpdate() {
     try {
       setLoading(true);
-
-      if (tipoUsuario !== usuario.tipoUsuario) {
-        const confirmar = confirm(
-          `Deseja realmente alterar o tipo de usuário de ${usuario.tipoUsuario} para ${tipoUsuario}?`
-        );
-
-        if (!confirmar) {
-          setLoading(false);
-          return;
-        }
+      //se mudar o tipo de usuario
+      if (tipoUsuario !== usuario.tipoUsuario && !confirmRoleChange) {
+        setConfirmRoleChange(true);
+        return;
       }
 
       await atualizarUsuario(usuario.id, {
@@ -92,9 +88,25 @@ function EditUserDialog({ usuario, onUpdated }) {
               ))}
             </select>
           )}
+          {confirmRoleChange && (
+            <div className="rounded-md border border-yellow-500 bg-yellow-50 p-3 text-sm">
+              <p className="font-medium text-yellow-800">
+                Você está alterando o tipo do usuário
+              </p>
 
+              <p className="text-yellow-700">
+                De <b>{usuario.tipoUsuario}</b> para <b>{tipoUsuario}</b>
+              </p>
+            </div>
+          )}
           <Button onClick={handleUpdate} disabled={loading}>
-            {loading ? 'Salvando...' : 'Salvar'}
+            {loading ? (
+              <Loader2Icon className="animate-spin" />
+            ) : confirmRoleChange ? (
+              'Confirmar alteração'
+            ) : (
+              'Salvar'
+            )}
           </Button>
         </div>
       </DialogContent>

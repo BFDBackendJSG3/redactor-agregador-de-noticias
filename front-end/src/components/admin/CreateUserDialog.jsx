@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import { criarUsuario } from '@/services/users-service';
 import { toast } from 'sonner';
+import { Loader2Icon } from 'lucide-react';
 
 function CreateUserDialog() {
   const [nome, setNome] = useState('');
@@ -17,13 +18,14 @@ function CreateUserDialog() {
   const [password, setPassword] = useState('');
   const [tipoUsuario, setTipoUsuario] = useState('USER');
   const [open, setOpen] = useState(false);
+  const [loadingCreate, setLoadingCreate] = useState(null);
 
   async function handleCreateUser() {
     if (!nome || !email || !password || !tipoUsuario) {
       toast.warning('Preencha todos os campos.');
       return;
     }
-
+    setLoadingCreate(true);
     try {
       await criarUsuario({
         nome,
@@ -43,6 +45,7 @@ function CreateUserDialog() {
     } catch (err) {
       toast.error(err.response?.data?.message || 'Erro ao criar usuário');
     }
+    setLoadingCreate(false);
   }
 
   return (
@@ -89,7 +92,13 @@ function CreateUserDialog() {
             <option value="ADMIN">Administrador</option>
           </select>
 
-          <Button onClick={handleCreateUser}>Criar Usuário</Button>
+          <Button onClick={handleCreateUser}>
+            {loadingCreate ? (
+              <Loader2Icon className="animate-spin" />
+            ) : (
+              'Criar Usuário'
+            )}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

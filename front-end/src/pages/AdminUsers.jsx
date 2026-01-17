@@ -5,6 +5,14 @@ import EditUserDialog from '@/components/admin/EditUserDialog';
 import { listarUsuarios, deletarUsuario } from '@/services/users-service';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { Loader2Icon } from 'lucide-react';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  DialogClose,
+} from '@/components/ui/dialog';
 
 function AdminUsers() {
   const { user } = useAuth();
@@ -30,8 +38,6 @@ function AdminUsers() {
   }
 
   async function handleDelete(id) {
-    if (!confirm('Deseja realmente excluir este usuário?')) return;
-
     try {
       setLoadingDelete(id);
       await deletarUsuario(id);
@@ -72,19 +78,18 @@ function AdminUsers() {
             <tr key={u.id} className="border-t">
               <td className="p-2">{u.nome}</td>
               <td className="p-2">{u.email}</td>
-              // ADMIN → vermelho; EDITOR → roxo; JORNALISTA → azul; ESTAGIÁRIO → amarelo; USER → cinza
               <td className="p-2">
                 <span
                   className={`rounded px-2 py-1 text-xs font-semibold text-white ${
                     u.tipoUsuario === 'ADMIN'
                       ? 'bg-red-600'
                       : u.tipoUsuario === 'EDITOR'
-                      ? 'bg-purple-600'
-                      : u.tipoUsuario === 'JORNALISTA'
-                      ? 'bg-blue-600'
-                      : u.tipoUsuario === 'ESTAGIARIO'
-                      ? 'bg-yellow-600'
-                      : 'bg-gray-600'
+                        ? 'bg-purple-600'
+                        : u.tipoUsuario === 'JORNALISTA'
+                          ? 'bg-blue-600'
+                          : u.tipoUsuario === 'ESTAGIARIO'
+                            ? 'bg-yellow-600'
+                            : 'bg-gray-600'
                   }`}
                 >
                   {u.tipoUsuario}
@@ -92,14 +97,38 @@ function AdminUsers() {
               </td>
               <td className="flex gap-2 p-2">
                 <EditUserDialog usuario={u} onUpdated={carregarUsuarios} />
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  disabled={loadingDelete === u.id}
-                  onClick={() => handleDelete(u.id)}
-                >
-                  {loadingDelete === u.id ? 'Excluindo...' : 'Excluir'}
-                </Button>
+                {/* Dialog de exclusao de user (Precisa componentizar depois) */}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="destructive" size="sm">
+                      Excluir
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogTitle className="text-md text-center">
+                      Deseja Excluír Usuário {user.nome}?
+                    </DialogTitle>
+                    <div className="flex gap-3">
+                      <DialogClose asChild>
+                        <Button className="flex-1" variant="outline">
+                          Cancelar
+                        </Button>
+                      </DialogClose>
+                      <Button
+                        disabled={loadingDelete === u.id}
+                        onClick={() => handleDelete(u.id)}
+                        className="flex-1"
+                        variant="destructive"
+                      >
+                        {loadingDelete === u.id ? (
+                          <Loader2Icon className="animate-spin" />
+                        ) : (
+                          'Excluir'
+                        )}
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </td>
             </tr>
           ))}
