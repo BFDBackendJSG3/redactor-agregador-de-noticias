@@ -171,7 +171,6 @@ function Navbar() {
               className="bg-background/20 fixed inset-0 z-40 backdrop-blur-xs"
               onClick={() => setIsMenuOpen(false)}
             />
-
             {/* sidebar */}
             <div className="bg-card fixed top-0 left-0 z-50 h-full w-65 border-r shadow-lg md:w-90">
               <div className="flex h-16 items-center justify-center">
@@ -183,6 +182,9 @@ function Navbar() {
                   Comuniq<span className="text-emerald-600">.PB</span>
                 </Link>
               </div>
+              <Button size="icon" variant="ghost" onClick={toggleTheme}>
+                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              </Button>
               <div>
                 {!user ? (
                   <Link
@@ -208,9 +210,10 @@ function Navbar() {
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                      side="right"
-                      align="start"
-                      className="bg-background"
+                      alignOffset={140}
+                      sideOffset={-50}
+                      align="right"
+                      className="bg-card"
                     >
                       <DropdownMenuLabel className="font-semibold">
                         Olá, {user.nome}
