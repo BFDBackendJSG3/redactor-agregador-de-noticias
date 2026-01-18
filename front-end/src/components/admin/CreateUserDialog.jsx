@@ -10,9 +10,9 @@ import {
 } from '@/components/ui/dialog';
 import { criarUsuario } from '@/services/users-service';
 import { toast } from 'sonner';
-import { Loader2Icon } from 'lucide-react';
+import { Loader2Icon, User } from 'lucide-react';
 
-function CreateUserDialog() {
+function CreateUserDialog({ onCreated }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,6 +42,7 @@ function CreateUserDialog() {
       setEmail('');
       setPassword('');
       setTipoUsuario('USER');
+      onCreated();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Erro ao criar usuário');
     }
@@ -51,7 +52,10 @@ function CreateUserDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Cadastrar Usuário</Button>
+        <Button>
+          <User />
+          Cadastrar Usuário
+        </Button>
       </DialogTrigger>
 
       <DialogContent>

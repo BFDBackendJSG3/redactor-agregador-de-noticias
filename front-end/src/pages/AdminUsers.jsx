@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogClose,
 } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 
 function AdminUsers() {
   const { user } = useAuth();
@@ -23,14 +24,6 @@ function AdminUsers() {
   if (user?.tipoUsuario !== 'ADMIN') {
     return <p>Acesso negado</p>;
   }
-
-  <input
-    type="text"
-    placeholder="Buscar por nome ou email"
-    className="border-input bg-background mb-4 h-9 w-full max-w-sm rounded-md border px-3 text-sm"
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-  />;
 
   async function carregarUsuarios() {
     const data = await listarUsuarios();
@@ -60,11 +53,17 @@ function AdminUsers() {
 
   return (
     <div className="p-6">
-      <h1 className="mb-4 text-2xl font-semibold">Administração de Usuários</h1>
+      <h1 className="mb-6 text-xl font-semibold">Administração de Usuários</h1>
 
-      <CreateUserDialog />
-
-      <table className="mt-6 w-full border">
+      <Input
+        type="text"
+        placeholder="Buscar por nome ou email"
+        className="mb-6 placeholder:text-sm"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <CreateUserDialog onCreated={carregarUsuarios} />
+      <table className="mt-3 mb-6 w-full border">
         <thead>
           <tr className="bg-muted">
             <th className="p-2 text-left">Nome</th>
