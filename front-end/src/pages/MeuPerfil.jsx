@@ -4,16 +4,15 @@ import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { api } from '@/services/api';
 import { toast } from 'sonner';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { Loader2Icon } from 'lucide-react';
 
 function MeuPerfil() {
   const { user, setUser } = useAuth();
-
   const [editando, setEditando] = useState(false);
-
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -69,66 +68,77 @@ function MeuPerfil() {
   }
 
   return (
-    <div className="bg-card mx-auto max-w-md rounded-xl border p-6 shadow">
-      <h1 className="mb-4 text-2xl font-semibold">Meu Perfil</h1>
+    <div className="flex justify-center md:py-10">
+      <Card className="w-full max-w-2xl">
+        <CardTitle className="text-center text-xl">Meu Perfil</CardTitle>
+        <CardContent>
+          <div className="space-y-4">
+            <div>
+              <label className="text-muted-foreground text-sm">Nome</label>
+              <Input
+                value={nome}
+                disabled={!editando}
+                onChange={(e) => setNome(e.target.value)}
+              />
+            </div>
 
-      <div className="space-y-4">
-        <div>
-          <label className="text-muted-foreground text-sm">Nome</label>
-          <Input
-            value={nome}
-            disabled={!editando}
-            onChange={(e) => setNome(e.target.value)}
-          />
-        </div>
+            <div>
+              <label className="text-muted-foreground text-sm">Email</label>
+              <Input
+                value={email}
+                disabled={!editando}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-        <div>
-          <label className="text-muted-foreground text-sm">Email</label>
-          <Input
-            value={email}
-            disabled={!editando}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+            {editando && (
+              <div>
+                <label className="text-muted-foreground text-sm">
+                  Nova senha (opcional)
+                </label>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            )}
 
-        {editando && (
-          <div>
-            <label className="text-muted-foreground text-sm">
-              Nova senha (opcional)
-            </label>
-            <Input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            {!editando ? (
+              <Button onClick={() => setEditando(true)} className="w-full">
+                Editar Perfil
+              </Button>
+            ) : (
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleSave}
+                  disabled={loading}
+                  className="flex-1"
+                >
+                  {loading ? (
+                    <Loader2Icon className="animate-spin" />
+                  ) : (
+                    'Salvar'
+                  )}
+                </Button>
+
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setEditando(false);
+                    setNome(user.nome);
+                    setEmail(user.email);
+                    setPassword('');
+                  }}
+                  className="flex-1"
+                >
+                  Cancelar
+                </Button>
+              </div>
+            )}
           </div>
-        )}
-
-        {!editando ? (
-          <Button onClick={() => setEditando(true)} className="w-full">
-            Editar Perfil
-          </Button>
-        ) : (
-          <div className="flex gap-2">
-            <Button onClick={handleSave} disabled={loading} className="flex-1">
-              {loading ? 'Salvando...' : 'Salvar'}
-            </Button>
-
-            <Button
-              variant="outline"
-              onClick={() => {
-                setEditando(false);
-                setNome(user.nome);
-                setEmail(user.email);
-                setPassword('');
-              }}
-              className="flex-1"
-            >
-              Cancelar
-            </Button>
-          </div>
-        )}
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

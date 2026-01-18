@@ -192,9 +192,11 @@ function Navbar() {
                   Comuniq<span className="text-emerald-600">.PB</span>
                 </Link>
               </div>
-              <Button size="icon" variant="ghost" onClick={toggleTheme}>
-                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-              </Button>
+              <div className="flex w-full justify-center">
+                <Button size="icon" variant="ghost" onClick={toggleTheme}>
+                  {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                </Button>
+              </div>
               <div>
                 {!user ? (
                   <Link
