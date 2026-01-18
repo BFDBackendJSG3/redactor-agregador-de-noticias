@@ -21,6 +21,10 @@ function AdminUsers() {
   const [search, setSearch] = useState('');
   const [usuarios, setUsuarios] = useState([]);
 
+  useEffect(() => {
+    carregarUsuarios();
+  }, []);
+
   if (user?.tipoUsuario !== 'ADMIN') {
     return <p>Acesso negado</p>;
   }
@@ -42,10 +46,6 @@ function AdminUsers() {
       setLoadingDelete(null);
     }
   }
-
-  useEffect(() => {
-    carregarUsuarios();
-  }, []);
 
   const usuariosFiltrados = usuarios.filter((u) =>
     `${u.nome} ${u.email}`.toLowerCase().includes(search.toLowerCase())
