@@ -103,7 +103,10 @@ function Navbar() {
             {/* Coluna 2 */}
             <div className="flex justify-center">
               <Link to="/" className="font-mono text-xl">
-                Comuniq<span className="text-emerald-600">.PB</span>
+                Comuniq
+                <span className="text-emerald-600 hover:text-emerald-700">
+                  .PB
+                </span>
               </Link>
             </div>
 
@@ -121,7 +124,7 @@ function Navbar() {
 
               {/* Desktop search */}
               <div className="hidden md:flex">
-                <div className="mr-3 flex">
+                <div className="flex">
                   <Input placeholder="Buscar" className="rounded-r-none" />
                   <Button
                     size="icon"
@@ -133,7 +136,7 @@ function Navbar() {
                 {user && (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <div className="transition-colors: flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-white hover:bg-emerald-700">
+                      <div className="ml-3 flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-white hover:bg-emerald-700">
                         {user.nome?.charAt(0)?.toUpperCase()}
                       </div>
                     </DropdownMenuTrigger>
@@ -155,6 +158,15 @@ function Navbar() {
                           onClick={() => navigate('/admin/usuarios')}
                         >
                           Admin. Usuários
+                        </DropdownMenuItem>
+                      )}
+                      {(user.tipoUsuario === 'ADMIN' ||
+                        user.tipoUsuario === 'JORNALISTA' ||
+                        user.tipoUsuario === 'EDITOR') && (
+                        <DropdownMenuItem
+                          onClick={() => navigate('/adicionar-noticia')}
+                        >
+                          Adicionar Notícia
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuItem
@@ -393,7 +405,11 @@ function Navbar() {
             );
           })}
           <Button size="icon" variant="ghost" onClick={toggleTheme}>
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            {theme === 'dark' ? (
+              <Sun size={18} />
+            ) : (
+              <Moon size={18} strokeWidth={1.5} />
+            )}
           </Button>
         </div>
       </div>
