@@ -9,20 +9,23 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { criarUsuario } from '@/services/users-service';
+import { toast } from 'sonner';
+import { Loader2Icon, User } from 'lucide-react';
 
-function CreateUserDialog() {
+function CreateUserDialog({ onCreated }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [tipoUsuario, setTipoUsuario] = useState('USER');
   const [open, setOpen] = useState(false);
+  const [loadingCreate, setLoadingCreate] = useState(null);
 
   async function handleCreateUser() {
     if (!nome || !email || !password || !tipoUsuario) {
-      alert('Preencha todos os campos');
+      toast.warning('Preencha todos os campos.');
       return;
     }
-
+    setLoadingCreate(true);
     try {
       await criarUsuario({
         nome,
@@ -31,7 +34,7 @@ function CreateUserDialog() {
         tipoUsuario,
       });
 
-      alert('Usuário criado com sucesso!');
+      toast.success('Usuário criado com sucesso!');
       setOpen(false);
 
       // limpar formulário
@@ -39,15 +42,20 @@ function CreateUserDialog() {
       setEmail('');
       setPassword('');
       setTipoUsuario('USER');
+      onCreated();
     } catch (err) {
-      alert(err.response?.data?.message || 'Erro ao criar usuário');
+      toast.error(err.response?.data?.message || 'Erro ao criar usuário');
     }
+    setLoadingCreate(false);
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Cadastrar Usuário</Button>
+        <Button>
+          <User />
+          Cadastrar Usuário
+        </Button>
       </DialogTrigger>
 
       <DialogContent>
@@ -88,7 +96,13 @@ function CreateUserDialog() {
             <option value="ADMIN">Administrador</option>
           </select>
 
-          <Button onClick={handleCreateUser}>Criar Usuário</Button>
+          <Button onClick={handleCreateUser}>
+            {loadingCreate ? (
+              <Loader2Icon className="animate-spin" />
+            ) : (
+              'Criar Usuário'
+            )}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

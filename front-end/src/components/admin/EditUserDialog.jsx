@@ -9,29 +9,45 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { atualizarUsuario } from '@/services/users-service';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
+import { Loader2Icon } from 'lucide-react';
+
+const TIPOS_USUARIO = ['ADMIN', 'USER', 'ESTAGIARIO', 'JORNALISTA', 'EDITOR'];
 
 function EditUserDialog({ usuario, onUpdated }) {
   const [nome, setNome] = useState(usuario.nome);
   const [email, setEmail] = useState(usuario.email);
   const [password, setPassword] = useState('');
+  const [tipoUsuario, setTipoUsuario] = useState(usuario.tipoUsuario);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
+  const [confirmRoleChange, setConfirmRoleChange] = useState(false);
+
+  const isSelfAdmin = user?.tipoUsuario === 'ADMIN' && user?.id === usuario.id;
 
   async function handleUpdate() {
     try {
       setLoading(true);
+      //se mudar o tipo de usuario
+      if (tipoUsuario !== usuario.tipoUsuario && !confirmRoleChange) {
+        setConfirmRoleChange(true);
+        return;
+      }
 
       await atualizarUsuario(usuario.id, {
         nome,
         email,
+        tipoUsuario,
         ...(password && { password }),
       });
 
-      alert('Usuário atualizado com sucesso');
+      toast.success('Usuário atualizado com sucesso!');
       setOpen(false);
       onUpdated();
     } catch (err) {
-      alert(err.response?.data?.message || 'Erro ao atualizar usuário');
+      toast.error(err.response?.data?.message || 'Erro ao atualizar usuário');
     } finally {
       setLoading(false);
     }
@@ -59,9 +75,38 @@ function EditUserDialog({ usuario, onUpdated }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {!isSelfAdmin && (
+            <select
+              className="border-input bg-background h-9 rounded-md border px-3 text-sm"
+              value={tipoUsuario}
+              onChange={(e) => setTipoUsuario(e.target.value)}
+            >
+              {TIPOS_USUARIO.map((tipo) => (
+                <option key={tipo} value={tipo}>
+                  {tipo}
+                </option>
+              ))}
+            </select>
+          )}
+          {confirmRoleChange && (
+            <div className="rounded-md border border-yellow-500 bg-yellow-50 p-3 text-sm">
+              <p className="font-medium text-yellow-800">
+                Você está alterando o tipo do usuário
+              </p>
 
+              <p className="text-yellow-700">
+                De <b>{usuario.tipoUsuario}</b> para <b>{tipoUsuario}</b>
+              </p>
+            </div>
+          )}
           <Button onClick={handleUpdate} disabled={loading}>
-            {loading ? 'Salvando...' : 'Salvar'}
+            {loading ? (
+              <Loader2Icon className="animate-spin" />
+            ) : confirmRoleChange ? (
+              'Confirmar alteração'
+            ) : (
+              'Salvar'
+            )}
           </Button>
         </div>
       </DialogContent>

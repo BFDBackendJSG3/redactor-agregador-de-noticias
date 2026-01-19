@@ -1,0 +1,1117 @@
+[
+  {
+    "nome": "Água Branca",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Aguiar",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Alagoa Grande",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Alagoa Nova",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Alagoinha",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Alcantil",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Algodão de Jandaíra",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Alhandra",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "São João do Rio do Peixe",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Amparo",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Aparecida",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Araçagi",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Arara",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Araruna",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Areia",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Areia de Baraúnas",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Areial",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Aroeiras",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Assunção",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Baía da Traição",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Bananeiras",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Baraúna",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Barra de Santana",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Barra de Santa Rosa",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Barra de São Miguel",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Bayeux",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Belém",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Belém do Brejo do Cruz",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Bernardino Batista",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Boa Ventura",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Boa Vista",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Bom Jesus",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Bom Sucesso",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Bonito de Santa Fé",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Boqueirão",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Igaracy",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Borborema",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Brejo do Cruz",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Brejo dos Santos",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Caaporã",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Cabaceiras",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Cabedelo",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Cachoeira dos Índios",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Cacimba de Areia",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Cacimba de Dentro",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Cacimbas",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Caiçara",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Cajazeiras",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Cajazeirinhas",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Caldas Brandão",
+    "createdAt": "2026-01-19T16:39:16.407Z",
+    "updatedAt": "2026-01-19T16:39:16.407Z"
+  },
+  {
+    "nome": "Camalaú",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Campina Grande",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Capim",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Caraúbas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Carrapateira",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Casserengue",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Catingueira",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Catolé do Rocha",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Caturité",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Conceição",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Condado",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Conde",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Congo",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Coremas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Coxixola",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Cruz do Espírito Santo",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Cubati",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Cuité",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Cuitegi",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Cuité de Mamanguape",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Curral de Cima",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Curral Velho",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Damião",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Desterro",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Vista Serrana",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Diamante",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Dona Inês",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Duas Estradas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Emas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Esperança",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Fagundes",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Frei Martinho",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Gado Bravo",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Guarabira",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Gurinhém",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Gurjão",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Ibiara",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Imaculada",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Ingá",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Itabaiana",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Itaporanga",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Itapororoca",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Itatuba",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Jacaraú",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Jericó",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "João Pessoa",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Juarez Távora",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Juazeirinho",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Junco do Seridó",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Juripiranga",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Juru",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Lagoa",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Lagoa de Dentro",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Lagoa Seca",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Lastro",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Livramento",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Logradouro",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Lucena",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Mãe d'Água",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Malta",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Mamanguape",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Manaíra",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Marcação",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Mari",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Marizópolis",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Massaranduba",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Mataraca",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Matinhas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Mato Grosso",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Maturéia",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Mogeiro",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Montadas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Monte Horebe",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Monteiro",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Mulungu",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Natuba",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Nazarezinho",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Nova Floresta",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Nova Olinda",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Nova Palmeira",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Olho d'Água",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Olivedos",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Ouro Velho",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Parari",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Passagem",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Patos",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Paulista",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pedra Branca",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pedra Lavrada",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pedras de Fogo",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Piancó",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Picuí",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pilar",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pilões",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pilõezinhos",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pirpirituba",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pitimbu",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pocinhos",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Poço Dantas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Poço de José de Moura",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pombal",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Prata",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Princesa Isabel",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Puxinanã",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Queimadas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Quixaba",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Remígio",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Pedro Régis",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Riachão",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Riachão do Bacamarte",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Riachão do Poço",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Riacho de Santo Antônio",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Riacho dos Cavalos",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Rio Tinto",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Salgadinho",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Salgado de São Félix",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santa Cecília",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santa Cruz",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santa Helena",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santa Inês",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santa Luzia",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santana de Mangueira",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santana dos Garrotes",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Joca Claudino",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santa Rita",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santa Teresinha",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Santo André",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Bento",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Bentinho",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Domingos do Cariri",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Domingos",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Francisco",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São João do Cariri",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São João do Tigre",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José da Lagoa Tapada",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José de Caiana",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José de Espinharas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José dos Ramos",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José de Piranhas",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José de Princesa",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José do Bonfim",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José do Brejo do Cruz",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José do Sabugi",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São José dos Cordeiros",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Mamede",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Miguel de Taipu",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Sebastião de Lagoa de Roça",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Sebastião do Umbuzeiro",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Sapé",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "São Vicente do Seridó",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Serra Branca",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Serra da Raiz",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Serra Grande",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Serra Redonda",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Serraria",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Sertãozinho",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Sobrado",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Solânea",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Soledade",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Sossêgo",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Sousa",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Sumé",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Tacima",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Taperoá",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Tavares",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Teixeira",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Tenório",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Triunfo",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Uiraúna",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Umbuzeiro",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Várzea",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Vieirópolis",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  },
+  {
+    "nome": "Zabelê",
+    "createdAt": "2026-01-19T16:39:16.408Z",
+    "updatedAt": "2026-01-19T16:39:16.408Z"
+  }
+]

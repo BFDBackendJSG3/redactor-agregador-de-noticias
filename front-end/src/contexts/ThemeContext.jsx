@@ -1,30 +1,61 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
+//cria contexto do tema
 export const ThemeContext = createContext(null);
 
-export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('light');
+//provider do tema
+export function ThemeProvider({
+  children,
+  defaultTheme = 'system',
+  storageKey = 'vite-ui-theme',
+}) {
+  const [theme, setThemeState] = useState(() => {
+    return localStorage.getItem(storageKey) || defaultTheme;
+  });
 
+  // Aplica classe no <html>
   useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-      setTheme(saved);
+    const root = document.documentElement;
+    root.classList.remove('light', 'dark');
+
+    let appliedTheme = theme;
+
+    if (theme === 'system') {
+      appliedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
     }
-  }, []);
+
+    root.classList.add(appliedTheme);
+  }, [theme]);
+
+  function setTheme(newTheme) {
+    localStorage.setItem(storageKey, newTheme);
+    setThemeState(newTheme);
+  }
 
   function toggleTheme() {
-    const next = theme === 'light' ? 'dark' : 'light';
-    setTheme(next);
-    localStorage.setItem('theme', next);
+    setThemeState((current) => {
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(storageKey, next);
+      return next;
+    });
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        setTheme,
+        toggleTheme,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );
 }
 
+//hook do tema
 export function useTheme() {
   const context = useContext(ThemeContext);
 

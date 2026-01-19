@@ -40,9 +40,28 @@ class UserController {
     }
   }
 
+  // Para que o admin não possa alterar o seu próprio tipo de usuário
   static async atualizar(req, res) {
     try {
-      const usuario = await UserService.atualizar(req.params.id, req.body);
+      const { id } = req.params;
+      const { tipoUsuario } = req.body;
+
+      const userIdAuth = req.userId;
+      const userRole = req.userRole;
+
+      // Admin não pode alterar o próprio tipo
+      if (
+        userRole === 'ADMIN' &&
+        tipoUsuario &&
+        Number(id) === Number(userIdAuth)
+      ) {
+        return res.status(403).json({
+          message: 'Você não pode alterar seu próprio tipo de usuário',
+        });
+      }
+
+      const usuario = await UserService.atualizar(id, req.body);
+
       return res.json({
         id: usuario.id,
         nome: usuario.nome,

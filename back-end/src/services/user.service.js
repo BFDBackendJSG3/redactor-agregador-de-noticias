@@ -89,6 +89,15 @@ class UserService {
       dadosUpdate.passwordHash = await bcrypt.hash(dados.password, 8);
     }
 
+    //TIPO DE USUÁRIO
+    if (dados.tipoUsuario) {
+      if (!TIPOS_USUARIO.includes(dados.tipoUsuario)) {
+        throw new AppError('Tipo de usuário inválido');
+      }
+
+      dadosUpdate.tipoUsuario = dados.tipoUsuario;
+    }
+
     // Só atualiza se tiver algo para atualizar
     if (Object.keys(dadosUpdate).length === 0) {
       throw new AppError('Nenhum dado para atualizar');
