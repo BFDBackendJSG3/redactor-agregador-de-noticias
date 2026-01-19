@@ -21,5 +21,7 @@ app.use(importacaoRoutes);
 app.use(noticiasRoutes);
 app.use('/users', userRoutes);
 app.use(authRoutes);
+app.use('/api', noticiasRoutes);
+
 
 module.exports = app;

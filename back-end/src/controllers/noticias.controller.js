@@ -3,6 +3,7 @@ const DetalharNoticiaService = require('../services/detalhar.noticia.service');
 const CriarNoticiaService = require('../services/criar.noticia.service');
 const AtualizarNoticiaService = require('../services/atualizar.noticia.service');
 const DeletarNoticiaService = require('../services/deletar.noticia.service');
+const CreateNoticiaManualService = require('../services/noticia/CreateNoticiaManualService');
 
 class NoticiasController {
   async listar(req, res) {
@@ -39,26 +40,29 @@ class NoticiasController {
     }
   }
 
-  async criar(req, res) {
+  async createManual(req, res) {
     try {
-      const { titulo, conteudo, status, fonteId, temaPrincipalId } = req.body;
+      const { titulo, conteudo, temaPrincipalId } = req.body;
+      const autorId = req.userId;
 
-      const noticia = await CriarNoticiaService.execute({
+      const noticia = await CreateNoticiaManualService.execute({
         titulo,
         conteudo,
-        status,
-        fonteId,
         temaPrincipalId,
+        autorId,
       });
 
-      return res.status(201).json(noticia);
+      return res.status(201).json({
+        message: 'Notícia criada como rascunho',
+        noticia,
+      });
     } catch (error) {
-      console.error(error);
       return res.status(400).json({
-        erro: error.message || 'Erro ao criar notícia',
+        error: error.message,
       });
     }
   }
+
 
   async atualizar(req, res) {
     try {

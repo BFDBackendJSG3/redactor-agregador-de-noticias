@@ -1,11 +1,18 @@
 const { Router } = require('express');
 const NoticiasController = require('../controllers/noticias.controller');
+const authMiddleware = require('../middlewares/auth.middleware');
+const roleMiddleware = require('../middlewares/role');
 
 const router = Router();
 
 router.get('/noticias', NoticiasController.listar);
 router.get('/noticias/:id', NoticiasController.detalhar);
-router.post('/noticias', NoticiasController.criar);
+router.post(
+    '/noticias',
+    authMiddleware,
+    roleMiddleware(['JORNALISTA', 'EDITOR', 'ADMIN']),
+    NoticiasController.createManual
+  );  
 router.put('/noticias/:id', NoticiasController.atualizar);
 router.delete('/noticias/:id', NoticiasController.deletar);
 
