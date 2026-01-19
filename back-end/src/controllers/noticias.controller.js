@@ -7,9 +7,21 @@ const CreateNoticiaManualService = require('../services/criar.noticia.manual.ser
 class NoticiasController {
   async listar(req, res) {
     try {
-      const noticias = await ListarNoticiasService.execute();
+      const filtros = {
+        page: req.query.page,
+        limit: req.query.limit,
+        tema: req.query.tema,
+        municipio: req.query.municipio,
+        dataInicio: req.query.dataInicio,
+        dataFim: req.query.dataFim,
+        search: req.query.search,
 
-      return res.json(noticias);
+        // Especificação do tipo de usuario
+        tipoUsuario: req.userRole || 'VISITANTE',
+      };
+
+      const resultado = await ListarNoticiasService.execute(filtros);
+      return res.json(resultado);
     } catch (error) {
       console.error(error);
       return res.status(500).json({
@@ -17,6 +29,7 @@ class NoticiasController {
       });
     }
   }
+
 
   async detalhar(req, res) {
     try {
