@@ -1,21 +1,30 @@
 import { listarNoticias } from '@/services/news-service';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Loader2Icon } from 'lucide-react';
 
 function Home() {
-  const [news, setNews] = useState([]);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['news'],
+    queryFn: listarNoticias,
+  });
 
-  async function fetchNews() {
-    try {
-      const res = await listarNoticias();
-      setNews(res.data);
-    } catch (error) {
-      console.log(error);
-    }
+  const news = data?.data || [];
+  const meta = data?.meta;
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center">
+        <Loader2Icon className="animate-spin" />
+      </div>
+    );
   }
-  useEffect(() => {
-    fetchNews();
-  }, []);
-
+  if (isError) {
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center">
+        <p>Erro ao carregar notícias</p>
+      </div>
+    );
+  }
   return (
     <div>
       <div className="space-y-4">
