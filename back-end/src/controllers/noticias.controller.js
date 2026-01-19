@@ -1,6 +1,6 @@
 const ListarNoticiasService = require('../services/listar.noticia.service');
 const DetalharNoticiaService = require('../services/detalhar.noticia.service');
-const CriarNoticiaService = require('../services/criar.noticia.service');
+const CriarNoticiaService = require('../services/listar.noticia.service');
 const AtualizarNoticiaService = require('../services/atualizar.noticia.service');
 const DeletarNoticiaService = require('../services/deletar.noticia.service');
 const CreateNoticiaManualService = require('../services/noticia/CreateNoticiaManualService');
