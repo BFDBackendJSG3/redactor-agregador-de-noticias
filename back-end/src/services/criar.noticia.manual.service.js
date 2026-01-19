@@ -1,7 +1,14 @@
-const { Noticia, Fonte, TemaPrincipal } = require('../../../back-end/models');
+const { Noticia, TemaPrincipal, Municipio } = require('../../models');
 
-class CreateNoticiaManualService {
-  async execute({ titulo, conteudo, temaPrincipalId, autorId }) {
+class CriarNoticiaManualService {
+  async execute({
+    titulo,
+    subtitulo,
+    conteudo,
+    temaPrincipalId,
+    municipios = [],
+    autor,
+  }) {
     if (!titulo || !conteudo || !temaPrincipalId) {
       throw new Error('Título, conteúdo e tema são obrigatórios');
     }
@@ -11,29 +18,30 @@ class CreateNoticiaManualService {
       throw new Error('Tema principal inválido');
     }
 
-    // Fonte padrão (seed)
-    const fontePadrao = await Fonte.findOne({
-      where: { nome: 'Redação Comuniq.PB' },
-    });
-
-    if (!fontePadrao) {
-      throw new Error('Fonte padrão não encontrada');
-    }
+    const status =
+      autor.tipoUsuario === 'EDITOR' || autor.tipoUsuario === 'ADMIN'
+        ? 'publicado'
+        : 'aguardando_revisao';
 
     const noticia = await Noticia.create({
       titulo,
+      subtitulo,
       conteudo,
       temaPrincipalId,
-      autorId,
-      fonteId: fontePadrao.id,
-      status: 'rascunho',
+      autorId: autor.id,
       tipoNoticia: 'criada',
+      status,
       dataDeImportacao: new Date(),
-      dataDePublicacao: null,
+      dataDePublicacao: status === 'publicado' ? new Date() : null,
     });
+
+    if (municipios.length) {
+      await noticia.setMunicipios(municipios);
+    }
 
     return noticia;
   }
 }
 
-module.exports = new CreateNoticiaManualService();
+module.exports = new CriarNoticiaManualService();
+

@@ -2,7 +2,7 @@ const ListarNoticiasService = require('../services/listar.noticia.service');
 const DetalharNoticiaService = require('../services/detalhar.noticia.service');
 const AtualizarNoticiaService = require('../services/atualizar.noticia.service');
 const DeletarNoticiaService = require('../services/deletar.noticia.service');
-const CreateNoticiaManualService = require('../services/criar.noticia.manual.service');
+const CriarNoticiaManualService = require('../services/criar.noticia.manual.service');
 
 class NoticiasController {
   async listar(req, res) {
@@ -52,29 +52,39 @@ class NoticiasController {
     }
   }
 
-  async createManual(req, res) {
+  async criarManual(req, res) {
     try {
-      const { titulo, conteudo, temaPrincipalId } = req.body;
-      const autorId = req.userId;
-
-      const noticia = await CreateNoticiaManualService.execute({
+      const {
         titulo,
+        subtitulo,
         conteudo,
         temaPrincipalId,
-        autorId,
+        municipios,
+      } = req.body;
+  
+      const noticia = await CriarNoticiaManualService.execute({
+        titulo,
+        subtitulo,
+        conteudo,
+        temaPrincipalId,
+        municipios,
+        autor: {
+          id: req.userId,
+          tipoUsuario: req.userRole,
+        },
       });
-
+  
       return res.status(201).json({
-        message: 'Notícia criada como rascunho',
+        message:
+          noticia.status === 'publicado'
+            ? 'Notícia publicada com sucesso'
+            : 'Notícia enviada para revisão',
         noticia,
       });
     } catch (error) {
-      return res.status(400).json({
-        error: error.message,
-      });
+      return res.status(400).json({ error: error.message });
     }
   }
-
 
   async atualizar(req, res) {
     try {

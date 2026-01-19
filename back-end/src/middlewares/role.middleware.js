@@ -1,7 +1,9 @@
-module.exports = (rolesPermitidos) => {
+module.exports = (rolesPermitidos = []) => {
   return (req, res, next) => {
-    if (!rolesPermitidos.includes(req.user.tipoUsuario)) {
-      return res.status(403).json({ error: 'Acesso negado' });
+    if (!rolesPermitidos.includes(req.userRole)) {
+      return res.status(403).json({
+        message: 'Você não tem permissão para realizar esta ação',
+      });
     }
     next();
   };

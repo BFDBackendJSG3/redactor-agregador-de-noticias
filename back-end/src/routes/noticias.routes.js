@@ -11,7 +11,7 @@ router.post(
     '/noticias',
     authMiddleware,
     roleMiddleware(['JORNALISTA', 'EDITOR', 'ADMIN']),
-    NoticiasController.createManual
+    NoticiasController.criarManual
   );  
 router.put('/noticias/:id', NoticiasController.atualizar);
 router.delete('/noticias/:id', NoticiasController.deletar);
