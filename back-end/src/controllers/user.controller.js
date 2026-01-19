@@ -69,9 +69,7 @@ class UserController {
         tipoUsuario: usuario.tipoUsuario,
       });
     } catch (err) {
-      return res
-        .status(err.statusCode || 400)
-        .json({ message: err.message });
+      return res.status(err.statusCode || 400).json({ message: err.message });
     }
   }
 

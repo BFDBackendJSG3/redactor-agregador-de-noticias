@@ -30,7 +30,6 @@ async function executarImportacao() {
     await importarRSS({
       itens,
       fonteId: fonte.id,
-      temaPrincipalId: 1, // Geral
     });
   }
 
