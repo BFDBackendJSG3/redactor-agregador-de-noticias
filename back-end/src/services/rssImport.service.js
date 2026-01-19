@@ -1,8 +1,9 @@
 const { Noticia } = require('../../models');
+const { classificarNoticia } = require('./noticiaClassificacao.service');
 
-async function importarRSS({ itens, fonteId, temaPrincipalId }) {
+async function importarRSS({ itens, fonteId }) {
   console.log(
-    `📥 Iniciando importação: ${itens.length} itens | fonteId=${fonteId} | tema=${temaPrincipalId}`
+    `📥 Iniciando importação: ${itens.length} itens | fonteId=${fonteId}`
   );
 
   let salvas = 0;
@@ -19,6 +20,11 @@ async function importarRSS({ itens, fonteId, temaPrincipalId }) {
       console.log(`🔁 Duplicada ignorada: ${item.link}`);
       continue;
     }
+
+    const temaPrincipalId = classificarNoticia({
+      titulo: item.title,
+      conteudo: item.description || '',
+    });
 
     await Noticia.create({
       titulo: item.title,
