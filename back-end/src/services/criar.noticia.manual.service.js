@@ -1,4 +1,4 @@
-const { Noticia, Fonte, TemaPrincipal } = require('../../../models');
+const { Noticia, Fonte, TemaPrincipal } = require('../../../back-end/models');
 
 class CreateNoticiaManualService {
   async execute({ titulo, conteudo, temaPrincipalId, autorId }) {
