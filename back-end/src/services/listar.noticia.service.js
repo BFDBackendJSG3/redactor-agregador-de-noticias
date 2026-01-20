@@ -12,6 +12,8 @@ module.exports = {
       dataFim,
       search,
       tipoUsuario,
+      tipoNoticia,
+      status,
     } = filtros;
 
     const where = {};
@@ -27,6 +29,16 @@ module.exports = {
         attributes: ['id', 'nome'],
       },
     ];
+
+    // Filtro por tipo de notícia (manual / importada)
+    if (tipoNoticia) {
+      where.tipoNoticia = tipoNoticia;
+    }
+
+    // Filtro por status (publicado / aguardando_aprovacao)
+    if (status) {
+      where.status = status;
+    }
 
     // Controlar exposição de publicações por tipo
     // de perfil do usuário.

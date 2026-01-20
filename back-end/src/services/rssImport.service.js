@@ -47,6 +47,14 @@ async function importarRSS({ itens, fonteId }) {
         { transaction }
       );
 
+      console.log({
+        level: 'info',
+        action: 'rss_import',
+        fonteId,
+        titulo: item.title,
+        url: item.link,
+      });
+
       salvas++;
     }
 
