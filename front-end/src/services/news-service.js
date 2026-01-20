@@ -1,12 +1,12 @@
 import { api } from './api';
 
-export async function listarNoticias(page = 1) {
-  const res = await api.get('/noticias', {
-    params: {
-      page,
-      limit: 10,
-    },
-  });
+export async function listarNoticias(page = 1, filtros = {}) {
+  const params = {
+    page,
+    limit: 10,
+    ...filtros, // tema, municipio, dataInicio, dataFim, search
+  };
+  const res = await api.get('/noticias', { params });
   return res.data;
 }
 
@@ -15,7 +15,25 @@ export async function detalharNoticia(id) {
   return res.data;
 }
 
+export async function criarNoticiaManual(payload) {
+  // payload: { titulo, subtitulo, conteudo, temaPrincipalId, municipios }
+  const res = await api.post('/noticias', payload);
+  return res.data;
+}
+
+export async function atualizarNoticia(id, payload) {
+  // payload: { titulo, conteudo, status, fonteId, temaPrincipalId }
+  const res = await api.put(`/noticias/${id}`, payload);
+  return res.data;
+}
+
+export async function deletarNoticia(id) {
+  const res = await api.delete(`/noticias/${id}`);
+  return res.data;
+}
+
 export async function importarNoticia(payload) {
+  // payload: { url, temaPrincipalId }
   const res = await api.post('/importar-noticia', payload);
   return res.data;
 }
