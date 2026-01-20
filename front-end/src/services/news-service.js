@@ -1,7 +1,12 @@
 import { api } from './api';
 
-export async function listarNoticias() {
-  const res = await api.get('/noticias');
+export async function listarNoticias(page = 1) {
+  const res = await api.get('/noticias', {
+    params: {
+      page,
+      limit: 10,
+    },
+  });
   return res.data;
 }
 
