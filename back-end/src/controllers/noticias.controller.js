@@ -3,6 +3,9 @@ const DetalharNoticiaService = require('../services/detalhar.noticia.service');
 const AtualizarNoticiaService = require('../services/atualizar.noticia.service');
 const DeletarNoticiaService = require('../services/deletar.noticia.service');
 const CriarNoticiaManualService = require('../services/criar.noticia.manual.service');
+const {
+  listarNoticiasPorTema,
+} = require('../services/listarPorTema.noticia.service');
 
 class NoticiasController {
   async listar(req, res) {
@@ -119,6 +122,19 @@ class NoticiasController {
       return res.status(500).json({
         erro: 'Erro ao deletar notícia',
       });
+    }
+  }
+
+  async listarPorTema(req, res) {
+    try {
+      const { temaId } = req.params;
+
+      const noticias = await listarNoticiasPorTema(temaId);
+
+      return res.json(noticias);
+    } catch (error) {
+      console.error('Erro ao listar notícias por tema:', error);
+      return res.status(500).json({ erro: 'Erro interno' });
     }
   }
 }
