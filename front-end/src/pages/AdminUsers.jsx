@@ -105,7 +105,7 @@ function AdminUsers() {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogTitle className="text-md text-center">
-                      Deseja Excluír Usuário {user.nome}?
+                      Deseja excluír usuário {u.nome}?
                     </DialogTitle>
                     <div className="flex gap-3">
                       <DialogClose asChild>
