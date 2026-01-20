@@ -28,7 +28,7 @@ module.exports = {
       },
     ];
 
-    // Controlar exposição de publicações por tipo 
+    // Controlar exposição de publicações por tipo
     // de perfil do usuário.
     const perfisRestritos = ['VISITANTE', 'USER'];
     if (perfisRestritos.includes(tipoUsuario)) {

@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       tipoNoticia: DataTypes.STRING,
       fonteId: DataTypes.INTEGER,
       temaPrincipalId: DataTypes.INTEGER,
-      autorId: DataTypes.INTEGER
+      autorId: DataTypes.INTEGER,
     },
     {
       sequelize,

@@ -30,7 +30,6 @@ class NoticiasController {
     }
   }
 
-
   async detalhar(req, res) {
     try {
       const { id } = req.params;
@@ -54,14 +53,9 @@ class NoticiasController {
 
   async criarManual(req, res) {
     try {
-      const {
-        titulo,
-        subtitulo,
-        conteudo,
-        temaPrincipalId,
-        municipios,
-      } = req.body;
-  
+      const { titulo, subtitulo, conteudo, temaPrincipalId, municipios } =
+        req.body;
+
       const noticia = await CriarNoticiaManualService.execute({
         titulo,
         subtitulo,
@@ -73,7 +67,7 @@ class NoticiasController {
           tipoUsuario: req.userRole,
         },
       });
-  
+
       return res.status(201).json({
         message:
           noticia.status === 'publicado'

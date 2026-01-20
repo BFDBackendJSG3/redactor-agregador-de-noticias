@@ -44,4 +44,3 @@ class CriarNoticiaManualService {
 }
 
 module.exports = new CriarNoticiaManualService();
-

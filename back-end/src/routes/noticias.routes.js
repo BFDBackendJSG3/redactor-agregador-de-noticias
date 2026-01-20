@@ -8,11 +8,11 @@ const router = Router();
 router.get('/noticias', NoticiasController.listar);
 router.get('/noticias/:id', NoticiasController.detalhar);
 router.post(
-    '/noticias',
-    authMiddleware,
-    roleMiddleware(['JORNALISTA', 'EDITOR', 'ADMIN']),
-    NoticiasController.criarManual
-  );  
+  '/noticias',
+  authMiddleware,
+  roleMiddleware(['JORNALISTA', 'EDITOR', 'ADMIN']),
+  NoticiasController.criarManual
+);
 router.put('/noticias/:id', NoticiasController.atualizar);
 router.delete('/noticias/:id', NoticiasController.deletar);
 
