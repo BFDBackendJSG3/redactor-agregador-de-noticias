@@ -6,14 +6,14 @@ async function importarRSS({ itens, fonteId }) {
     `📥 Iniciando importação: ${itens.length} itens | fonteId=${fonteId}`
   );
 
-  const transaction = await sequelize.transaction();
-
   let salvas = 0;
   let duplicadas = 0;
+  let erros = 0;
 
-  try {
-    for (const item of itens) {
-      // Verifica duplicidade pela URL
+  for (const item of itens) {
+    const transaction = await sequelize.transaction();
+
+    try {
       const existe = await Noticia.findOne({
         where: { url: item.link },
         transaction,
@@ -21,7 +21,7 @@ async function importarRSS({ itens, fonteId }) {
 
       if (existe) {
         duplicadas++;
-        console.log(`🔁 Duplicada ignorada: ${item.link}`);
+        await transaction.rollback();
         continue;
       }
 
@@ -47,6 +47,8 @@ async function importarRSS({ itens, fonteId }) {
         { transaction }
       );
 
+      await transaction.commit();
+
       console.log({
         level: 'info',
         action: 'rss_import',
@@ -56,18 +58,23 @@ async function importarRSS({ itens, fonteId }) {
       });
 
       salvas++;
+    } catch (err) {
+      await transaction.rollback();
+      erros++;
+
+      console.error({
+        level: 'error',
+        action: 'rss_import_failed',
+        fonteId,
+        url: item.link,
+        error: err.message,
+      });
     }
-
-    await transaction.commit();
-
-    console.log(
-      `✅ Importação concluída | Salvas: ${salvas} | Duplicadas: ${duplicadas}`
-    );
-  } catch (err) {
-    await transaction.rollback();
-    console.error('❌ Erro ao importar RSS:', err);
-    throw err;
   }
+
+  console.log(
+    `✅ Importação finalizada | Salvas: ${salvas} | Duplicadas: ${duplicadas} | Erros: ${erros}`
+  );
 }
 
 module.exports = { importarRSS };
