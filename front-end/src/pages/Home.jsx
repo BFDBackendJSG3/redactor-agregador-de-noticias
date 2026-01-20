@@ -45,9 +45,7 @@ function Home() {
     <div className="space-y-6">
       <div className="space-y-4">
         {news.map((item) => (
-          <div key={item.id}>
-            {item.temaPrincipal.nome} {item.titulo}
-          </div>
+          <div key={item.id}>{item.titulo}</div>
         ))}
       </div>
       <Pagination>

@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Loader2Icon } from 'lucide-react';
 
-function MeuPerfil() {
+function MyProfile() {
   const { user, setUser } = useAuth();
   const [editando, setEditando] = useState(false);
   const [nome, setNome] = useState('');
@@ -149,4 +149,4 @@ function MeuPerfil() {
   );
 }
 
-export default MeuPerfil;
+export default MyProfile;

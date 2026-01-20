@@ -50,18 +50,18 @@ function Navbar() {
     },
     {
       label: 'Política',
-      to: '/politica',
-      match: ['/politica'],
+      to: '/noticias/politica',
+      match: ['/noticias/politica'],
     },
     {
       label: 'Saúde',
-      to: '/saude',
-      match: ['/saude'],
+      to: '/noticias/saude',
+      match: ['/noticias/saude'],
     },
     {
       label: 'Educação',
-      to: '/educacao',
-      match: ['/educacao'],
+      to: '/noticias/educacao',
+      match: ['/noticias/educacao'],
     },
     {
       label: 'Quem Somos',
@@ -335,9 +335,9 @@ function Navbar() {
                   Últimas Notícias
                 </Link>
                 <Link
-                  to="/"
+                  to="/noticias/politica"
                   className={
-                    location.pathname === '/ultimas-noticias'
+                    location.pathname === '/noticias/politica'
                       ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
@@ -347,9 +347,9 @@ function Navbar() {
                   Política
                 </Link>
                 <Link
-                  to="/"
+                  to="/noticias/saude"
                   className={
-                    location.pathname === '/ultimas-noticias'
+                    location.pathname === '/noticias/saude'
                       ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
@@ -359,9 +359,9 @@ function Navbar() {
                   Saúde
                 </Link>
                 <Link
-                  to="/"
+                  to="/noticias/educacao"
                   className={
-                    location.pathname === '/ultimas-noticias'
+                    location.pathname === '/noticias/educacao'
                       ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }

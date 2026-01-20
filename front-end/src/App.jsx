@@ -5,10 +5,11 @@ import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Register from './pages/Register';
-import MeuPerfil from './pages/MeuPerfil';
 import AdminUsers from '@/pages/AdminUsers';
 import CreateNews from './pages/CreateNews';
 import FavoriteNews from './pages/FavoriteNews';
+import NewsByTheme from './pages/NewsByTheme';
+import MyProfile from './pages/MyProfile';
 
 function App() {
   return (
@@ -21,10 +22,11 @@ function App() {
           <Route path="/cadastro" element={<Register />} />
           <Route path="/sobre" element={<About />} />
           <Route path="/contato" element={<Contact />} />
-          <Route path="/perfil" element={<MeuPerfil />} />
+          <Route path="/perfil" element={<MyProfile />} />
           <Route path="/adicionar-noticia" element={<CreateNews />} />
           <Route path="/admin/usuarios" element={<AdminUsers />} />
           <Route path="/noticias-salvas" element={<FavoriteNews />} />
+          <Route path="/noticias/:tema" element={<NewsByTheme />} />
         </Routes>
       </div>
     </div>
