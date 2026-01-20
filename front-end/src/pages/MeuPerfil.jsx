@@ -23,7 +23,11 @@ function MeuPerfil() {
   }, [user]);
 
   if (!user) {
-    return <p className="mt-10 text-center">Carregando perfil...</p>;
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center">
+        <Loader2Icon className="animate-spin" />
+      </div>
+    );
   }
 
   async function handleSave() {
