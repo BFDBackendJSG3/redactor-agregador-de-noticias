@@ -1,4 +1,4 @@
-const { Noticia } = require('../../models');
+const { Noticia, sequelize } = require('../../models');
 const { classificarNoticia } = require('./noticiaClassificacao.service');
 
 async function importarRSS({ itens, fonteId }) {
@@ -6,45 +6,60 @@ async function importarRSS({ itens, fonteId }) {
     `📥 Iniciando importação: ${itens.length} itens | fonteId=${fonteId}`
   );
 
+  const transaction = await sequelize.transaction();
+
   let salvas = 0;
   let duplicadas = 0;
 
-  for (const item of itens) {
-    // Verifica duplicidade pela URL
-    const existe = await Noticia.findOne({
-      where: { url: item.link },
-    });
+  try {
+    for (const item of itens) {
+      // Verifica duplicidade pela URL
+      const existe = await Noticia.findOne({
+        where: { url: item.link },
+        transaction,
+      });
 
-    if (existe) {
-      duplicadas++;
-      console.log(`🔁 Duplicada ignorada: ${item.link}`);
-      continue;
+      if (existe) {
+        duplicadas++;
+        console.log(`🔁 Duplicada ignorada: ${item.link}`);
+        continue;
+      }
+
+      const temaPrincipalId = classificarNoticia({
+        titulo: item.title,
+        conteudo: item.description || '',
+      });
+
+      await Noticia.create(
+        {
+          titulo: item.title,
+          conteudo: item.description || '',
+          url: item.link,
+          dataDePublicacao: item.publishedAt
+            ? new Date(item.publishedAt)
+            : null,
+          dataDeImportacao: new Date(),
+          status: 'aguardando_aprovacao',
+          tipoNoticia: 'importada',
+          fonteId,
+          temaPrincipalId,
+        },
+        { transaction }
+      );
+
+      salvas++;
     }
 
-    const temaPrincipalId = classificarNoticia({
-      titulo: item.title,
-      conteudo: item.description || '',
-    });
+    await transaction.commit();
 
-    await Noticia.create({
-      titulo: item.title,
-      conteudo: item.description || '',
-      url: item.link,
-      dataDePublicacao: item.publishedAt ? new Date(item.publishedAt) : null,
-      dataDeImportacao: new Date(),
-      status: 'publicado',
-      tipoNoticia: 'importada',
-      fonteId,
-      temaPrincipalId,
-    });
-
-    salvas++;
-    console.log(`📰 Notícia salva: ${item.title}`);
+    console.log(
+      `✅ Importação concluída | Salvas: ${salvas} | Duplicadas: ${duplicadas}`
+    );
+  } catch (err) {
+    await transaction.rollback();
+    console.error('❌ Erro ao importar RSS:', err);
+    throw err;
   }
-
-  console.log(
-    `✅ Importação finalizada | Salvas: ${salvas} | Duplicadas: ${duplicadas}`
-  );
 }
 
 module.exports = { importarRSS };
