@@ -404,11 +404,16 @@ function Navbar() {
               </Link>
             );
           })}
-          <Button size="icon" variant="ghost" onClick={toggleTheme}>
+          <Button
+            className="hover:text-emerald-600"
+            size="icon"
+            variant="icon"
+            onClick={toggleTheme}
+          >
             {theme === 'dark' ? (
               <Sun size={18} />
             ) : (
-              <Moon size={18} strokeWidth={1.5} />
+              <Moon size={18} strokeWidth={1.6} />
             )}
           </Button>
         </div>
