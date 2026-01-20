@@ -82,7 +82,11 @@ function Navbar() {
     location.pathname === '/login' || location.pathname === '/cadastro';
 
   const isUserRoute =
-    location.pathname === '/perfil' || location.pathname === '/admin/usuarios';
+    location.pathname === '/perfil' ||
+    location.pathname === '/admin/usuarios' ||
+    location.pathname === '/perfil' ||
+    location.pathname === '/noticias-salvas' ||
+    location.pathname === '/adicionar-noticia';
 
   return (
     <div>
@@ -151,13 +155,20 @@ function Navbar() {
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => navigate('/perfil')}>
-                        Editar Perfil
+                        Minha Conta
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          navigate('/noticias-salvas');
+                        }}
+                      >
+                        Notícias Salvas
                       </DropdownMenuItem>
                       {user.tipoUsuario === 'ADMIN' && (
                         <DropdownMenuItem
                           onClick={() => navigate('/admin/usuarios')}
                         >
-                          Admin. Usuários
+                          Dashboard Usuários
                         </DropdownMenuItem>
                       )}
                       {(user.tipoUsuario === 'ADMIN' ||
@@ -166,7 +177,7 @@ function Navbar() {
                         <DropdownMenuItem
                           onClick={() => navigate('/adicionar-noticia')}
                         >
-                          Adicionar Notícia
+                          Dashboard Notícias
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuItem
@@ -255,7 +266,15 @@ function Navbar() {
                           setIsMenuOpen(false);
                         }}
                       >
-                        Editar Perfil
+                        Minha Conta
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          navigate('/noticias-salvas');
+                        }}
+                      >
+                        Notícias Salvas
                       </DropdownMenuItem>
                       {user.tipoUsuario === 'ADMIN' && (
                         <DropdownMenuItem
@@ -264,13 +283,26 @@ function Navbar() {
                             setIsMenuOpen(false);
                           }}
                         >
-                          Admin. Usuários
+                          Dashboard Usuários
+                        </DropdownMenuItem>
+                      )}
+                      {(user.tipoUsuario === 'ADMIN' ||
+                        user.tipoUsuario === 'JORNALISTA' ||
+                        user.tipoUsuario === 'EDITOR') && (
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            navigate('/adicionar-noticia');
+                          }}
+                        >
+                          Dashboard Notícias
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuItem
                         onClick={() => {
                           logout();
                           navigate('/');
+                          setIsMenuOpen(false);
                         }}
                       >
                         Sair

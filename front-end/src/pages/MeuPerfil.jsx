@@ -74,7 +74,9 @@ function MeuPerfil() {
   return (
     <div className="flex justify-center md:py-10">
       <Card className="w-full max-w-2xl">
-        <CardTitle className="text-center text-xl">Meu Perfil</CardTitle>
+        <CardTitle className="text-center text-xl">
+          Informações Pessoais
+        </CardTitle>
         <CardContent>
           <div className="space-y-4">
             <div>
