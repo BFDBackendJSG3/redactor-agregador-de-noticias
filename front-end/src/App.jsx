@@ -7,6 +7,8 @@ import Contact from './pages/Contact';
 import Register from './pages/Register';
 import MeuPerfil from './pages/MeuPerfil';
 import AdminUsers from '@/pages/AdminUsers';
+import CreateNews from './pages/CreateNews';
+import FavoriteNews from './pages/FavoriteNews';
 
 function App() {
   return (
@@ -20,7 +22,9 @@ function App() {
           <Route path="/sobre" element={<About />} />
           <Route path="/contato" element={<Contact />} />
           <Route path="/perfil" element={<MeuPerfil />} />
+          <Route path="/adicionar-noticia" element={<CreateNews />} />
           <Route path="/admin/usuarios" element={<AdminUsers />} />
+          <Route path="/noticias-salvas" element={<FavoriteNews />} />
         </Routes>
       </div>
     </div>

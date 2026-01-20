@@ -23,7 +23,11 @@ function MeuPerfil() {
   }, [user]);
 
   if (!user) {
-    return <p className="mt-10 text-center">Carregando perfil...</p>;
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center">
+        <Loader2Icon className="animate-spin" />
+      </div>
+    );
   }
 
   async function handleSave() {
@@ -70,7 +74,9 @@ function MeuPerfil() {
   return (
     <div className="flex justify-center md:py-10">
       <Card className="w-full max-w-2xl">
-        <CardTitle className="text-center text-xl">Meu Perfil</CardTitle>
+        <CardTitle className="text-center text-xl">
+          Informações Pessoais
+        </CardTitle>
         <CardContent>
           <div className="space-y-4">
             <div>

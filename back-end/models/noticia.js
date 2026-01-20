@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'fonte',
       });
 
+      Noticia.belongsTo(models.Usuario, {
+        foreignKey: 'autorId',
+        as: 'autor',
+      });
+
       // Notícia pertence a um TemaPrincipal
       Noticia.belongsTo(models.TemaPrincipal, {
         foreignKey: 'temaPrincipalId',
@@ -47,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       tipoNoticia: DataTypes.STRING,
       fonteId: DataTypes.INTEGER,
       temaPrincipalId: DataTypes.INTEGER,
+      autorId: DataTypes.INTEGER
     },
     {
       sequelize,

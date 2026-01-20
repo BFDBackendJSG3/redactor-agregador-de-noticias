@@ -52,7 +52,7 @@ function AdminUsers() {
   );
 
   return (
-    <div className="p-6">
+    <div className="md:py-10">
       <h1 className="mb-6 text-xl font-semibold">Administração de Usuários</h1>
 
       <Input

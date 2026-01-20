@@ -1,7 +1,7 @@
 function About() {
   return (
     <div className="bg-background min-h-screen">
-      <div className="mx-auto max-w-4xl space-y-8 px-4 py-10">
+      <div className="mx-auto max-w-4xl space-y-8 px-4 md:py-10">
         <div>
           <h1 className="mb-2 text-xl font-semibold">Sobre Nós</h1>
           <p className="text-md text-muted-foreground">

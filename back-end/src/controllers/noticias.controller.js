@@ -1,15 +1,27 @@
 const ListarNoticiasService = require('../services/listar.noticia.service');
 const DetalharNoticiaService = require('../services/detalhar.noticia.service');
-const CriarNoticiaService = require('../services/criar.noticia.service');
 const AtualizarNoticiaService = require('../services/atualizar.noticia.service');
 const DeletarNoticiaService = require('../services/deletar.noticia.service');
+const CriarNoticiaManualService = require('../services/criar.noticia.manual.service');
 
 class NoticiasController {
   async listar(req, res) {
     try {
-      const noticias = await ListarNoticiasService.execute();
+      const filtros = {
+        page: req.query.page,
+        limit: req.query.limit,
+        tema: req.query.tema,
+        municipio: req.query.municipio,
+        dataInicio: req.query.dataInicio,
+        dataFim: req.query.dataFim,
+        search: req.query.search,
 
-      return res.json(noticias);
+        // Especificação do tipo de usuario
+        tipoUsuario: req.userRole || 'VISITANTE',
+      };
+
+      const resultado = await ListarNoticiasService.execute(filtros);
+      return res.json(resultado);
     } catch (error) {
       console.error(error);
       return res.status(500).json({
@@ -17,6 +29,7 @@ class NoticiasController {
       });
     }
   }
+
 
   async detalhar(req, res) {
     try {
@@ -39,24 +52,37 @@ class NoticiasController {
     }
   }
 
-  async criar(req, res) {
+  async criarManual(req, res) {
     try {
-      const { titulo, conteudo, status, fonteId, temaPrincipalId } = req.body;
-
-      const noticia = await CriarNoticiaService.execute({
+      const {
         titulo,
+        subtitulo,
         conteudo,
-        status,
-        fonteId,
         temaPrincipalId,
+        municipios,
+      } = req.body;
+  
+      const noticia = await CriarNoticiaManualService.execute({
+        titulo,
+        subtitulo,
+        conteudo,
+        temaPrincipalId,
+        municipios,
+        autor: {
+          id: req.userId,
+          tipoUsuario: req.userRole,
+        },
       });
-
-      return res.status(201).json(noticia);
+  
+      return res.status(201).json({
+        message:
+          noticia.status === 'publicado'
+            ? 'Notícia publicada com sucesso'
+            : 'Notícia enviada para revisão',
+        noticia,
+      });
     } catch (error) {
-      console.error(error);
-      return res.status(400).json({
-        erro: error.message || 'Erro ao criar notícia',
-      });
+      return res.status(400).json({ error: error.message });
     }
   }
 
