@@ -53,6 +53,10 @@ module.exports = (sequelize, DataTypes) => {
       fonteId: DataTypes.INTEGER,
       temaPrincipalId: DataTypes.INTEGER,
       autorId: DataTypes.INTEGER,
+      imagemUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },      
     },
     {
       sequelize,
