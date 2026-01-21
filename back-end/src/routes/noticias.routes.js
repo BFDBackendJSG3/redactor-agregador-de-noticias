@@ -35,7 +35,7 @@ router.put(
 router.delete(
   '/noticias/:id',
   authMiddleware,
-  roleMiddleware(['EDITOR', 'ADMIN']),
+  roleMiddleware(['JORNALISTA', 'EDITOR', 'ADMIN']),
   NoticiasController.deletar
 );
 

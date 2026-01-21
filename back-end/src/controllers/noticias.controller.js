@@ -6,6 +6,7 @@ const CriarNoticiaManualService = require('../services/criar.noticia.manual.serv
 const {
   listarNoticiasPorTema,
 } = require('../services/listarPorTema.noticia.service');
+const { Noticia } = require('../../models');
 
 class NoticiasController {
   async listar(req, res) {
@@ -135,6 +136,22 @@ class NoticiasController {
   async deletar(req, res) {
     try {
       const { id } = req.params;
+
+      // Buscar a notícia para verificar permissões
+      const noticia = await Noticia.findByPk(id);
+      if (!noticia) {
+        return res.status(404).json({ erro: 'Notícia não encontrada' });
+      }
+
+      // Verificar permissões: ADMIN/EDITOR podem deletar qualquer, JORNALISTA só as suas
+      const podeDeletar =
+        req.userRole === 'ADMIN' ||
+        req.userRole === 'EDITOR' ||
+        (req.userRole === 'JORNALISTA' && noticia.autorId === req.userId);
+
+      if (!podeDeletar) {
+        return res.status(403).json({ erro: 'Permissão negada' });
+      }
 
       await DeletarNoticiaService.execute(id);
 
