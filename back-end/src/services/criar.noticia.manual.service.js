@@ -1,4 +1,4 @@
-const { Noticia, TemaPrincipal, Municipio } = require('../../models');
+const { Noticia, TemaPrincipal, Municipio, Fonte } = require('../../models');
 
 class CriarNoticiaManualService {
   async execute({
@@ -18,6 +18,12 @@ class CriarNoticiaManualService {
       throw new Error('Tema principal inválido');
     }
 
+    // Buscar a fonte padrão para notícias manuais
+    const fonte = await Fonte.findOne({ where: { url: 'interno' } });
+    if (!fonte) {
+      throw new Error('Fonte padrão não encontrada');
+    }
+
     const status =
       autor.tipoUsuario === 'EDITOR' || autor.tipoUsuario === 'ADMIN'
         ? 'publicado'
@@ -29,6 +35,7 @@ class CriarNoticiaManualService {
       conteudo,
       temaPrincipalId,
       autorId: autor.id,
+      fonteId: fonte.id,
       tipoNoticia: 'criada',
       status,
       dataDeImportacao: new Date(),
