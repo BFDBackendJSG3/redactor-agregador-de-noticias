@@ -53,7 +53,9 @@ function Home() {
           <PaginationItem>
             <PaginationPrevious
               onClick={() => setPage((p) => Math.max(p - 1, 1))}
-              className={page === 1 ? 'pointer-events-none opacity-50' : ''}
+              className={
+                page === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'
+              }
             />
           </PaginationItem>
 
@@ -72,7 +74,9 @@ function Home() {
                 )
               }
               className={
-                page === totalPages ? 'pointer-events-none opacity-50' : ''
+                page === totalPages
+                  ? 'pointer-events-none opacity-50'
+                  : 'cursor-pointer'
               }
             />
           </PaginationItem>

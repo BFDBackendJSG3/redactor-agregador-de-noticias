@@ -31,9 +31,3 @@ export async function deletarNoticia(id) {
   const res = await api.delete(`/noticias/${id}`);
   return res.data;
 }
-
-export async function importarNoticia(payload) {
-  // payload: { url, temaPrincipalId }
-  const res = await api.post('/importar-noticia', payload);
-  return res.data;
-}

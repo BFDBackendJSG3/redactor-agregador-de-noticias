@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 
-function AdminUsers() {
+function DashboardUsers() {
   const { user } = useAuth();
   const [loadingDelete, setLoadingDelete] = useState(null);
   const [search, setSearch] = useState('');
@@ -137,4 +137,4 @@ function AdminUsers() {
   );
 }
 
-export default AdminUsers;
+export default DashboardUsers;
