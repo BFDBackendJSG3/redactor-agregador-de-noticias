@@ -1,6 +1,7 @@
 const axios = require('axios');
 const Parser = require('rss-parser');
 const { importarRSS } = require('../services/rssImport.service');
+const { extrairImagemRSS } = require('../services/rssImageExtractor.service');
 const { Fonte } = require('../../models');
 
 const parser = new Parser();
@@ -25,6 +26,7 @@ async function executarImportacao() {
       link: item.link,
       description: item.contentSnippet || '',
       publishedAt: item.isoDate || item.pubDate,
+      imagemUrl: extrairImagemRSS(item),
     }));
 
     await importarRSS({

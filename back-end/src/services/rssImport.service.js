@@ -35,6 +35,7 @@ async function importarRSS({ itens, fonteId }) {
           titulo: item.title,
           conteudo: item.description || '',
           url: item.link,
+          imagemUrl: item.imagemUrl,
           dataDePublicacao: item.publishedAt
             ? new Date(item.publishedAt)
             : null,
