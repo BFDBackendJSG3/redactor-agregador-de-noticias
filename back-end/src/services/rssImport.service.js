@@ -40,7 +40,7 @@ async function importarRSS({ itens, fonteId }) {
             ? new Date(item.publishedAt)
             : null,
           dataDeImportacao: new Date(),
-          status: 'aguardando_aprovacao',
+          status: 'aguardando_revisao',
           tipoNoticia: 'importada',
           fonteId,
           temaPrincipalId,
