@@ -59,6 +59,27 @@ class NoticiasController {
     }
   }
 
+  async detalhar(req, res) {
+    try {
+      const { id } = req.params;
+
+      const noticia = await DetalharNoticiaService.execute(id);
+
+      if (!noticia) {
+        return res.status(404).json({
+          erro: 'Notícia não encontrada',
+        });
+      }
+
+      return res.json(noticia);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        erro: 'Erro ao buscar notícia',
+      });
+    }
+  }
+
   async criarManual(req, res) {
     try {
       const { titulo, subtitulo, conteudo, temaPrincipalId, municipios } =

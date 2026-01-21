@@ -6,25 +6,32 @@ const roleMiddleware = require('../middlewares/role.middleware');
 const router = Router();
 
 router.get('/noticias', NoticiasController.listar);
+
 router.get(
   '/noticias/admin',
   authMiddleware,
   roleMiddleware(['JORNALISTA', 'EDITOR', 'ADMIN']),
   NoticiasController.listarAdmin
 );
+
+router.get('/noticias/:id', NoticiasController.detalhar);
+
 router.get('/noticias/tema/:temaId', NoticiasController.listarPorTema);
+
 router.post(
   '/noticias',
   authMiddleware,
   roleMiddleware(['JORNALISTA', 'EDITOR', 'ADMIN']),
   NoticiasController.criarManual
 );
+
 router.put(
   '/noticias/:id',
   authMiddleware,
   roleMiddleware(['EDITOR', 'ADMIN']),
   NoticiasController.atualizar
 );
+
 router.delete(
   '/noticias/:id',
   authMiddleware,
