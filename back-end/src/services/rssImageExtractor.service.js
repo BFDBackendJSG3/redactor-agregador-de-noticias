@@ -12,10 +12,7 @@ function extrairImagemRSS(item) {
   }
 
   const html =
-    item['content:encoded'] ||
-    item.content ||
-    item.contentSnippet ||
-    '';
+    item['content:encoded'] || item.content || item.contentSnippet || '';
 
   if (html) {
     const match = html.match(/<img[^>]+src=["']([^"'>]+)["']/i);

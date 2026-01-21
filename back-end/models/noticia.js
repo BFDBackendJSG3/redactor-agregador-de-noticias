@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       temaPrincipalId: DataTypes.INTEGER,
       autorId: DataTypes.INTEGER,
       imagemUrl: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
     },
