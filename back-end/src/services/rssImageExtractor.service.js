@@ -11,9 +11,17 @@ function extrairImagemRSS(item) {
     return item.itunes.image;
   }
 
-  if (item.content) {
-    const match = item.content.match(/<img[^>]+src="([^">]+)"/);
-    if (match) return match[1];
+  const html =
+    item['content:encoded'] ||
+    item.content ||
+    item.contentSnippet ||
+    '';
+
+  if (html) {
+    const match = html.match(/<img[^>]+src=["']([^"'>]+)["']/i);
+    if (match) {
+      return match[1];
+    }
   }
 
   return null;
