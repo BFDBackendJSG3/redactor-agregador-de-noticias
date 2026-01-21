@@ -42,7 +42,7 @@ function EditUserDialog({ usuario, onUpdated }) {
         tipoUsuario,
         ...(password && { password }),
       });
-
+      setConfirmRoleChange(false);
       toast.success('Usuário atualizado com sucesso!');
       setOpen(false);
       onUpdated();
