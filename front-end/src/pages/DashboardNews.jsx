@@ -25,7 +25,6 @@ import {
   Newspaper,
   Edit,
   Trash2,
-  Eye,
   Loader2Icon,
   CheckCircle,
 } from 'lucide-react';
@@ -37,6 +36,7 @@ import {
 } from '@/services/news-service';
 import { THEMES } from '@/constants/news-themes';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { NEWS_STATUS } from '@/constants/news-status';
 
 function DashboardNews() {
   const [formData, setFormData] = useState({
@@ -122,15 +122,6 @@ function DashboardNews() {
 
   const handleApprove = (id) => {
     approveNewsMutation.mutate(id);
-  };
-
-  const getStatusBadge = (status) => {
-    const variants = {
-      publicado: 'bg-green-100 text-green-800',
-      aguardando_revisao: 'bg-yellow-100 text-yellow-800',
-      rascunho: 'bg-gray-100 text-gray-800',
-    };
-    return variants[status] || 'bg-gray-100 text-gray-800';
   };
 
   return (
@@ -230,12 +221,8 @@ function DashboardNews() {
                     <div>
                       <CardTitle className="text-lg">{item.titulo}</CardTitle>
                       <div className="mt-2 flex gap-2">
-                        <Badge className={getStatusBadge(item.status)}>
-                          {item.status === 'publicado'
-                            ? 'Publicado'
-                            : item.status === 'aguardando_revisao'
-                              ? 'Aguardando Revisão'
-                              : 'Rascunho'}
+                        <Badge className={NEWS_STATUS[item.status]?.className}>
+                          {NEWS_STATUS[item.status]?.label || item.status}
                         </Badge>
                         <Badge variant="outline">
                           {item.temaPrincipal?.nome}
@@ -253,9 +240,6 @@ function DashboardNews() {
                           <CheckCircle className="h-4 w-4" />
                         </Button>
                       )}
-                      <Button size="sm" variant="outline">
-                        <Eye className="h-4 w-4" />
-                      </Button>
                       <Button size="sm" variant="outline">
                         <Edit className="h-4 w-4" />
                       </Button>
