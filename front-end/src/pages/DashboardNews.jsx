@@ -193,14 +193,16 @@ function DashboardNews() {
 
               <Button
                 type="submit"
-                disabled={createNewsMutation.isLoading}
+                disabled={createNewsMutation.isPending}
                 className="w-full"
               >
-                <Newspaper className="mr-2 h-4 w-4" />
-                {createNewsMutation.isLoading ? (
+                {createNewsMutation.isPending ? (
                   <Loader2Icon className="animate-spin" />
                 ) : (
-                  'Criar Notícia'
+                  <>
+                    <Newspaper className="mr-2 h-4 w-4" />
+                    Criar Notícia
+                  </>
                 )}
               </Button>
             </form>
@@ -234,7 +236,7 @@ function DashboardNews() {
                         <Button
                           size="sm"
                           onClick={() => handleApprove(item.id)}
-                          disabled={approveNewsMutation.isLoading}
+                          disabled={approveNewsMutation.isPending}
                           className="bg-green-600 hover:bg-green-700"
                         >
                           <CheckCircle className="h-4 w-4" />
@@ -267,7 +269,7 @@ function DashboardNews() {
                               variant="destructive"
                               className="flex-1"
                               onClick={() => handleDelete(item.id)}
-                              disabled={deleteNewsMutation.isLoading}
+                              disabled={deleteNewsMutation.isPending}
                             >
                               <Trash2 className="h-4 w-4" />
                               Excluir
