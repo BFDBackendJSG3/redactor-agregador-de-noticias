@@ -43,7 +43,7 @@ module.exports = {
     // Controlar exposição de publicações por tipo
     // de perfil do usuário.
     const perfisRestritos = ['VISITANTE', 'USER'];
-    if (perfisRestritos.includes(tipoUsuario)) {
+    if (perfisRestritos.includes(tipoUsuario) && !status) {
       where.status = 'publicado';
     }
 

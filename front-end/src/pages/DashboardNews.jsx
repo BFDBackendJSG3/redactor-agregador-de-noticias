@@ -21,11 +21,19 @@ import {
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Newspaper, Edit, Trash2, Eye, Loader2Icon } from 'lucide-react';
+import {
+  Newspaper,
+  Edit,
+  Trash2,
+  Eye,
+  Loader2Icon,
+  CheckCircle,
+} from 'lucide-react';
 import {
   criarNoticiaManual,
-  listarNoticias,
+  listarNoticiasAdmin,
   deletarNoticia,
+  aprovarNoticia,
 } from '@/services/news-service';
 import { THEMES } from '@/constants/news-themes';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -44,7 +52,7 @@ function DashboardNews() {
   // Buscar notícias para administração
   const { data: newsData, isLoading: isLoadingNews } = useQuery({
     queryKey: ['admin-news'],
-    queryFn: () => listarNoticias(1, { status: 'aguardando_revisao' }),
+    queryFn: () => listarNoticiasAdmin(1, { status: 'aguardando_revisao' }),
   });
 
   const news = newsData?.data || [];
@@ -85,6 +93,20 @@ function DashboardNews() {
     },
   });
 
+  // Mutation para aprovar notícia
+  const approveNewsMutation = useMutation({
+    mutationFn: aprovarNoticia,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['admin-news']);
+      toast.success('Notícia aprovada com sucesso!');
+    },
+    onError: (error) => {
+      toast.error(
+        `Erro ao aprovar notícia: ${error.response?.data?.error || error.message}`
+      );
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.titulo || !formData.conteudo || !formData.temaPrincipalId) {
@@ -96,6 +118,10 @@ function DashboardNews() {
 
   const handleDelete = (id) => {
     deleteNewsMutation.mutate(id);
+  };
+
+  const handleApprove = (id) => {
+    approveNewsMutation.mutate(id);
   };
 
   const getStatusBadge = (status) => {
@@ -217,6 +243,16 @@ function DashboardNews() {
                       </div>
                     </div>
                     <div className="flex gap-2">
+                      {item.status === 'aguardando_revisao' && (
+                        <Button
+                          size="sm"
+                          onClick={() => handleApprove(item.id)}
+                          disabled={approveNewsMutation.isLoading}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          <CheckCircle className="h-4 w-4" />
+                        </Button>
+                      )}
                       <Button size="sm" variant="outline">
                         <Eye className="h-4 w-4" />
                       </Button>

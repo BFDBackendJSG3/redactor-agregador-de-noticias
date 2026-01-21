@@ -33,23 +33,28 @@ class NoticiasController {
     }
   }
 
-  async detalhar(req, res) {
+  async listarAdmin(req, res) {
     try {
-      const { id } = req.params;
+      const filtros = {
+        page: req.query.page,
+        limit: req.query.limit,
+        tema: req.query.tema,
+        municipio: req.query.municipio,
+        dataInicio: req.query.dataInicio,
+        dataFim: req.query.dataFim,
+        search: req.query.search,
+        status: req.query.status,
 
-      const noticia = await DetalharNoticiaService.execute(id);
+        // Especificação do tipo de usuario
+        tipoUsuario: req.userRole || 'VISITANTE',
+      };
 
-      if (!noticia) {
-        return res.status(404).json({
-          erro: 'Notícia não encontrada',
-        });
-      }
-
-      return res.json(noticia);
+      const resultado = await ListarNoticiasService.execute(filtros);
+      return res.json(resultado);
     } catch (error) {
       console.error(error);
       return res.status(500).json({
-        erro: 'Erro ao buscar notícia',
+        erro: 'Erro ao listar notícias',
       });
     }
   }
