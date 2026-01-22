@@ -19,7 +19,7 @@ function CreateNewsForm({
   createNewsMutation,
 }) {
   return (
-    <div className="w-full md:w-[80%] lg:w-[70%]">
+    <div className="w-full lg:w-[80%] xl:w-[70%]">
       <h1 className="mb-6 text-xl font-semibold">Criar Notícia</h1>
       <Card>
         <CardContent className="pt-6">

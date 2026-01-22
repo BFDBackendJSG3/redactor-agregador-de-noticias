@@ -66,18 +66,21 @@ function CreateUserDialog({ onCreated }) {
         <div className="flex flex-col gap-3">
           <Input
             placeholder="Nome"
+            className="placeholder:text-sm"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
           />
 
           <Input
             placeholder="Email"
+            className="placeholder:text-sm"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
           <Input
             placeholder="Senha"
+            className="placeholder:text-sm"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

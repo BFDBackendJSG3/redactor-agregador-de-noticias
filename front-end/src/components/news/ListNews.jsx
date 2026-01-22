@@ -22,7 +22,7 @@ function ListNews({
   news,
 }) {
   return (
-    <div className="w-full md:w-[80%] lg:w-[70%]">
+    <div className="w-full lg:w-[80%] xl:w-[70%]">
       <h2 className="mb-6 text-xl font-semibold">Administrar Notícias</h2>
       {isLoadingNews ? (
         <Loader2Icon className="animate-spin" />

@@ -53,7 +53,7 @@ function DashboardUsers() {
 
   return (
     <div className="md:py-10">
-      <div className="mx-auto w-full md:w-[80%] lg:w-[70%]">
+      <div className="mx-auto w-full overflow-x-auto lg:w-[80%] xl:w-[70%]">
         <h1 className="mb-6 text-xl font-semibold">
           Administração de Usuários
         </h1>
@@ -66,7 +66,7 @@ function DashboardUsers() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <CreateUserDialog onCreated={carregarUsuarios} />
-        <table className="mt-3 mb-6 w-full border">
+        <table className="mt-3 mb-6 min-w-full border">
           <thead>
             <tr className="bg-muted">
               <th className="p-2 text-left">Nome</th>
