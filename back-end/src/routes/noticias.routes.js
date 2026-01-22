@@ -28,7 +28,7 @@ router.post(
 router.put(
   '/noticias/:id',
   authMiddleware,
-  roleMiddleware(['EDITOR', 'ADMIN']),
+  roleMiddleware(['EDITOR', 'ADMIN', 'JORNALISTA']),
   NoticiasController.atualizar
 );
 
