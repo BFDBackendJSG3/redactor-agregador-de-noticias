@@ -1,17 +1,9 @@
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogClose,
-  DialogHeader,
-  DialogDescription,
-} from '@/components/ui/dialog';
-import { Edit, Trash2, Loader2Icon, CheckCircle } from 'lucide-react';
+import { Edit, Loader2Icon, CheckCircle } from 'lucide-react';
 import { NEWS_STATUS } from '@/constants/news-status';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import DeleteNewsDialog from './DeleteNewsDialog';
 
 function ListNews({
   isLoadingNews,
@@ -24,6 +16,7 @@ function ListNews({
   return (
     <div className="w-full lg:w-[80%] xl:w-[70%]">
       <h2 className="mb-6 text-xl font-semibold">Administrar Notícias</h2>
+
       {isLoadingNews ? (
         <div className="flex w-full justify-center">
           <Loader2Icon className="animate-spin" />
@@ -33,19 +26,26 @@ function ListNews({
           {news.map((item) => (
             <Card key={item.id}>
               <CardHeader>
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  {/* Info principal */}
                   <div>
-                    <CardTitle className="text-lg">{item.titulo}</CardTitle>
-                    <div className="mt-2 flex gap-2">
+                    <CardTitle className="text-base sm:text-lg">
+                      {item.titulo}
+                    </CardTitle>
+
+                    <div className="mt-2 flex flex-wrap gap-2">
                       <Badge className={NEWS_STATUS[item.status]?.className}>
                         {NEWS_STATUS[item.status]?.label || item.status}
                       </Badge>
+
                       <Badge variant="outline">
                         {item.temaPrincipal?.nome}
                       </Badge>
                     </div>
                   </div>
-                  <div className="flex gap-2">
+
+                  {/* Ações Desktop */}
+                  <div className="hidden gap-2 md:flex">
                     {item.status === 'aguardando_revisao' && (
                       <Button
                         size="sm"
@@ -56,52 +56,55 @@ function ListNews({
                         <CheckCircle className="h-4 w-4" />
                       </Button>
                     )}
+
                     <Button size="sm" variant="outline">
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button size="sm" variant="destructive">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle className="text-md text-center">
-                            Excluir Notícia
-                          </DialogTitle>
-                          <DialogDescription>{item.titulo}</DialogDescription>
-                        </DialogHeader>
-                        <div className="flex gap-3">
-                          <DialogClose asChild>
-                            <Button className="flex-1" variant="outline">
-                              Cancelar
-                            </Button>
-                          </DialogClose>
-
-                          <Button
-                            variant="destructive"
-                            className="flex-1"
-                            onClick={() => handleDelete(item.id)}
-                            disabled={deleteNewsMutation.isPending}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                            Excluir
-                          </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                    <DeleteNewsDialog
+                      item={item}
+                      deleteNewsMutation={deleteNewsMutation}
+                      handleDelete={handleDelete}
+                      isMobile={false}
+                    />
                   </div>
                 </div>
               </CardHeader>
+
               <CardContent>
                 <p className="line-clamp-2 text-sm">{item.conteudo}</p>
-                <div className="mt-2 text-xs">
+
+                <div className="text-muted-foreground mt-2 text-xs">
                   Importado em:{' '}
                   {new Intl.DateTimeFormat('pt-BR', {
                     dateStyle: 'short',
                     timeStyle: 'short',
                   }).format(new Date(item.createdAt))}
+                </div>
+
+                {/* Ações Mobile */}
+                <div className="mt-4 flex gap-1 md:hidden">
+                  {item.status === 'aguardando_revisao' && (
+                    <Button
+                      size="sm"
+                      onClick={() => handleApprove(item.id)}
+                      disabled={approveNewsMutation.isPending}
+                      className="flex-1 bg-green-600 hover:bg-green-700"
+                    >
+                      <CheckCircle className="mr-1 h-4 w-4" />
+                      Aprovar
+                    </Button>
+                  )}
+
+                  <Button size="sm" variant="outline" className="flex-1">
+                    <Edit className="mr-1 h-4 w-4" />
+                    Editar
+                  </Button>
+                  <DeleteNewsDialog
+                    item={item}
+                    deleteNewsMutation={deleteNewsMutation}
+                    handleDelete={handleDelete}
+                    isMobile={true}
+                  />
                 </div>
               </CardContent>
             </Card>
