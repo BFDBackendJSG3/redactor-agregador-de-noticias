@@ -11,6 +11,13 @@ import {
 import { criarUsuario } from '@/services/users-service';
 import { toast } from 'sonner';
 import { Loader2Icon, User } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
 
 function CreateUserDialog({ onCreated }) {
   const [nome, setNome] = useState('');
@@ -87,18 +94,18 @@ function CreateUserDialog({ onCreated }) {
           />
 
           {/* Select simples (sem Radix Select por enquanto) */}
-          <select
-            className="border-input bg-background h-9 rounded-md border px-3 text-sm"
-            value={tipoUsuario}
-            onChange={(e) => setTipoUsuario(e.target.value)}
-          >
-            <option value="USER">Usuário</option>
-            <option value="ESTAGIARIO">Estagiário</option>
-            <option value="JORNALISTA">Jornalista</option>
-            <option value="EDITOR">Editor</option>
-            <option value="ADMIN">Administrador</option>
-          </select>
-
+          <Select value={tipoUsuario} onValueChange={(e) => setTipoUsuario(e)}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Selecione o tipo de usuário" />
+            </SelectTrigger>
+            <SelectContent className="bg-background">
+              <SelectItem value="USER">Usuário</SelectItem>
+              <SelectItem value="ESTAGIARIO">Estagiário</SelectItem>
+              <SelectItem value="JORNALISTA">Jornalista</SelectItem>
+              <SelectItem value="EDITOR">Editor</SelectItem>
+              <SelectItem value="ADMIN">Administrador</SelectItem>
+            </SelectContent>
+          </Select>
           <Button onClick={handleCreateUser}>
             {loadingCreate ? (
               <Loader2Icon className="animate-spin" />
