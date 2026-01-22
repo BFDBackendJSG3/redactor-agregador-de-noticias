@@ -25,7 +25,9 @@ function ListNews({
     <div className="w-full lg:w-[80%] xl:w-[70%]">
       <h2 className="mb-6 text-xl font-semibold">Administrar Notícias</h2>
       {isLoadingNews ? (
-        <Loader2Icon className="animate-spin" />
+        <div className="flex w-full justify-center">
+          <Loader2Icon className="animate-spin" />
+        </div>
       ) : (
         <div className="space-y-4">
           {news.map((item) => (
@@ -95,8 +97,11 @@ function ListNews({
               <CardContent>
                 <p className="line-clamp-2 text-sm">{item.conteudo}</p>
                 <div className="mt-2 text-xs">
-                  Criado em:{' '}
-                  {new Date(item.createdAt).toLocaleDateString('pt-BR')}
+                  Importado em:{' '}
+                  {new Intl.DateTimeFormat('pt-BR', {
+                    dateStyle: 'short',
+                    timeStyle: 'short',
+                  }).format(new Date(item.createdAt))}
                 </div>
               </CardContent>
             </Card>
