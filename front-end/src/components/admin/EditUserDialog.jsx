@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -29,6 +29,12 @@ function EditUserDialog({ usuario, onUpdated }) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [confirmRoleChange, setConfirmRoleChange] = useState(false);
+
+  useEffect(() => {
+    setTipoUsuario(usuario.tipoUsuario);
+    setNome(usuario.nome);
+    setEmail(usuario.email);
+  }, [usuario]);
 
   const isSelfAdmin = user?.tipoUsuario === 'ADMIN' && user?.id === usuario.id;
 
