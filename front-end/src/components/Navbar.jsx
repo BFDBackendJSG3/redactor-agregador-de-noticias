@@ -10,7 +10,7 @@ import {
   Notebook,
   Search,
 } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
 //import ThemeToggleButton from './ThemeToggleButton';
 import { useState } from 'react';
 import { Input } from './ui/input';
@@ -32,9 +32,11 @@ function Navbar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchMenuOpen, setIsSearchMenuOpen] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get('search') || '';
 
   //desktop links
   const navLinks = [
@@ -129,7 +131,15 @@ function Navbar() {
               {/* Desktop search */}
               <div className="hidden md:flex">
                 <div className="flex">
-                  <Input placeholder="Buscar" className="rounded-r-none" />
+                  <Input
+                    placeholder="Buscar"
+                    className="w-60 rounded-r-none"
+                    value={search}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setSearchParams(value ? { search: value } : {});
+                    }}
+                  />
                   <Button
                     size="icon"
                     className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700"
@@ -409,6 +419,11 @@ function Navbar() {
               <Input
                 placeholder="Buscar"
                 className="rounded-r-none placeholder:text-sm"
+                value={search}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearchParams(value ? { search: value } : {});
+                }}
               />
               <Button className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700">
                 <Search />

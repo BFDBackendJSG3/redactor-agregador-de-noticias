@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -12,8 +12,13 @@ import { atualizarUsuario } from '@/services/users-service';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { Loader2Icon } from 'lucide-react';
-
-const TIPOS_USUARIO = ['ADMIN', 'USER', 'ESTAGIARIO', 'JORNALISTA', 'EDITOR'];
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
 
 function EditUserDialog({ usuario, onUpdated }) {
   const [nome, setNome] = useState(usuario.nome);
@@ -24,6 +29,12 @@ function EditUserDialog({ usuario, onUpdated }) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [confirmRoleChange, setConfirmRoleChange] = useState(false);
+
+  useEffect(() => {
+    setTipoUsuario(usuario.tipoUsuario);
+    setNome(usuario.nome);
+    setEmail(usuario.email);
+  }, [usuario]);
 
   const isSelfAdmin = user?.tipoUsuario === 'ADMIN' && user?.id === usuario.id;
 
@@ -76,17 +87,21 @@ function EditUserDialog({ usuario, onUpdated }) {
             onChange={(e) => setPassword(e.target.value)}
           />
           {!isSelfAdmin && (
-            <select
-              className="border-input bg-background h-9 rounded-md border px-3 text-sm"
+            <Select
               value={tipoUsuario}
-              onChange={(e) => setTipoUsuario(e.target.value)}
+              onValueChange={(e) => setTipoUsuario(e)}
             >
-              {TIPOS_USUARIO.map((tipo) => (
-                <option key={tipo} value={tipo}>
-                  {tipo}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Selecione o tipo de usuário" />
+              </SelectTrigger>
+              <SelectContent className="bg-background">
+                <SelectItem value="USER">Usuário</SelectItem>
+                <SelectItem value="ESTAGIARIO">Estagiário</SelectItem>
+                <SelectItem value="JORNALISTA">Jornalista</SelectItem>
+                <SelectItem value="EDITOR">Editor</SelectItem>
+                <SelectItem value="ADMIN">Administrador</SelectItem>
+              </SelectContent>
+            </Select>
           )}
           {confirmRoleChange && (
             <div className="rounded-md border border-yellow-500 bg-yellow-50 p-3 text-sm">

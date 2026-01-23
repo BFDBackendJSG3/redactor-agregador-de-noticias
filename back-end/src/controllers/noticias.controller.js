@@ -83,8 +83,14 @@ class NoticiasController {
 
   async criarManual(req, res) {
     try {
-      const { titulo, subtitulo, conteudo, temaPrincipalId, municipios } =
-        req.body;
+      const {
+        titulo,
+        subtitulo,
+        conteudo,
+        temaPrincipalId,
+        municipios,
+        imagemUrl,
+      } = req.body;
 
       const noticia = await CriarNoticiaManualService.execute({
         titulo,
@@ -96,6 +102,7 @@ class NoticiasController {
           id: req.userId,
           tipoUsuario: req.userRole,
         },
+        imagemUrl: imagemUrl || null,
       });
 
       return res.status(201).json({
@@ -113,15 +120,25 @@ class NoticiasController {
   async atualizar(req, res) {
     try {
       const { id } = req.params;
-      const { titulo, conteudo, status, fonteId, temaPrincipalId } = req.body;
-
-      const noticia = await AtualizarNoticiaService.execute({
-        id,
+      const {
         titulo,
+        subtitulo,
         conteudo,
         status,
         fonteId,
         temaPrincipalId,
+        imagemUrl,
+      } = req.body;
+
+      const noticia = await AtualizarNoticiaService.execute({
+        id,
+        titulo,
+        subtitulo,
+        conteudo,
+        status,
+        fonteId,
+        temaPrincipalId,
+        imagemUrl: imagemUrl || null,
       });
 
       return res.json(noticia);

@@ -22,7 +22,7 @@ import { atualizarNoticia } from '@/services/news-service';
 import { THEMES } from '@/constants/news-themes';
 import { useMutation } from '@tanstack/react-query';
 
-function EditNewsDialog({ item, onSuccess }) {
+function EditNewsDialog({ item, onSuccess, isMobile }) {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     titulo: '',
@@ -72,15 +72,16 @@ function EditNewsDialog({ item, onSuccess }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="outline">
+        <Button size="sm" variant="outline" className={isMobile && 'flex-1'}>
           <Edit className="h-4 w-4" />
+          {isMobile && 'Editar'}
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="top-[50%]! sm:max-w-[90%]! md:max-w-[70%]! lg:max-w-[60%]! xl:max-w-225!">
         <DialogHeader>
           <DialogTitle className="text-center">Editar Notícia</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="mb-1 block text-sm">Título *</label>
             <Input
@@ -110,7 +111,7 @@ function EditNewsDialog({ item, onSuccess }) {
                 setFormData({ ...formData, temaPrincipalId: value })
               }
             >
-              <SelectTrigger>
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Selecione um tema" />
               </SelectTrigger>
               <SelectContent className="bg-background" position="popper">
@@ -140,6 +141,7 @@ function EditNewsDialog({ item, onSuccess }) {
                 setFormData({ ...formData, conteudo: e.target.value })
               }
               placeholder="Digite o conteúdo"
+              className="min-h-50"
               rows={6}
               required
             />
@@ -161,7 +163,10 @@ function EditNewsDialog({ item, onSuccess }) {
               {updateNewsMutation.isPending ? (
                 <Loader2Icon className="animate-spin" />
               ) : (
-                <Save className="h-4 w-4" />
+                <>
+                  <Save className="h-4 w-4" />
+                  Salvar
+                </>
               )}
             </Button>
           </div>
