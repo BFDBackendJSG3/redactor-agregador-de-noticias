@@ -111,7 +111,7 @@ function EditNewsDialog({ item, onSuccess, isMobile }) {
                 setFormData({ ...formData, temaPrincipalId: value })
               }
             >
-              <SelectTrigger>
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Selecione um tema" />
               </SelectTrigger>
               <SelectContent className="bg-background" position="popper">
