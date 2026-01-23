@@ -32,7 +32,7 @@ export async function criarNoticiaManual(payload) {
 }
 
 export async function atualizarNoticia(id, payload) {
-  // payload: { titulo, conteudo, status, fonteId, temaPrincipalId }
+  // payload: { titulo, subtitulo, conteudo, temaPrincipalId, imagemUrl }
   const res = await api.put(`/noticias/${id}`, payload);
   return res.data;
 }

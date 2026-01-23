@@ -1,7 +1,16 @@
 const { Noticia, Fonte, TemaPrincipal } = require('../../models');
 
 module.exports = {
-  async execute({ id, titulo, conteudo, status, fonteId, temaPrincipalId }) {
+  async execute({
+    id,
+    titulo,
+    subtitulo,
+    conteudo,
+    status,
+    fonteId,
+    temaPrincipalId,
+    imagemUrl,
+  }) {
     const noticia = await Noticia.findByPk(id);
 
     if (!noticia) {
@@ -24,10 +33,12 @@ module.exports = {
 
     await noticia.update({
       titulo: titulo ?? noticia.titulo,
+      subtitulo: subtitulo ?? noticia.subtitulo,
       conteudo: conteudo ?? noticia.conteudo,
       status: status ?? noticia.status,
       fonteId: fonteId ?? noticia.fonteId,
       temaPrincipalId: temaPrincipalId ?? noticia.temaPrincipalId,
+      imagemUrl: imagemUrl ?? noticia.imagemUrl,
     });
 
     return noticia;

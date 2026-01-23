@@ -96,6 +96,10 @@ function DashboardNews() {
     approveNewsMutation.mutate(id);
   };
 
+  const handleInvalidateQueries = () => {
+    queryClient.invalidateQueries(['admin-news']);
+  };
+
   return (
     <div className="flex flex-col items-center space-y-8 md:py-10">
       <CreateNewsForm
@@ -111,6 +115,7 @@ function DashboardNews() {
         approveNewsMutation={approveNewsMutation}
         deleteNewsMutation={deleteNewsMutation}
         news={news}
+        onSuccess={handleInvalidateQueries}
       />
     </div>
   );

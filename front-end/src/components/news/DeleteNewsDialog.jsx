@@ -21,7 +21,7 @@ function DeleteNewsDialog({
     <Dialog>
       <DialogTrigger asChild>
         <Button size="sm" variant="destructive" className="flex-1">
-          <Trash2 className={`h-4 w-4 ${isMobile ? 'mr-1' : ''}`} />
+          <Trash2 className="h-4 w-4" />
           {isMobile && 'Excluir'}
         </Button>
       </DialogTrigger>

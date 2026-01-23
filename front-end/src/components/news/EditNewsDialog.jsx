@@ -1,8 +1,177 @@
-function EditNewsDialog() {
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Button } from '../ui/button';
+import { Edit, Loader2Icon, Save } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { toast } from 'sonner';
+import { atualizarNoticia } from '@/services/news-service';
+import { THEMES } from '@/constants/news-themes';
+import { useMutation } from '@tanstack/react-query';
+
+function EditNewsDialog({ item, onSuccess }) {
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    titulo: '',
+    subtitulo: '',
+    conteudo: '',
+    temaPrincipalId: '',
+    imagemUrl: '',
+  });
+
+  // Inicializar form com dados da notícia
+  useEffect(() => {
+    if (item) {
+      setFormData({
+        titulo: item.titulo || '',
+        subtitulo: item.subtitulo || '',
+        conteudo: item.conteudo || '',
+        temaPrincipalId: item.temaPrincipalId?.toString() || '',
+        imagemUrl: item.imagemUrl || '',
+      });
+    }
+  }, [item]);
+
+  // Mutation para atualizar
+  const updateNewsMutation = useMutation({
+    mutationFn: (payload) => atualizarNoticia(item.id, payload),
+    onSuccess: () => {
+      setOpen(false);
+      onSuccess?.();
+      toast.success('Notícia atualizada com sucesso!');
+    },
+    onError: (error) => {
+      toast.error(
+        `Erro ao atualizar notícia: ${error.response?.data?.error || error.message}`
+      );
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.titulo || !formData.conteudo || !formData.temaPrincipalId) {
+      toast.warning('Título, conteúdo e tema são obrigatórios');
+      return;
+    }
+    updateNewsMutation.mutate(formData);
+  };
+
   return (
-    <div>
-      <div></div>
-    </div>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button size="sm" variant="outline">
+          <Edit className="h-4 w-4" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="top-[50%]! sm:max-w-[90%]! md:max-w-[70%]! lg:max-w-[60%]! xl:max-w-225!">
+        <DialogHeader>
+          <DialogTitle className="text-center">Editar Notícia</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="mb-1 block text-sm">Título *</label>
+            <Input
+              value={formData.titulo}
+              onChange={(e) =>
+                setFormData({ ...formData, titulo: e.target.value })
+              }
+              placeholder="Digite o título"
+              required
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm">Subtítulo</label>
+            <Input
+              value={formData.subtitulo}
+              onChange={(e) =>
+                setFormData({ ...formData, subtitulo: e.target.value })
+              }
+              placeholder="Digite o subtítulo (opcional)"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm">Tema *</label>
+            <Select
+              value={formData.temaPrincipalId}
+              onValueChange={(value) =>
+                setFormData({ ...formData, temaPrincipalId: value })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione um tema" />
+              </SelectTrigger>
+              <SelectContent className="bg-background" position="popper">
+                {Object.entries(THEMES).map(([key, id]) => (
+                  <SelectItem key={id} value={id.toString()}>
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <label className="mb-1 block text-sm">URL da Imagem</label>
+            <Input
+              value={formData.imagemUrl}
+              onChange={(e) =>
+                setFormData({ ...formData, imagemUrl: e.target.value })
+              }
+              placeholder="Digite a URL da imagem (opcional)"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm">Conteúdo *</label>
+            <Textarea
+              value={formData.conteudo}
+              onChange={(e) =>
+                setFormData({ ...formData, conteudo: e.target.value })
+              }
+              placeholder="Digite o conteúdo"
+              className="min-h-50"
+              rows={6}
+              required
+            />
+          </div>
+          <div className="flex gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpen(false)}
+              className="flex-1"
+            >
+              Cancelar
+            </Button>
+            <Button
+              type="submit"
+              disabled={updateNewsMutation.isPending}
+              className="flex-1"
+            >
+              {updateNewsMutation.isPending ? (
+                <Loader2Icon className="animate-spin" />
+              ) : (
+                <>
+                  <Save className="h-4 w-4" />
+                  Salvar
+                </>
+              )}
+            </Button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
 

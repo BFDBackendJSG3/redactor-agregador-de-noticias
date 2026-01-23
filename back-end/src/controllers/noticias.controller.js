@@ -113,15 +113,25 @@ class NoticiasController {
   async atualizar(req, res) {
     try {
       const { id } = req.params;
-      const { titulo, conteudo, status, fonteId, temaPrincipalId } = req.body;
-
-      const noticia = await AtualizarNoticiaService.execute({
-        id,
+      const {
         titulo,
+        subtitulo,
         conteudo,
         status,
         fonteId,
         temaPrincipalId,
+        imagemUrl,
+      } = req.body;
+
+      const noticia = await AtualizarNoticiaService.execute({
+        id,
+        titulo,
+        subtitulo,
+        conteudo,
+        status,
+        fonteId,
+        temaPrincipalId,
+        imagemUrl,
       });
 
       return res.json(noticia);

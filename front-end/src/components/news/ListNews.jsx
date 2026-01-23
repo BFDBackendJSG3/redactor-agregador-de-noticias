@@ -4,6 +4,7 @@ import { NEWS_STATUS } from '@/constants/news-status';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import DeleteNewsDialog from './DeleteNewsDialog';
+import EditNewsDialog from './EditNewsDialog';
 
 function ListNews({
   isLoadingNews,
@@ -12,6 +13,7 @@ function ListNews({
   approveNewsMutation,
   deleteNewsMutation,
   news,
+  onSuccess,
 }) {
   return (
     <div className="w-full lg:w-[80%] xl:w-[70%]">
@@ -57,9 +59,7 @@ function ListNews({
                       </Button>
                     )}
 
-                    <Button size="sm" variant="outline">
-                      <Edit className="h-4 w-4" />
-                    </Button>
+                    <EditNewsDialog item={item} onSuccess={onSuccess} />
                     <DeleteNewsDialog
                       item={item}
                       deleteNewsMutation={deleteNewsMutation}
@@ -90,13 +90,13 @@ function ListNews({
                       disabled={approveNewsMutation.isPending}
                       className="flex-1 bg-green-600 hover:bg-green-700"
                     >
-                      <CheckCircle className="mr-1 h-4 w-4" />
+                      <CheckCircle className="h-4 w-4" />
                       Aprovar
                     </Button>
                   )}
 
                   <Button size="sm" variant="outline" className="flex-1">
-                    <Edit className="mr-1 h-4 w-4" />
+                    <Edit className="h-4 w-4" />
                     Editar
                   </Button>
                   <DeleteNewsDialog
