@@ -140,13 +140,9 @@ A aplicação segue uma arquitetura **client-server**, separando claramente **ba
 - Gerenciador de pacotes npm ou yarn
 
 ### ▶️ Executar o back-end
-```bash
-npm install
-npm run dev
+- npm install
+- npm run dev
 
 ### ▶️ Executar o front-end
-```bash
-npm install
-npm run dev
-
-
+- npm install
+- npm run dev

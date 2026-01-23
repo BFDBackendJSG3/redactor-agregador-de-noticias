@@ -60,7 +60,6 @@ function MyProfile() {
       setEditando(false);
       setPassword('');
     } catch (err) {
-      console.log('ERRO AXIOS:', err);
       if (err.response) {
         toast.error(err.response.data.message);
       } else {

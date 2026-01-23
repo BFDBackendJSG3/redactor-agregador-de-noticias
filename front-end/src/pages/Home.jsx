@@ -1,7 +1,7 @@
 import { listarNoticias } from '@/services/news-service';
 import { useQuery } from '@tanstack/react-query';
 import { Loader2Icon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -14,10 +14,22 @@ import { generatePages } from '@/utils/pagination';
 
 function Home() {
   const [page, setPage] = useState(1);
+  //Busca por notícia
+  const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+      setPage(1); // reseta paginação ao buscar
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['news', page],
-    queryFn: () => listarNoticias(page),
+    queryKey: ['news', page, debouncedSearch],
+    queryFn: () => listarNoticias(page, { search: debouncedSearch}),
     keepPreviousData: true,
   });
 
@@ -41,8 +53,24 @@ function Home() {
       </div>
     );
   }
+  if (!isLoading && news.length === 0) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <p className="text-muted-foreground">
+          Nenhuma notícia encontrada para sua busca.
+        </p>
+      </div>
+    );
+  }
   return (
     <div className="space-y-6">
+      <input
+        type="text"
+        placeholder="Buscar notícias..."
+        className="border-input bg-background h-9 w-full rounded-md border px-3 text-sm"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <div className="space-y-4">
         {news.map((item) => (
           <div key={item.id}>{item.titulo}</div>

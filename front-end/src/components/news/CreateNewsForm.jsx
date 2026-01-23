@@ -71,6 +71,18 @@ function CreateNewsForm({
             </div>
 
             <div>
+              <label className="mb-1 block text-sm">URL da Imagem</label>
+              <Input
+                value={formData.imagemUrl}
+                onChange={(e) =>
+                  setFormData({ ...formData, imagemUrl: e.target.value })
+                }
+                className="placeholder:text-sm"
+                placeholder="Digite a URL da imagem (opcional)"
+              />
+            </div>
+
+            <div>
               <label className="mb-1 block text-sm">Conteúdo *</label>
               <Textarea
                 value={formData.conteudo}
@@ -93,7 +105,7 @@ function CreateNewsForm({
                 <Loader2Icon className="animate-spin" />
               ) : (
                 <>
-                  <Newspaper className="mr-2 h-4 w-4" />
+                  <Newspaper className="h-4 w-4" />
                   Criar Notícia
                 </>
               )}

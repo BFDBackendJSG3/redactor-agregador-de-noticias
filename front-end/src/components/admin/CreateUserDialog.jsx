@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   Dialog,
   DialogContent,
@@ -8,115 +5,170 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { criarUsuario } from '@/services/users-service';
-import { toast } from 'sonner';
-import { Loader2Icon, User } from 'lucide-react';
+import { Button } from '../ui/button';
+import { Edit, Loader2Icon, Save } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
+} from '@/components/ui/select';
+import { toast } from 'sonner';
+import { atualizarNoticia } from '@/services/news-service';
+import { THEMES } from '@/constants/news-themes';
+import { useMutation } from '@tanstack/react-query';
 
-function CreateUserDialog({ onCreated }) {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [tipoUsuario, setTipoUsuario] = useState('USER');
+function EditNewsDialog({ item, onSuccess }) {
   const [open, setOpen] = useState(false);
-  const [loadingCreate, setLoadingCreate] = useState(null);
+  const [formData, setFormData] = useState({
+    titulo: '',
+    subtitulo: '',
+    conteudo: '',
+    temaPrincipalId: '',
+    imagemUrl: '',
+  });
 
-  async function handleCreateUser() {
-    if (!nome || !email || !password || !tipoUsuario) {
-      toast.warning('Preencha todos os campos.');
+  // Inicializar form com dados da notícia
+  useEffect(() => {
+    if (item) {
+      setFormData({
+        titulo: item.titulo || '',
+        subtitulo: item.subtitulo || '',
+        conteudo: item.conteudo || '',
+        temaPrincipalId: item.temaPrincipalId?.toString() || '',
+        imagemUrl: item.imagemUrl || '',
+      });
+    }
+  }, [item]);
+
+  // Mutation para atualizar
+  const updateNewsMutation = useMutation({
+    mutationFn: (payload) => atualizarNoticia(item.id, payload),
+    onSuccess: () => {
+      setOpen(false);
+      onSuccess?.();
+      toast.success('Notícia atualizada com sucesso!');
+    },
+    onError: (error) => {
+      toast.error(
+        `Erro ao atualizar notícia: ${error.response?.data?.error || error.message}`
+      );
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.titulo || !formData.conteudo || !formData.temaPrincipalId) {
+      toast.warning('Título, conteúdo e tema são obrigatórios');
       return;
     }
-    setLoadingCreate(true);
-    try {
-      await criarUsuario({
-        nome,
-        email,
-        password,
-        tipoUsuario,
-      });
-
-      toast.success('Usuário criado com sucesso!');
-      setOpen(false);
-
-      // limpar formulário
-      setNome('');
-      setEmail('');
-      setPassword('');
-      setTipoUsuario('USER');
-      onCreated();
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Erro ao criar usuário');
-    }
-    setLoadingCreate(false);
-  }
+    updateNewsMutation.mutate(formData);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
-          <User />
-          Cadastrar Usuário
+        <Button size="sm" variant="outline">
+          <Edit className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Cadastrar novo usuário</DialogTitle>
+          <DialogTitle className="text-center">Editar Notícia</DialogTitle>
         </DialogHeader>
-
-        <div className="flex flex-col gap-3">
-          <Input
-            placeholder="Nome"
-            className="placeholder:text-sm"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
-
-          <Input
-            placeholder="Email"
-            className="placeholder:text-sm"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <Input
-            placeholder="Senha"
-            className="placeholder:text-sm"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          {/* Select simples (sem Radix Select por enquanto) */}
-          <Select value={tipoUsuario} onValueChange={(e) => setTipoUsuario(e)}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Selecione o tipo de usuário" />
-            </SelectTrigger>
-            <SelectContent className="bg-background">
-              <SelectItem value="USER">Usuário</SelectItem>
-              <SelectItem value="ESTAGIARIO">Estagiário</SelectItem>
-              <SelectItem value="JORNALISTA">Jornalista</SelectItem>
-              <SelectItem value="EDITOR">Editor</SelectItem>
-              <SelectItem value="ADMIN">Administrador</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button onClick={handleCreateUser}>
-            {loadingCreate ? (
-              <Loader2Icon className="animate-spin" />
-            ) : (
-              'Criar Usuário'
-            )}
-          </Button>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label className="mb-1 block text-sm">Título *</label>
+            <Input
+              value={formData.titulo}
+              onChange={(e) =>
+                setFormData({ ...formData, titulo: e.target.value })
+              }
+              placeholder="Digite o título"
+              required
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm">Subtítulo</label>
+            <Input
+              value={formData.subtitulo}
+              onChange={(e) =>
+                setFormData({ ...formData, subtitulo: e.target.value })
+              }
+              placeholder="Digite o subtítulo (opcional)"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm">Tema *</label>
+            <Select
+              value={formData.temaPrincipalId}
+              onValueChange={(value) =>
+                setFormData({ ...formData, temaPrincipalId: value })
+              }
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione um tema" />
+              </SelectTrigger>
+              <SelectContent className="bg-background" position="popper">
+                {Object.entries(THEMES).map(([key, id]) => (
+                  <SelectItem key={id} value={id.toString()}>
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <label className="mb-1 block text-sm">URL da Imagem</label>
+            <Input
+              value={formData.imagemUrl}
+              onChange={(e) =>
+                setFormData({ ...formData, imagemUrl: e.target.value })
+              }
+              placeholder="Digite a URL da imagem (opcional)"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm">Conteúdo *</label>
+            <Textarea
+              value={formData.conteudo}
+              onChange={(e) =>
+                setFormData({ ...formData, conteudo: e.target.value })
+              }
+              placeholder="Digite o conteúdo"
+              rows={6}
+              required
+            />
+          </div>
+          <div className="flex gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setOpen(false)}
+              className="flex-1"
+            >
+              Cancelar
+            </Button>
+            <Button
+              type="submit"
+              disabled={updateNewsMutation.isPending}
+              className="flex-1"
+            >
+              {updateNewsMutation.isPending ? (
+                <Loader2Icon className="animate-spin" />
+              ) : (
+                <Save className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
+        </form>
       </DialogContent>
     </Dialog>
   );
 }
 
-export default CreateUserDialog;
+export default EditNewsDialog;

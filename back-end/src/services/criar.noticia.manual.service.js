@@ -8,6 +8,7 @@ class CriarNoticiaManualService {
     temaPrincipalId,
     municipios = [],
     autor,
+    imagemUrl,
   }) {
     if (!titulo || !conteudo || !temaPrincipalId) {
       throw new Error('Título, conteúdo e tema são obrigatórios');
@@ -38,6 +39,7 @@ class CriarNoticiaManualService {
       fonteId: fonte.id,
       tipoNoticia: 'criada',
       status,
+      imagemUrl: imagemUrl || null,
       dataDeImportacao: new Date(),
       dataDePublicacao: status === 'publicado' ? new Date() : null,
     });

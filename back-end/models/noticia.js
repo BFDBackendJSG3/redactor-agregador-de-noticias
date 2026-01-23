@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
   Noticia.init(
     {
       titulo: DataTypes.STRING,
+      subtitulo: DataTypes.STRING,
       conteudo: DataTypes.TEXT,
       url: DataTypes.STRING,
       dataDePublicacao: DataTypes.DATE,
