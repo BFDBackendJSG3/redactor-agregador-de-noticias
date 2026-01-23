@@ -22,7 +22,7 @@ function CreateNewsForm({
     <div className="w-full lg:w-[80%] xl:w-[70%]">
       <h1 className="mb-6 text-xl font-semibold">Criar Notícia</h1>
       <Card>
-        <CardContent className="pt-6">
+        <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="mb-1 block text-sm">Título *</label>

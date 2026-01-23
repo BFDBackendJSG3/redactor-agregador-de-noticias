@@ -11,11 +11,13 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { generatePages } from '@/utils/pagination';
+import { useSearchParams } from 'react-router';
 
 function Home() {
   const [page, setPage] = useState(1);
   //Busca por notícia
-  const [search, setSearch] = useState('');
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get('search') || '';
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
   useEffect(() => {
@@ -29,7 +31,7 @@ function Home() {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['news', page, debouncedSearch],
-    queryFn: () => listarNoticias(page, { search: debouncedSearch}),
+    queryFn: () => listarNoticias(page, { search: debouncedSearch }),
     keepPreviousData: true,
   });
 
@@ -64,13 +66,6 @@ function Home() {
   }
   return (
     <div className="space-y-6">
-      <input
-        type="text"
-        placeholder="Buscar notícias..."
-        className="border-input bg-background h-9 w-full rounded-md border px-3 text-sm"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
       <div className="space-y-4">
         {news.map((item) => (
           <div key={item.id}>{item.titulo}</div>
