@@ -38,7 +38,7 @@ module.exports = {
       status: status ?? noticia.status,
       fonteId: fonteId ?? noticia.fonteId,
       temaPrincipalId: temaPrincipalId ?? noticia.temaPrincipalId,
-      imagemUrl: imagemUrl ?? noticia.imagemUrl,
+      imagemUrl: imagemUrl || null,
     });
 
     return noticia;

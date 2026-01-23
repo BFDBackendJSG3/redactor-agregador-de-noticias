@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 
 import { Button } from '../ui/button';
-import { Trash2 } from 'lucide-react';
+import { Loader2Icon, Trash2 } from 'lucide-react';
 
 function DeleteNewsDialog({
   item,
@@ -47,8 +47,14 @@ function DeleteNewsDialog({
             onClick={() => handleDelete(item.id)}
             disabled={deleteNewsMutation.isPending}
           >
-            <Trash2 className="mr-2 h-4 w-4" />
-            Excluir
+            {deleteNewsMutation.isPending ? (
+              <Loader2Icon className="animate-spin" />
+            ) : (
+              <>
+                <Trash2 className="mr-2 h-4 w-4" />
+                Excluir
+              </>
+            )}
           </Button>
         </div>
       </DialogContent>

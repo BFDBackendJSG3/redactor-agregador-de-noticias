@@ -22,7 +22,7 @@ import { atualizarNoticia } from '@/services/news-service';
 import { THEMES } from '@/constants/news-themes';
 import { useMutation } from '@tanstack/react-query';
 
-function EditNewsDialog({ item, onSuccess }) {
+function EditNewsDialog({ item, onSuccess, isMobile }) {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     titulo: '',
@@ -72,8 +72,9 @@ function EditNewsDialog({ item, onSuccess }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" variant="outline">
+        <Button size="sm" variant="outline" className={isMobile && 'flex-1'}>
           <Edit className="h-4 w-4" />
+          {isMobile && 'Editar'}
         </Button>
       </DialogTrigger>
       <DialogContent className="top-[50%]! sm:max-w-[90%]! md:max-w-[70%]! lg:max-w-[60%]! xl:max-w-225!">

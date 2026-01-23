@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Edit, Loader2Icon, CheckCircle } from 'lucide-react';
+import { Loader2Icon, CheckCircle } from 'lucide-react';
 import { NEWS_STATUS } from '@/constants/news-status';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -94,11 +94,11 @@ function ListNews({
                       Aprovar
                     </Button>
                   )}
-
-                  <Button size="sm" variant="outline" className="flex-1">
-                    <Edit className="h-4 w-4" />
-                    Editar
-                  </Button>
+                  <EditNewsDialog
+                    item={item}
+                    onSuccess={onSuccess}
+                    isMobile={true}
+                  />
                   <DeleteNewsDialog
                     item={item}
                     deleteNewsMutation={deleteNewsMutation}
