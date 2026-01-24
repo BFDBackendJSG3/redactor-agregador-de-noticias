@@ -71,40 +71,47 @@ function Home() {
           <div key={item.id}>{item.titulo}</div>
         ))}
       </div>
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => setPage((p) => Math.max(p - 1, 1))}
-              className={
-                page === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'
-              }
-            />
-          </PaginationItem>
-
-          {pages.map((p) => (
-            <PaginationItem key={p}>
-              <PaginationLink isActive={p === page} onClick={() => setPage(p)}>
-                {p}
-              </PaginationLink>
+      {totalPages > 1 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                className={
+                  page === 1
+                    ? 'pointer-events-none opacity-50'
+                    : 'cursor-pointer'
+                }
+              />
             </PaginationItem>
-          ))}
-          <PaginationItem>
-            <PaginationNext
-              onClick={() =>
-                setPage((p) =>
-                  meta?.totalPages ? Math.min(p + 1, meta.totalPages) : p + 1
-                )
-              }
-              className={
-                page === totalPages
-                  ? 'pointer-events-none opacity-50'
-                  : 'cursor-pointer'
-              }
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+
+            {pages.map((p) => (
+              <PaginationItem key={p}>
+                <PaginationLink
+                  isActive={p === page}
+                  onClick={() => setPage(p)}
+                >
+                  {p}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() =>
+                  setPage((p) =>
+                    meta?.totalPages ? Math.min(p + 1, meta.totalPages) : p + 1
+                  )
+                }
+                className={
+                  page === totalPages
+                    ? 'pointer-events-none opacity-50'
+                    : 'cursor-pointer'
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
     </div>
   );
 }

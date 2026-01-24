@@ -10,6 +10,7 @@ import DashboardNews from './pages/DashboardNews';
 import FavoriteNews from './pages/FavoriteNews';
 import NewsByTheme from './pages/NewsByTheme';
 import MyProfile from './pages/MyProfile';
+import NewsByCity from './pages/NewsByCity';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/admin/usuarios" element={<DashboardUsers />} />
           <Route path="/noticias-salvas" element={<FavoriteNews />} />
           <Route path="/noticias/:tema" element={<NewsByTheme />} />
+          <Route path="/noticias/cidade/:cidade" element={<NewsByCity />} />
         </Routes>
       </div>
     </div>

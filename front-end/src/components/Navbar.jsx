@@ -9,8 +9,15 @@ import {
   Scale,
   Notebook,
   Search,
+  ChevronDown,
 } from 'lucide-react';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
+import {
+  Link,
+  useLocation,
+  useMatch,
+  useNavigate,
+  useSearchParams,
+} from 'react-router';
 //import ThemeToggleButton from './ThemeToggleButton';
 import { useState } from 'react';
 import { Input } from './ui/input';
@@ -26,59 +33,32 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from './ui/dropdown-menu';
+import { CITIES_MENU, THEMES_MENU } from '@/constants/nav-links';
 
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
+
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchMenuOpen, setIsSearchMenuOpen] = useState(false);
 
+  //precisa usar useMatch pois a navbar esta fora das rotas, useParams n funciona.
+  const themeMatch = useMatch('/noticias/:tema');
+  const activeThemeSlug = themeMatch?.params?.tema;
+  const activeTheme = THEMES_MENU.find((item) => item.slug === activeThemeSlug); //pega o label para usar no link
+
+  const cityMatch = useMatch('/noticias/cidade/:slug');
+  const activeCitySlug = cityMatch?.params?.slug;
+  const activeCity = CITIES_MENU.find((item) => item.slug === activeCitySlug); //pega o label para usar no link
+
+  const isCityRoute = !!cityMatch;
+  const isThemeRoute = !!themeMatch && !cityMatch;
+
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search') || '';
-
-  //desktop links
-  const navLinks = [
-    {
-      label: 'Início',
-      to: '/',
-      match: ['/'],
-    },
-    {
-      label: 'Últimas Notícias',
-      to: '/ultimas-noticias',
-      match: ['/ultimas-noticias'],
-    },
-    {
-      label: 'Política',
-      to: '/noticias/politica',
-      match: ['/noticias/politica'],
-    },
-    {
-      label: 'Saúde',
-      to: '/noticias/saude',
-      match: ['/noticias/saude'],
-    },
-    {
-      label: 'Educação',
-      to: '/noticias/educacao',
-      match: ['/noticias/educacao'],
-    },
-    {
-      label: 'Quem Somos',
-      to: '/sobre',
-      match: ['/sobre'],
-    },
-    {
-      label: 'Contato',
-      to: '/contato',
-      match: ['/contato'],
-    },
-    ...(!user
-      ? [{ label: 'Login', to: '/login', match: ['/login', '/cadastro'] }]
-      : []),
-  ];
 
   const isAuthRoute =
     location.pathname === '/login' || location.pathname === '/cadastro';
@@ -151,7 +131,7 @@ function Navbar() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <div className="ml-3 flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-white hover:bg-emerald-700">
-                        {user.nome?.charAt(0)?.toUpperCase()}
+                        {user.nome?.charAt(0)?.toUpperCase() || 'U'}
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
@@ -183,7 +163,8 @@ function Navbar() {
                       )}
                       {(user.tipoUsuario === 'ADMIN' ||
                         user.tipoUsuario === 'JORNALISTA' ||
-                        user.tipoUsuario === 'EDITOR') && (
+                        user.tipoUsuario === 'EDITOR' ||
+                        user.tipoUsuario === 'ESTAGIARIO') && (
                         <DropdownMenuItem
                           onClick={() => navigate('/adicionar-noticia')}
                         >
@@ -435,24 +416,97 @@ function Navbar() {
       {/* Barra de links desktop */}
       <div className="bg-background hidden h-10 w-full border-b md:block">
         <div className="mx-auto flex h-full max-w-7xl items-center justify-center gap-5.5 lg:gap-9">
-          {navLinks.map((link) => {
-            const isActive = link.match.includes(location.pathname);
-            return (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`text-sm transition-colors hover:text-emerald-600 ${
-                  isActive
-                    ? 'font-semibold text-emerald-600'
-                    : 'text-muted-foreground'
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          <Link
+            to="/"
+            className={`text-sm transition-colors hover:text-emerald-600 ${
+              location.pathname === '/'
+                ? 'font-semibold text-emerald-600'
+                : 'text-muted-foreground'
+            }`}
+          >
+            Inicio
+          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className={`flex items-center gap-1 text-sm transition-colors hover:text-emerald-600 ${
+                isCityRoute
+                  ? 'font-semibold text-emerald-600'
+                  : 'text-muted-foreground'
+              }`}
+            >
+              {activeCity?.label || 'Cidades'}
+              <ChevronDown className="mt-0.5 h-4 w-4" />
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent align="center" className="bg-card">
+              {CITIES_MENU.map((item) => (
+                <DropdownMenuItem
+                  key={item.slug}
+                  onClick={() => navigate(`/noticias/cidade/${item.slug}`)}
+                >
+                  {item.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className={`flex items-center gap-1 text-sm transition-colors hover:text-emerald-600 ${
+                isThemeRoute
+                  ? 'font-semibold text-emerald-600'
+                  : 'text-muted-foreground'
+              }`}
+            >
+              {activeTheme?.label || 'Temas'}
+              <ChevronDown className="mt-0.5 h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="center" className="bg-card">
+              {THEMES_MENU.map((item) => (
+                <DropdownMenuItem
+                  key={item.slug}
+                  onClick={() => navigate(`/noticias/${item.slug}`)}
+                >
+                  {item.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Link
+            to="/sobre"
+            className={`text-sm transition-colors hover:text-emerald-600 ${
+              location.pathname === '/sobre'
+                ? 'font-semibold text-emerald-600'
+                : 'text-muted-foreground'
+            }`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Quem Somos
+          </Link>
+          <Link
+            to="/contato"
+            className={`text-sm transition-colors hover:text-emerald-600 ${
+              location.pathname === '/contato'
+                ? 'font-semibold text-emerald-600'
+                : 'text-muted-foreground'
+            }`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Contato
+          </Link>
+          {!user && (
+            <Link
+              to="/login"
+              className={`text-sm transition-colors hover:text-emerald-600 ${
+                isAuthRoute
+                  ? 'font-semibold text-emerald-600'
+                  : 'text-muted-foreground'
+              }`}
+            >
+              Login
+            </Link>
+          )}
           <Button
-            className="hover:text-emerald-600"
+            className="transition-colors hover:text-emerald-600"
             size="icon"
             variant="icon"
             onClick={toggleTheme}
