@@ -128,6 +128,7 @@ class NoticiasController {
         fonteId,
         temaPrincipalId,
         imagemUrl,
+        municipios, // <-- adicionar aqui
       } = req.body;
 
       const noticia = await AtualizarNoticiaService.execute({
@@ -139,6 +140,7 @@ class NoticiasController {
         fonteId,
         temaPrincipalId,
         imagemUrl: imagemUrl || null,
+        municipios, // <-- passar para o serviço
       });
 
       return res.json(noticia);

@@ -105,8 +105,23 @@ function DashboardNews() {
     deleteNewsMutation.mutate(id);
   };
 
-  const handleApprove = (id) => {
-    approveNewsMutation.mutate(id);
+  const handleApprove = (noticia) => {
+    // Garante que municipios seja sempre array de nomes
+    let municipiosArr = [];
+    if (Array.isArray(noticia.municipios)) {
+      municipiosArr = noticia.municipios.map((m) =>
+        typeof m === 'string' ? m : m.nome
+      );
+    } else if (typeof noticia.municipios === 'string') {
+      municipiosArr = noticia.municipios
+        .split(',')
+        .map((m) => m.trim())
+        .filter(Boolean);
+    }
+    approveNewsMutation.mutate({
+      id: noticia.id,
+      noticiaAtual: { ...noticia, municipios: municipiosArr },
+    });
   };
 
   const handleInvalidateQueries = () => {

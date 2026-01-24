@@ -51,7 +51,7 @@ function ListNews({
                     {item.status === 'aguardando_revisao' && (
                       <Button
                         size="sm"
-                        onClick={() => handleApprove(item.id)}
+                        onClick={() => handleApprove(item)}
                         disabled={approveNewsMutation.isPending}
                         className="bg-green-600 hover:bg-green-700"
                       >
@@ -86,7 +86,7 @@ function ListNews({
                   {item.status === 'aguardando_revisao' && (
                     <Button
                       size="sm"
-                      onClick={() => handleApprove(item.id)}
+                      onClick={() => handleApprove(item)}
                       disabled={approveNewsMutation.isPending}
                       className="flex-1 bg-green-600 hover:bg-green-700"
                     >

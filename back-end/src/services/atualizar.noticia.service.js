@@ -1,4 +1,4 @@
-const { Noticia, Fonte, TemaPrincipal } = require('../../models');
+const { Noticia, Fonte, TemaPrincipal, Municipio } = require('../../models');
 
 module.exports = {
   async execute({
@@ -10,6 +10,7 @@ module.exports = {
     fonteId,
     temaPrincipalId,
     imagemUrl,
+    municipios = [],
   }) {
     const noticia = await Noticia.findByPk(id);
 
@@ -40,6 +41,21 @@ module.exports = {
       temaPrincipalId: temaPrincipalId ?? noticia.temaPrincipalId,
       imagemUrl: imagemUrl || null,
     });
+
+    // Atualizar municípios se fornecidos
+    if (municipios && Array.isArray(municipios)) {
+      // Se municipios são strings (nomes), buscar os IDs
+      let municipioIds = municipios;
+      if (typeof municipios[0] === 'string') {
+        const { Op } = require('sequelize');
+        const municipiosEncontrados = await Municipio.findAll({
+          where: { nome: { [Op.in]: municipios } },
+          attributes: ['id'],
+        });
+        municipioIds = municipiosEncontrados.map((m) => m.id);
+      }
+      await noticia.setMunicipios(municipioIds);
+    }
 
     return noticia;
   },

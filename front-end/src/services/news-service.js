@@ -42,7 +42,11 @@ export async function deletarNoticia(id) {
   return res.data;
 }
 
-export async function aprovarNoticia(id) {
-  const res = await api.put(`/noticias/${id}`, { status: 'publicado' });
+export async function aprovarNoticia({ id, noticiaAtual }) {
+  // noticiaAtual deve conter todos os campos, inclusive municipios
+  const res = await api.put(`/noticias/${id}`, {
+    ...noticiaAtual,
+    status: 'publicado',
+  });
   return res.data;
 }
