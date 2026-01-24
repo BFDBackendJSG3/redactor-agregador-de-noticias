@@ -30,17 +30,22 @@ function EditNewsDialog({ item, onSuccess, isMobile }) {
     conteudo: '',
     temaPrincipalId: '',
     imagemUrl: '',
+    municipios: '',
   });
 
   // Inicializar form com dados da notícia
   useEffect(() => {
     if (item) {
+      const municipiosString =
+        item.municipios?.map((m) => m.nome).join(', ') || '';
+
       setFormData({
         titulo: item.titulo || '',
         subtitulo: item.subtitulo || '',
         conteudo: item.conteudo || '',
         temaPrincipalId: item.temaPrincipalId?.toString() || '',
         imagemUrl: item.imagemUrl || '',
+        municipios: municipiosString,
       });
     }
   }, [item]);
@@ -66,7 +71,24 @@ function EditNewsDialog({ item, onSuccess, isMobile }) {
       toast.warning('Título, conteúdo e tema são obrigatórios');
       return;
     }
-    updateNewsMutation.mutate(formData);
+
+    const processedMunicipios = formData.municipios
+      ? formData.municipios
+          .split(',')
+          .map((m) => m.trim())
+          .filter((m) => m)
+      : [];
+
+    const payload = {
+      titulo: formData.titulo,
+      subtitulo: formData.subtitulo || null,
+      conteudo: formData.conteudo,
+      temaPrincipalId: formData.temaPrincipalId,
+      imagemUrl: formData.imagemUrl || null,
+      municipios: processedMunicipios,
+    };
+
+    updateNewsMutation.mutate(payload);
   };
 
   return (
@@ -131,6 +153,19 @@ function EditNewsDialog({ item, onSuccess, isMobile }) {
                 setFormData({ ...formData, imagemUrl: e.target.value })
               }
               placeholder="Digite a URL da imagem (opcional)"
+            />
+          </div>
+          <div>
+            <label className="mb-1 block text-sm">
+              Municípios (separados por vírgula)
+            </label>
+            <Input
+              value={formData.municipios}
+              onChange={(e) =>
+                setFormData({ ...formData, municipios: e.target.value })
+              }
+              className="placeholder:text-sm"
+              placeholder="Ex: João Pessoa, Campina Grande (opcional)"
             />
           </div>
           <div>

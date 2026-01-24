@@ -83,6 +83,20 @@ function CreateNewsForm({
             </div>
 
             <div>
+              <label className="mb-1 block text-sm">
+                Municípios (separados por vírgula)
+              </label>
+              <Input
+                value={formData.municipios}
+                onChange={(e) =>
+                  setFormData({ ...formData, municipios: e.target.value })
+                }
+                className="placeholder:text-sm"
+                placeholder="Ex: João Pessoa, Campina Grande (opcional)"
+              />
+            </div>
+
+            <div>
               <label className="mb-1 block text-sm">Conteúdo *</label>
               <Textarea
                 value={formData.conteudo}

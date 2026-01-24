@@ -45,7 +45,25 @@ class CriarNoticiaManualService {
     });
 
     if (municipios.length) {
-      await noticia.setMunicipios(municipios);
+      // Se municipios são strings (nomes), buscar os IDs
+      let municipioIds = municipios;
+      if (typeof municipios[0] === 'string') {
+        const { Op } = require('sequelize');
+        const municipiosEncontrados = await Municipio.findAll({
+          where: {
+            nome: { [Op.in]: municipios }, // Usar IN para busca exata
+          },
+          attributes: ['id'],
+        });
+        municipioIds = municipiosEncontrados.map((m) => m.id);
+        console.log(
+          'Municípios buscados:',
+          municipios,
+          'Encontrados:',
+          municipiosEncontrados.length
+        );
+      }
+      await noticia.setMunicipios(municipioIds);
     }
 
     return noticia;

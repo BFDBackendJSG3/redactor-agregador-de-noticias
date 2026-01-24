@@ -28,6 +28,13 @@ module.exports = {
         as: 'temaPrincipal',
         attributes: ['id', 'nome'],
       },
+      {
+        model: Municipio,
+        as: 'municipios',
+        through: { attributes: [] },
+        attributes: ['id', 'nome'],
+        required: false, // LEFT JOIN
+      },
     ];
 
     // Filtro por tipo de notícia (manual / importada)
@@ -54,12 +61,30 @@ module.exports = {
 
     // Filtro por município
     if (municipio) {
+      const normalizedMunicipio = municipio
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, (l) => l.toUpperCase())
+        .replace(/Joao/g, 'João'); // Adicionar acentos comuns
+
+      const municipioWhere = isNaN(municipio)
+        ? { nome: { [Op.iLike]: normalizedMunicipio } }
+        : { id: municipio };
+
+      // Remover o include padrão e adicionar um novo com filtro
+      const municipioIndex = include.findIndex(
+        (inc) => inc.as === 'municipios'
+      );
+      if (municipioIndex !== -1) {
+        include.splice(municipioIndex, 1);
+      }
+
       include.push({
         model: Municipio,
         as: 'municipios',
-        where: { id: municipio },
+        where: municipioWhere,
         through: { attributes: [] },
         attributes: ['id', 'nome'],
+        required: true, // INNER JOIN quando há filtro
       });
     }
 

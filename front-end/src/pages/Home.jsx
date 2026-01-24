@@ -59,9 +59,7 @@ function Home() {
   if (!isLoading && news.length === 0) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <p className="text-muted-foreground">
-          Nenhuma notícia encontrada para sua busca.
-        </p>
+        <p className="text-muted-foreground">Nenhuma notícia encontrada.</p>
       </div>
     );
   }
