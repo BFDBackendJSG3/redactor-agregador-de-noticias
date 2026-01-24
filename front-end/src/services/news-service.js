@@ -21,7 +21,7 @@ export async function listarNoticiasAdmin(page = 1, filtros = {}) {
 }
 
 export async function detalharNoticia(id) {
-  const res = await api.get(`/noticias/${id}`);
+  const res = await api.get(`/noticia/${id}`);
   return res.data;
 }
 

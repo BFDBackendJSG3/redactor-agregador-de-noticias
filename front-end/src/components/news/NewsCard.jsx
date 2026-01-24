@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 
 function NewsCard({ noticia }) {
   return (
-    <div className="rounded-lg border bg-card shadow-sm">
+    <div className="bg-card rounded-lg border shadow-sm">
       {noticia.imagemUrl && (
         <img
           src={noticia.imagemUrl}
@@ -13,20 +13,16 @@ function NewsCard({ noticia }) {
       )}
 
       <div className="space-y-2 p-4">
-        <h3 className="text-lg font-semibold">
-          {noticia.titulo}
-        </h3>
+        <h3 className="text-lg font-semibold">{noticia.titulo}</h3>
 
         {noticia.fonte && (
-            <p className="text-sm text-muted-foreground">
-                Fonte: {noticia.fonte.responsavel}
-            </p>
+          <p className="text-muted-foreground text-sm">
+            Fonte: {noticia.fonte.responsavel}
+          </p>
         )}
 
         <Button asChild variant="outline" size="sm">
-          <Link to={`/noticias/${noticia.id}`}>
-            Ver mais
-          </Link>
+          <Link to={`/noticia/${noticia.id}`}>Ver mais</Link>
         </Button>
       </div>
     </div>

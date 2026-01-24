@@ -46,15 +46,16 @@ function Navbar() {
   const [isSearchMenuOpen, setIsSearchMenuOpen] = useState(false);
 
   //precisa usar useMatch pois a navbar esta fora das rotas, useParams n funciona.
-  const themeMatch = useMatch('/noticias/:tema');
+  const themeMatch = useMatch({ path: '/noticias/tema/:tema', end: true });
   const activeThemeSlug = themeMatch?.params?.tema;
-  const activeTheme = THEMES_MENU.find((item) => item.slug === activeThemeSlug); //pega o label para usar no link
-  const cityMatch = useMatch('/noticias/cidade/:slug');
-  const activeCitySlug = cityMatch?.params?.slug;
-  const activeCity = CITIES_MENU.find((item) => item.slug === activeCitySlug); //pega o label para usar no link
-  const isCityRoute = !!cityMatch;
-  const isThemeRoute = !!themeMatch && !cityMatch;
+  const activeTheme = THEMES_MENU.find((item) => item.slug === activeThemeSlug);
 
+  const cityMatch = useMatch({ path: '/noticias/cidade/:cidade', end: true });
+  const activeCitySlug = cityMatch?.params?.cidade;
+  const activeCity = CITIES_MENU.find((item) => item.slug === activeCitySlug);
+
+  const isThemeRoute = !!themeMatch;
+  const isCityRoute = !!cityMatch;
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search') || '';
 
@@ -324,9 +325,9 @@ function Navbar() {
                   Últimas Notícias
                 </Link>
                 <Link
-                  to="/noticias/politica"
+                  to="/noticias/tema/politica"
                   className={
-                    location.pathname === '/noticias/politica'
+                    location.pathname === '/noticias/tema/politica'
                       ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
@@ -336,9 +337,9 @@ function Navbar() {
                   Política
                 </Link>
                 <Link
-                  to="/noticias/saude"
+                  to="/noticias/tema/saude"
                   className={
-                    location.pathname === '/noticias/saude'
+                    location.pathname === '/noticias/tema/saude'
                       ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
@@ -348,9 +349,9 @@ function Navbar() {
                   Saúde
                 </Link>
                 <Link
-                  to="/noticias/educacao"
+                  to="/noticias/tema/educacao"
                   className={
-                    location.pathname === '/noticias/educacao'
+                    location.pathname === '/noticias/tema/educacao'
                       ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                       : 'flex gap-1 border-b px-4 py-4'
                   }
@@ -464,7 +465,7 @@ function Navbar() {
                 <DropdownMenuItem
                   className="transition-colors! hover:text-emerald-600!"
                   key={item.slug}
-                  onClick={() => navigate(`/noticias/${item.slug}`)}
+                  onClick={() => navigate(`/noticias/tema/${item.slug}`)}
                 >
                   {item.label}
                 </DropdownMenuItem>

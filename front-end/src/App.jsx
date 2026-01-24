@@ -30,7 +30,7 @@ function App() {
           <Route path="/noticias-salvas" element={<FavoriteNews />} />
           <Route path="/noticias/tema/:tema" element={<NewsByTheme />} />
           <Route path="/noticias/cidade/:cidade" element={<NewsByCity />} />
-          <Route path="/noticias/:id" element={<NewsDetails />} />  
+          <Route path="/noticia/:id" element={<NewsDetails />} />
         </Routes>
       </div>
     </div>
