@@ -16,7 +16,7 @@ function DashboardNews() {
     subtitulo: '',
     conteudo: '',
     temaPrincipalId: '',
-    municipios: [],
+    municipios: '',
     imagemUrl: '',
   });
 
@@ -41,7 +41,7 @@ function DashboardNews() {
         subtitulo: '',
         conteudo: '',
         temaPrincipalId: '',
-        municipios: [],
+        municipios: '',
         imagemUrl: '',
       });
       toast.success('Notícia criada com sucesso!');
@@ -91,6 +91,12 @@ function DashboardNews() {
       ...formData,
       subtitulo: formData.subtitulo || null,
       imagemUrl: formData.imagemUrl || null,
+      municipios: formData.municipios
+        ? formData.municipios
+            .split(',')
+            .map((m) => m.trim())
+            .filter((m) => m)
+        : [],
     };
     createNewsMutation.mutate(payload);
   };

@@ -22,8 +22,9 @@ function NewsByCity() {
   }, [cidade]);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['news', page],
-    queryFn: () => listarNoticias(page),
+    queryKey: ['news', cidade, page],
+    queryFn: () => listarNoticias(page, { municipio: cidade }),
+    enabled: !!cidade,
     keepPreviousData: true,
   });
 
