@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar';
-import { Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import About from './pages/About';
@@ -11,6 +11,7 @@ import FavoriteNews from './pages/FavoriteNews';
 import NewsByTheme from './pages/NewsByTheme';
 import MyProfile from './pages/MyProfile';
 import NewsByCity from './pages/NewsByCity';
+import NewsDetails from '@/pages/NewsDetails';
 
 function App() {
   return (
@@ -27,8 +28,9 @@ function App() {
           <Route path="/adicionar-noticia" element={<DashboardNews />} />
           <Route path="/admin/usuarios" element={<DashboardUsers />} />
           <Route path="/noticias-salvas" element={<FavoriteNews />} />
-          <Route path="/noticias/:tema" element={<NewsByTheme />} />
+          <Route path="/noticias/tema/:tema" element={<NewsByTheme />} />
           <Route path="/noticias/cidade/:cidade" element={<NewsByCity />} />
+          <Route path="/noticias/:id" element={<NewsDetails />} />  
         </Routes>
       </div>
     </div>

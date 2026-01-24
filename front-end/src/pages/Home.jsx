@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/pagination';
 import { generatePages } from '@/utils/pagination';
 import { useSearchParams } from 'react-router';
+import NewsCard from '@/components/news/NewsCard';
 
 function Home() {
   const [page, setPage] = useState(1);
@@ -66,11 +67,12 @@ function Home() {
   }
   return (
     <div className="space-y-6">
-      <div className="space-y-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {news.map((item) => (
-          <div key={item.id}>{item.titulo}</div>
+          <NewsCard key={item.id} noticia={item} />
         ))}
       </div>
+      
       {totalPages > 1 && (
         <Pagination>
           <PaginationContent>
