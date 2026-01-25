@@ -3,12 +3,12 @@ import { Button } from '@/components/ui/button';
 
 function NewsCard({ noticia }) {
   return (
-    <div className="bg-card rounded-lg border shadow-sm">
+    <div className="bg-card inline-block rounded-lg border shadow-sm">
       {noticia.imagemUrl && (
         <img
           src={noticia.imagemUrl}
           alt={noticia.titulo}
-          className="h-48 w-full rounded-t-lg object-cover"
+          className="h-48 w-full rounded-lg object-cover transition-transform duration-300 hover:scale-110"
         />
       )}
 

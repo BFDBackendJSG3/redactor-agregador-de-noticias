@@ -12,7 +12,9 @@ import {
 } from '@/components/ui/pagination';
 import { generatePages } from '@/utils/pagination';
 import { useSearchParams } from 'react-router';
-import NewsCard from '@/components/news/NewsCard';
+import SidebarWidget from '@/components/news/SidebarWidget';
+import NewsHero from '@/components/news/NewsHero';
+import NewsRow from '@/components/news/NewsRow';
 
 function Home() {
   const [page, setPage] = useState(1);
@@ -42,6 +44,9 @@ function Home() {
   const pages = generatePages(page, totalPages);
   console.log(news);
 
+  const mainNews = news[0];
+  const otherNews = news.slice(1);
+
   if (isLoading) {
     return (
       <div className="flex min-h-screen w-full items-center justify-center">
@@ -64,54 +69,74 @@ function Home() {
     );
   }
   return (
-    <div className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {news.map((item) => (
-          <NewsCard key={item.id} noticia={item} />
-        ))}
-      </div>
-      
-      {totalPages > 1 && (
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => setPage((p) => Math.max(p - 1, 1))}
-                className={
-                  page === 1
-                    ? 'pointer-events-none opacity-50'
-                    : 'cursor-pointer'
-                }
-              />
-            </PaginationItem>
-
-            {pages.map((p) => (
-              <PaginationItem key={p}>
-                <PaginationLink
-                  isActive={p === page}
-                  onClick={() => setPage(p)}
-                >
-                  {p}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationNext
-                onClick={() =>
-                  setPage((p) =>
-                    meta?.totalPages ? Math.min(p + 1, meta.totalPages) : p + 1
-                  )
-                }
-                className={
-                  page === totalPages
-                    ? 'pointer-events-none opacity-50'
-                    : 'cursor-pointer'
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+    <div className="mt-4 space-y-8">
+      {/* HERO */}
+      {mainNews && (
+        <section className="relative overflow-hidden rounded-lg">
+          <NewsHero noticia={mainNews} />
+        </section>
       )}
+
+      {/* CONTEÚDO PRINCIPAL */}
+      <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
+        {/* Feed principal */}
+        <section className="space-y-5">
+          {otherNews.map((item) => (
+            <NewsRow key={item.id} noticia={item} />
+          ))}
+
+          {/* Paginação */}
+          {totalPages > 1 && (
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                    className={
+                      page === 1
+                        ? 'pointer-events-none opacity-50'
+                        : 'cursor-pointer'
+                    }
+                  />
+                </PaginationItem>
+
+                {pages.map((p) => (
+                  <PaginationItem key={p}>
+                    <PaginationLink
+                      isActive={p === page}
+                      onClick={() => setPage(p)}
+                    >
+                      {p}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() =>
+                      setPage((p) =>
+                        meta?.totalPages
+                          ? Math.min(p + 1, meta.totalPages)
+                          : p + 1
+                      )
+                    }
+                    className={
+                      page === totalPages
+                        ? 'pointer-events-none opacity-50'
+                        : 'cursor-pointer'
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
+        </section>
+
+        {/* SIDEBAR */}
+        <aside className="space-y-6">
+          <SidebarWidget />
+        </aside>
+      </div>
     </div>
   );
 }
