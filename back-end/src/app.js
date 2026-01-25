@@ -16,9 +16,11 @@ const noticiasRoutes = require('./routes/noticias.routes');
 const userRoutes = require('./routes/user.routes');
 const authRoutes = require('./routes/auth.routes');
 const municipiosRoutes = require('./routes/municipios.routes');
+const favoritoRoutes = require('./routes/favorito.routes');
 
 app.use(noticiasRoutes);
 app.use('/users', userRoutes);
+app.use('/favoritos', favoritoRoutes);
 app.use(authRoutes);
 app.use(municipiosRoutes);
 
