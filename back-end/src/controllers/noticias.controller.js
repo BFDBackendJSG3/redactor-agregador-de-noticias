@@ -3,6 +3,7 @@ const DetalharNoticiaService = require('../services/detalhar.noticia.service');
 const AtualizarNoticiaService = require('../services/atualizar.noticia.service');
 const DeletarNoticiaService = require('../services/deletar.noticia.service');
 const CriarNoticiaManualService = require('../services/criar.noticia.manual.service');
+const CliquesNoticiaService = require('../services/cliques.noticia.service');
 const {
   listarNoticiasPorTema,
 } = require('../services/listarPorTema.noticia.service');
@@ -198,6 +199,29 @@ class NoticiasController {
       console.error('Erro ao listar notícias por tema:', error);
       return res.status(500).json({ erro: 'Erro interno' });
     }
+  }
+  async registrarClique(req, res) {
+    try {
+      const { id } = req.params;
+
+      await CliquesNoticiaService.registrarClique(id);
+
+      return res.status(200).json({
+        message: 'Clique registrado com sucesso',
+      });
+    } catch (error) {
+      return res.status(400).json({
+        error: error.message,
+      });
+    }
+  }
+
+  async listarMaisVirais(req, res) {
+    const { limit } = req.query;
+
+    const noticias = await CliquesNoticiaService.listarMaisVirais(limit);
+
+    res.json(noticias);
   }
 }
 

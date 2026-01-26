@@ -7,6 +7,8 @@ const router = Router();
 
 router.get('/noticias', NoticiasController.listar);
 
+router.get('/noticias/virais', NoticiasController.listarMaisVirais);
+
 router.get(
   '/noticias/admin',
   authMiddleware,
@@ -16,6 +18,8 @@ router.get(
 
 router.get('/noticias/tema/:temaId', NoticiasController.listarPorTema);
 router.get('/noticia/:id', NoticiasController.detalhar);
+
+router.post('/noticias/:id/clique', NoticiasController.registrarClique);
 
 router.post(
   '/noticias',
