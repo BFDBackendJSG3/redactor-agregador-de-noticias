@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import DeleteNewsDialog from './DeleteNewsDialog';
 import EditNewsDialog from './EditNewsDialog';
+import { formateDateLong } from '@/utils/formatDate';
 
 function ListNews({
   isLoadingNews,
@@ -73,12 +74,9 @@ function ListNews({
               <CardContent>
                 <p className="line-clamp-2 text-sm">{item.conteudo}</p>
 
-                <div className="text-muted-foreground mt-2 text-xs">
-                  Importado em:{' '}
-                  {new Intl.DateTimeFormat('pt-BR', {
-                    dateStyle: 'short',
-                    timeStyle: 'short',
-                  }).format(new Date(item.createdAt))}
+                <div className="text-muted-foreground mt-2 text-xs capitalize">
+                  {item.tipoNoticia} :{' '}
+                  {formateDateLong(new Date(item.dataDePublicacao))}
                 </div>
 
                 {/* Ações Mobile */}
