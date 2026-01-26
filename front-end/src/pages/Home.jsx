@@ -2,7 +2,7 @@ import { listarNoticias } from '@/services/news-service';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Loader2Icon } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { generatePages } from '@/utils/pagination';
+import { generatePages } from '@/utils/generatePages';
 import { useSearchParams } from 'react-router';
 import NewsHero from '@/components/news/NewsHero';
 import { toggleFavorite } from '@/services/users-service';

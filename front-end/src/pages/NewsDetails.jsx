@@ -96,20 +96,23 @@ function NewsDetails() {
 
       {/* IMAGE */}
       {noticia.imagemUrl && (
-        <div className="overflow-hidden rounded-lg">
-          <img
-            src={noticia.imagemUrl}
-            alt={noticia.titulo}
-            className="h-55 w-full object-cover md:h-87.5"
-          />
+        <div className="space-y-2">
+          <div className="overflow-hidden rounded-lg">
+            <img
+              src={noticia.imagemUrl}
+              alt={noticia.titulo}
+              className="h-55 w-full object-cover md:h-87.5"
+            />
+          </div>
+          <div className="flex justify-end">
+            <div className="text-muted-foreground flex items-center gap-1 text-sm">
+              <Clock10Icon className="h-4 w-4" />
+              <span>{tempoLeitura} min de leitura</span>
+            </div>
+          </div>
         </div>
       )}
-      <span className="text-muted-foreground text-sm">
-        <div className="flex gap-2">
-          <Clock10Icon className="h-4 w-4" />
-          <p>{tempoLeitura} min de leitura</p>
-        </div>
-      </span>
+
       {/* CONTENT */}
       <section className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed whitespace-pre-wrap">
         {noticia.conteudo}
