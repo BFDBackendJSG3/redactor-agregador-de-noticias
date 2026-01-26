@@ -65,7 +65,10 @@ class NoticiasController {
     try {
       const { id } = req.params;
 
-      const noticia = await DetalharNoticiaService.execute(id);
+      const noticia = await DetalharNoticiaService.execute(
+        id,
+        req.userId || null
+      );
 
       if (!noticia) {
         return res.status(404).json({

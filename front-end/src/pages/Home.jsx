@@ -1,5 +1,5 @@
 import { listarNoticias } from '@/services/news-service';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Loader2Icon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
@@ -24,6 +24,7 @@ function Home() {
   const [searchParams] = useSearchParams();
   const search = searchParams.get('search') || '';
   const [debouncedSearch, setDebouncedSearch] = useState('');
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,6 +47,7 @@ function Home() {
       toast.success(
         data.favoritado ? 'Adicionado aos favoritos' : 'Removido dos favoritos'
       );
+      queryClient.invalidateQueries(['news']);
     },
     onError: (error) => {
       toast.error(
@@ -66,9 +68,6 @@ function Home() {
   const heroNews = news[0];
   const firstSectionNews = news.slice(1, 5);
   const secondSectionNews = news.slice(5);
-
-  console.log(heroNews);
-  console.log(firstSectionNews);
 
   if (isLoading) {
     return (

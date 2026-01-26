@@ -20,7 +20,7 @@ router.get(
 );
 
 router.get('/noticias/tema/:temaId', NoticiasController.listarPorTema);
-router.get('/noticia/:id', NoticiasController.detalhar);
+router.get('/noticia/:id', optionalAuth, NoticiasController.detalhar);
 
 router.post('/noticias/:id/clique', NoticiasController.registrarClique);
 

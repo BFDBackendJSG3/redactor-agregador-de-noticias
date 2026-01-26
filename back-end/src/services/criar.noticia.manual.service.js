@@ -56,12 +56,6 @@ class CriarNoticiaManualService {
           attributes: ['id'],
         });
         municipioIds = municipiosEncontrados.map((m) => m.id);
-        console.log(
-          'Municípios buscados:',
-          municipios,
-          'Encontrados:',
-          municipiosEncontrados.length
-        );
       }
       await noticia.setMunicipios(municipioIds);
     }

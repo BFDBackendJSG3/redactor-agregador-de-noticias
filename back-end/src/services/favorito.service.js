@@ -1,10 +1,24 @@
 const { Favorito } = require('../../models');
 
 async function listarFavoritos(userId) {
-  return Favorito.findAll({
+  const favoritos = await Favorito.findAll({
     where: { userId },
-    include: ['noticia'],
+    include: [
+      {
+        association: 'noticia',
+        include: [{ association: 'temaPrincipal' }],
+      },
+    ],
   });
+
+  // retorna só as notícias
+  const mapped = favoritos
+    .filter((fav) => fav.noticia)
+    .map((fav) => ({
+      ...fav.noticia.toJSON(),
+      isFavorito: true,
+    }));
+  return mapped;
 }
 
 async function toggleFavorito(userId, noticiaId) {

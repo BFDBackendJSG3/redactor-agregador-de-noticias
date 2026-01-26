@@ -27,7 +27,8 @@ export async function deletarUsuario(id) {
 }
 
 export async function listFavoriteNews() {
-  await api.get('/favoritos');
+  const res = await api.get('/favoritos');
+  return res.data;
 }
 
 export async function toggleFavorite(newsId) {

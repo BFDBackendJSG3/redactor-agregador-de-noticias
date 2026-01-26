@@ -20,7 +20,11 @@ function NewsCard({ noticia, handleFavorite }) {
             handleFavorite(noticia.id);
           }}
         >
-          <Star className="h-5 w-5" />
+          <Star
+            className={`h-5 w-5 transition ${
+              noticia.isFavorito ? 'fill-yellow-400 text-yellow-400' : ''
+            }`}
+          />
         </button>
       </div>
 

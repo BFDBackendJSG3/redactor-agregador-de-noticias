@@ -1,11 +1,17 @@
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { detalharNoticia } from '@/services/news-service';
 import { Loader2Icon } from 'lucide-react';
 import { formateOnlyDate } from '@/utils/formatDate';
+import { useAuth } from '@/contexts/AuthContext';
+import { toggleFavorite } from '@/services/users-service';
+import { toast } from 'sonner';
+import { Star } from 'lucide-react';
 
 function NewsDetails() {
   const { id } = useParams();
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
 
   const {
     data: noticia,
@@ -16,14 +22,28 @@ function NewsDetails() {
     queryFn: () => detalharNoticia(id),
   });
 
+  const { mutate } = useMutation({
+    mutationFn: toggleFavorite,
+    onSuccess: (data) => {
+      toast.success(
+        data.favoritado ? 'Adicionado aos favoritos' : 'Removido dos favoritos'
+      );
+      queryClient.invalidateQueries(['news']);
+      queryClient.invalidateQueries(['news-detail', id]);
+    },
+    onError: (error) => {
+      toast.error(
+        `Erro ao criar notícia: ${error.response?.data?.error || error.message}`
+      );
+    },
+  });
+
   const calcularTempoLeitura = (texto) => {
     const palavrasPorMinuto = 180;
     const totalPalavras = texto?.trim().split(/\s+/).length;
     const minutos = Math.ceil(totalPalavras / palavrasPorMinuto);
     return minutos;
   };
-
-  console.log(noticia);
 
   if (isLoading) {
     return (
@@ -56,14 +76,18 @@ function NewsDetails() {
             <span>
               Fonte: <strong>{noticia.fonte?.responsavel}</strong>
             </span>
-
             <span>•</span>
-
             <span>{formateOnlyDate(new Date(noticia.dataDePublicacao))}</span>
           </div>
-          <span className="text-muted-foreground text-sm">
-            ⏱ {tempoLeitura} min de leitura
-          </span>
+          {user && (
+            <button className="" onClick={() => mutate(noticia.id)}>
+              <Star
+                className={`h-5 w-5 transition ${
+                  noticia.isFavorito ? 'fill-yellow-400 text-yellow-400' : ''
+                }`}
+              />
+            </button>
+          )}
         </div>
       </header>
 
@@ -78,6 +102,9 @@ function NewsDetails() {
             alt={noticia.titulo}
             className="h-55 w-full object-cover md:h-87.5"
           />
+          <span className="text-muted-foreground text-sm">
+            ⏱ {tempoLeitura} min de leitura
+          </span>
         </div>
       )}
 

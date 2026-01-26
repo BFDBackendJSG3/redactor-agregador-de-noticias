@@ -3,11 +3,12 @@ const favoritoService = require('../services/favorito.service');
 async function listar(req, res) {
   try {
     const userId = req.userId;
+
     const favoritos = await favoritoService.listarFavoritos(userId);
 
     return res.json(favoritos);
   } catch (err) {
-    console.error('ERRO FAVORITO:', err); // 👈 MOSTRA O ERRO REAL
+    console.error('ERRO FAVORITO:', err);
     return res.status(500).json({ erro: 'Erro ao listar favoritos' });
   }
 }

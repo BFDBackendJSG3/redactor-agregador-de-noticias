@@ -40,10 +40,18 @@ module.exports = {
         as: 'municipios',
         through: { attributes: [] },
         attributes: ['id', 'nome'],
-        required: false, // LEFT JOIN
+        required: false,
       },
     ];
-    //se tiver usuario logado adiciona aos filtos os favoritos dele
+
+    // Sempre filtra por status publicado, independente de login
+    if (status) {
+      where.status = status;
+    } else {
+      where.status = 'publicado';
+    }
+
+    // Se estiver logado, inclui favoritos para calcular isFavorito
     if (userId) {
       include.push({
         model: Favorito,
@@ -53,28 +61,11 @@ module.exports = {
         required: false,
       });
     }
-
     // Filtro por tipo de notícia (manual / importada)
-    if (tipoNoticia) {
-      where.tipoNoticia = tipoNoticia;
-    }
-
-    // Filtro por status (publicado / aguardando_aprovacao)
-    if (status) {
-      where.status = status;
-    }
-
-    // Controlar exposição de publicações por tipo
-    // de perfil do usuário.
-    const perfisRestritos = ['VISITANTE', 'USER'];
-    if (perfisRestritos.includes(tipoUsuario) && !status) {
-      where.status = 'publicado';
-    }
+    if (tipoNoticia) where.tipoNoticia = tipoNoticia;
 
     // Filtro por tema
-    if (tema) {
-      where.temaPrincipalId = tema;
-    }
+    if (tema) where.temaPrincipalId = tema;
 
     // Filtro por município
     if (municipio) {
@@ -104,16 +95,11 @@ module.exports = {
         required: true, // INNER JOIN quando há filtro
       });
     }
-
     // Filtro por data
     if (dataInicio || dataFim) {
       where.dataDePublicacao = {};
-      if (dataInicio) {
-        where.dataDePublicacao[Op.gte] = new Date(dataInicio);
-      }
-      if (dataFim) {
-        where.dataDePublicacao[Op.lte] = new Date(dataFim);
-      }
+      if (dataInicio) where.dataDePublicacao[Op.gte] = new Date(dataInicio);
+      if (dataFim) where.dataDePublicacao[Op.lte] = new Date(dataFim);
     }
 
     // Busca textual
@@ -136,12 +122,14 @@ module.exports = {
       distinct: true,
     });
 
+    // ✅ Remove array favoritos e retorna só boolean
     const noticiasFormatadas = rows.map((noticia) => {
       const json = noticia.toJSON();
 
       return {
         ...json,
-        isFavorito: json.Favoritos && json.Favoritos.length > 0,
+        favoritos: undefined, // remove do payload
+        isFavorito: userId ? json.favoritos?.length > 0 : false,
       };
     });
 
