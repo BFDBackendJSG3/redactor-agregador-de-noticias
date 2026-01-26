@@ -91,7 +91,7 @@ function Home() {
     );
   }
   return (
-    <div className="mt-4 space-y-8">
+    <div className="space-y-8">
       {/* hero */}
       {heroNews && (
         <section className="relative overflow-hidden rounded-lg">
