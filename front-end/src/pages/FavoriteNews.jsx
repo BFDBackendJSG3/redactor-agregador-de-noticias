@@ -54,7 +54,7 @@ function FavoriteNews() {
   }
 
   return (
-    <div className="md:py-10">
+    <div className="p-6 md:p-0">
       <h1 className="mb-6 text-xl font-semibold">Notícias Salvas</h1>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {news.map((noticia) => (

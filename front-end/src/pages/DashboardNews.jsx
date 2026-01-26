@@ -129,7 +129,7 @@ function DashboardNews() {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-8 md:py-10">
+    <div className="flex flex-col items-center space-y-8">
       <CreateNewsForm
         formData={formData}
         setFormData={setFormData}

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { detalharNoticia } from '@/services/news-service';
-import { Loader2Icon } from 'lucide-react';
+import { Clock10Icon, Loader2Icon } from 'lucide-react';
 import { formateOnlyDate } from '@/utils/formatDate';
 import { useAuth } from '@/contexts/AuthContext';
 import { toggleFavorite } from '@/services/users-service';
@@ -64,7 +64,7 @@ function NewsDetails() {
   const tempoLeitura = calcularTempoLeitura(noticia.conteudo);
 
   return (
-    <article className="mx-auto mt-5 max-w-4xl space-y-8 px-4 pb-10 md:px-0">
+    <article className="mx-auto mt-2 max-w-4xl space-y-8 px-4 pb-10 md:mt-0 md:px-0">
       {/* HEADER */}
       <header className="space-y-3">
         <h1 className="text-2xl leading-tight font-bold md:text-3xl lg:text-4xl">
@@ -102,12 +102,14 @@ function NewsDetails() {
             alt={noticia.titulo}
             className="h-55 w-full object-cover md:h-87.5"
           />
-          <span className="text-muted-foreground text-sm">
-            ⏱ {tempoLeitura} min de leitura
-          </span>
         </div>
       )}
-
+      <span className="text-muted-foreground text-sm">
+        <div className="flex gap-2">
+          <Clock10Icon className="h-4 w-4" />
+          <p>{tempoLeitura} min de leitura</p>
+        </div>
+      </span>
       {/* CONTENT */}
       <section className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed whitespace-pre-wrap">
         {noticia.conteudo}

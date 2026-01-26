@@ -52,7 +52,7 @@ function DashboardUsers() {
   );
 
   return (
-    <div className="md:py-10">
+    <div>
       <div className="mx-auto w-full overflow-x-auto lg:w-[80%] xl:w-[70%]">
         <h1 className="mb-6 text-xl font-semibold">
           Administração de Usuários
