@@ -2,10 +2,13 @@ const { Router } = require('express');
 const NoticiasController = require('../controllers/noticias.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const roleMiddleware = require('../middlewares/role.middleware');
+const optionalAuth = require('../middlewares/optionalAuth.middleware');
 
 const router = Router();
 
-router.get('/noticias', NoticiasController.listar);
+//precisei criar o optionalAuth para retornar se a noticia foi marcada como favorito
+//garante Não está revelando favoritos de ninguém
+router.get('/noticias', optionalAuth, NoticiasController.listar);
 
 router.get('/noticias/virais', NoticiasController.listarMaisVirais);
 

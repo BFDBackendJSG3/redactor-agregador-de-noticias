@@ -1,4 +1,10 @@
-const { Noticia, Fonte, TemaPrincipal, Municipio } = require('../../models');
+const {
+  Noticia,
+  Fonte,
+  TemaPrincipal,
+  Municipio,
+  Favorito,
+} = require('../../models');
 const { Op } = require('sequelize');
 
 module.exports = {
@@ -14,6 +20,7 @@ module.exports = {
       tipoUsuario,
       tipoNoticia,
       status,
+      userId,
     } = filtros;
 
     const where = {};
@@ -36,6 +43,16 @@ module.exports = {
         required: false, // LEFT JOIN
       },
     ];
+    //se tiver usuario logado adiciona aos filtos os favoritos dele
+    if (userId) {
+      include.push({
+        model: Favorito,
+        as: 'favoritos',
+        attributes: ['id'],
+        where: { userId },
+        required: false,
+      });
+    }
 
     // Filtro por tipo de notícia (manual / importada)
     if (tipoNoticia) {
@@ -119,8 +136,17 @@ module.exports = {
       distinct: true,
     });
 
+    const noticiasFormatadas = rows.map((noticia) => {
+      const json = noticia.toJSON();
+
+      return {
+        ...json,
+        isFavorito: json.Favoritos && json.Favoritos.length > 0,
+      };
+    });
+
     return {
-      data: rows,
+      data: noticiasFormatadas,
       meta: {
         total: count,
         page: Number(page),

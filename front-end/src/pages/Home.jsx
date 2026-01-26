@@ -15,7 +15,7 @@ import { useSearchParams } from 'react-router';
 import SidebarWidget from '@/components/news/SidebarWidget';
 import NewsHero from '@/components/news/NewsHero';
 import NewsCard from '@/components/news/NewsCard';
-import { addNewsToFavorites } from '@/services/users-service';
+import { toggleFavorite } from '@/services/users-service';
 import { toast } from 'sonner';
 
 function Home() {
@@ -40,20 +40,22 @@ function Home() {
     keepPreviousData: true,
   });
 
-  const addFavoriteNewsMutation = useMutation({
-    mutationFn: addNewsToFavorites,
-    onSuccess: () => {
-      toast.success('Notícia salva!');
+  const toggleFavoritoMutation = useMutation({
+    mutationFn: toggleFavorite,
+    onSuccess: (data) => {
+      toast.success(
+        data.favoritado ? 'Adicionado aos favoritos' : 'Removido dos favoritos'
+      );
     },
     onError: (error) => {
       toast.error(
-        `Erro ao salvar notícia: ${error.response?.data?.error || error.message}`
+        `Erro ao criar notícia: ${error.response?.data?.error || error.message}`
       );
     },
   });
 
   const handleFavorite = (id) => {
-    addFavoriteNewsMutation.mutate(id);
+    toggleFavoritoMutation.mutate(id);
   };
 
   const news = data?.data || [];
@@ -64,6 +66,9 @@ function Home() {
   const heroNews = news[0];
   const firstSectionNews = news.slice(1, 5);
   const secondSectionNews = news.slice(5);
+
+  console.log(heroNews);
+  console.log(firstSectionNews);
 
   if (isLoading) {
     return (
@@ -118,7 +123,11 @@ function Home() {
         {/* Segunda sessao */}
         <section className="grid grid-cols-1 gap-4 pb-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {secondSectionNews.map((item) => (
-            <NewsCard key={item.id} noticia={item} />
+            <NewsCard
+              key={item.id}
+              noticia={item}
+              handleFavorite={handleFavorite}
+            />
           ))}
         </section>
         {/* componente de paginação  */}

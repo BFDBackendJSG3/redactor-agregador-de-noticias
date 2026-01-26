@@ -23,6 +23,9 @@ async function toggleFavorito(userId, noticiaId) {
   }
 
   await Favorito.create({ userId, noticiaId });
+  return {
+    favoritado: true,
+  };
 }
 
 module.exports = {

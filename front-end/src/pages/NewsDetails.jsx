@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { detalharNoticia } from '@/services/news-service';
 import { Loader2Icon } from 'lucide-react';
+import { formateOnlyDate } from '@/utils/formatDate';
 
 function NewsDetails() {
   const { id } = useParams();
@@ -21,6 +22,8 @@ function NewsDetails() {
     const minutos = Math.ceil(totalPalavras / palavrasPorMinuto);
     return minutos;
   };
+
+  console.log(noticia);
 
   if (isLoading) {
     return (
@@ -56,11 +59,7 @@ function NewsDetails() {
 
             <span>•</span>
 
-            <span>
-              {new Intl.DateTimeFormat('pt-BR', {
-                dateStyle: 'long',
-              }).format(new Date(noticia.dataDePublicacao))}
-            </span>
+            <span>{formateOnlyDate(new Date(noticia.dataDePublicacao))}</span>
           </div>
           <span className="text-muted-foreground text-sm">
             ⏱ {tempoLeitura} min de leitura
@@ -83,7 +82,7 @@ function NewsDetails() {
       )}
 
       {/* CONTENT */}
-      <section className="prose prose-neutral dark:prose-invert max-w-none">
+      <section className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed whitespace-pre-wrap">
         {noticia.conteudo}
       </section>
     </article>
