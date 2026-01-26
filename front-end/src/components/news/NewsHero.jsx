@@ -1,14 +1,30 @@
+import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 function NewsHero({ noticia }) {
+  const handleFavorite = () => {
+    console.log('gg');
+  };
   return (
     <Link to={`/noticia/${noticia.id}`}>
       <div className="group relative h-80 w-full overflow-hidden rounded-lg">
-        <img
-          src={noticia.imagemUrl}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-          alt={noticia.titulo}
-        />
+        <div>
+          <img
+            src={noticia.imagemUrl}
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            alt={noticia.titulo}
+          />
+          <button
+            className="bg-background/60 hover:bg-background absolute top-2 right-2 z-50 rounded-full p-1 backdrop-blur"
+            onClick={(e) => {
+              e.preventDefault(); // impede navegação
+              e.stopPropagation(); // impede bubble
+              handleFavorite();
+            }}
+          >
+            <Star className="h-5 w-5" />
+          </button>
+        </div>
 
         <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
 
