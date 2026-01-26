@@ -4,8 +4,7 @@ const auth = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-router.post('/', auth, controller.favoritar);
-router.delete('/:noticiaId', auth, controller.desfavoritar);
 router.get('/', auth, controller.listar);
+router.post('/toggle', auth, controller.toggle);
 
 module.exports = router;

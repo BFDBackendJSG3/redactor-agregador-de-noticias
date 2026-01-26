@@ -12,3 +12,9 @@ export const formateDateLong = (date) => {
     timeStyle: 'short',
   }).format(date);
 };
+
+export const formateOnlyDate = (date) => {
+  return new Intl.DateTimeFormat('pt-BR', {
+    dateStyle: 'long',
+  }).format(new Date(date));
+};

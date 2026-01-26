@@ -1,17 +1,5 @@
 const { Favorito } = require('../../models');
 
-async function favoritar(userId, noticiaId) {
-  return Favorito.findOrCreate({
-    where: { userId, noticiaId },
-  });
-}
-
-async function desfavoritar(userId, noticiaId) {
-  return Favorito.destroy({
-    where: { userId, noticiaId },
-  });
-}
-
 async function listarFavoritos(userId) {
   return Favorito.findAll({
     where: { userId },
@@ -19,8 +7,25 @@ async function listarFavoritos(userId) {
   });
 }
 
+async function toggleFavorito(userId, noticiaId) {
+  const fav = await Favorito.findOne({
+    where: { userId, noticiaId },
+  });
+
+  if (fav) {
+    await Favorito.destroy({
+      where: {
+        userId,
+        noticiaId,
+      },
+    });
+    return { favoritado: false };
+  }
+
+  await Favorito.create({ userId, noticiaId });
+}
+
 module.exports = {
-  favoritar,
-  desfavoritar,
   listarFavoritos,
+  toggleFavorito,
 };
