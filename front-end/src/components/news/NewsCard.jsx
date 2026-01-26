@@ -1,31 +1,51 @@
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Star } from 'lucide-react';
 
 function NewsCard({ noticia }) {
+  const handleFavorite = () => {
+    console.log('gg');
+  };
+
   return (
-    <div className="bg-card inline-block rounded-lg border shadow-sm">
-      {noticia.imagemUrl && (
+    <Link to={`/noticia/${noticia.id}`} className="group flex flex-col">
+      {/* IMAGE WRAPPER */}
+      <div className="relative overflow-hidden rounded-md">
         <img
           src={noticia.imagemUrl}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-45 xl:h-45"
           alt={noticia.titulo}
-          className="h-48 w-full rounded-lg object-cover transition-transform duration-300 hover:scale-110"
         />
-      )}
-
-      <div className="space-y-2 p-4">
-        <h3 className="text-lg font-semibold">{noticia.titulo}</h3>
-
-        {noticia.fonte && (
-          <p className="text-muted-foreground text-sm">
-            Fonte: {noticia.fonte.responsavel}
-          </p>
-        )}
-
-        <Button asChild variant="outline" size="sm">
-          <Link to={`/noticia/${noticia.id}`}>Ver mais</Link>
-        </Button>
+        <button
+          className="bg-background/60 hover:bg-background absolute top-2 right-2 z-50 rounded-full p-1 backdrop-blur"
+          onClick={(e) => {
+            e.preventDefault(); // impede navegação
+            e.stopPropagation(); // impede bubble
+            handleFavorite();
+          }}
+        >
+          <Star className="h-5 w-5" />
+        </button>
       </div>
-    </div>
+
+      {/* CONTENT */}
+      <div className="mt-1 flex flex-col justify-between">
+        <div className="flex justify-between">
+          <span className="text-[12px] font-medium text-emerald-600">
+            {noticia.temaPrincipal.nome}
+          </span>
+
+          <span className="text-muted-foreground text-[12px]">
+            {new Intl.DateTimeFormat('pt-BR', {
+              dateStyle: 'short',
+            }).format(new Date(noticia.dataDePublicacao))}
+          </span>
+        </div>
+
+        <h3 className="group-hover:text-muted-foreground line-clamp-2 leading-snug transition-colors">
+          {noticia.titulo}
+        </h3>
+      </div>
+    </Link>
   );
 }
 

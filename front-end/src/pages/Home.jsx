@@ -14,7 +14,7 @@ import { generatePages } from '@/utils/pagination';
 import { useSearchParams } from 'react-router';
 import SidebarWidget from '@/components/news/SidebarWidget';
 import NewsHero from '@/components/news/NewsHero';
-import NewsRow from '@/components/news/NewsRow';
+import NewsCard from '@/components/news/NewsCard';
 
 function Home() {
   const [page, setPage] = useState(1);
@@ -88,7 +88,7 @@ function Home() {
           {/* Notícias */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:col-span-8">
             {firstSectionNews.map((item) => (
-              <NewsRow key={item.id} noticia={item} />
+              <NewsCard key={item.id} noticia={item} />
             ))}
           </div>
 
@@ -100,7 +100,7 @@ function Home() {
         {/* Segunda sessao */}
         <section className="grid grid-cols-1 gap-4 pb-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {secondSectionNews.map((item) => (
-            <NewsRow key={item.id} noticia={item} />
+            <NewsCard key={item.id} noticia={item} />
           ))}
         </section>
         {/* componente de paginação  */}
