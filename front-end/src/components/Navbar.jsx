@@ -34,6 +34,7 @@ import {
   DropdownMenuSeparator,
 } from './ui/dropdown-menu';
 import { CITIES_MENU, THEMES_MENU } from '@/constants/nav-links';
+import ThemeToggleButton from './ThemeToggleButton';
 
 function Navbar() {
   const location = useLocation();
@@ -506,18 +507,7 @@ function Navbar() {
               Login
             </Link>
           )}
-          <Button
-            className="transition-colors hover:text-emerald-600"
-            size="icon"
-            variant="icon"
-            onClick={toggleTheme}
-          >
-            {theme === 'dark' ? (
-              <Sun size={18} />
-            ) : (
-              <Moon size={18} strokeWidth={1.6} />
-            )}
-          </Button>
+          <ThemeToggleButton />
         </div>
       </div>
     </div>
