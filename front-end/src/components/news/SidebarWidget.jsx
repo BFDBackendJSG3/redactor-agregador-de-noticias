@@ -1,13 +1,29 @@
-function SidebarWidget() {
+import { Link } from 'react-router';
+
+function SidebarWidget({ news }) {
   return (
     <div className="space-y-3 rounded-xl border p-4">
-      <h3 className="font-semibold">Mais lidas</h3>
-
-      <ul className="text-muted-foreground space-y-2 text-sm">
-        <li>▶ Notícia exemplo 1</li>
-        <li>▶ Notícia exemplo 2</li>
-        <li>▶ Notícia exemplo 3</li>
-      </ul>
+      <h3 className="text-lg font-semibold">Mais lidas da semana</h3>
+      <div className="border-b-2 border-emerald-600" />
+      <div className="space-y-3">
+        {news.map((item, index) => (
+          <Link
+            key={item.id}
+            className="flex items-center gap-3"
+            to={`/noticia/${item.id}`}
+          >
+            <div>
+              <p className="text-xl text-emerald-600">{index + 1}</p>
+            </div>
+            <div className="flex flex-col">
+              <p className="text-sm text-emerald-600">
+                {item.temaPrincipal.nome}
+              </p>
+              <p className="line-clamp-2 leading-snug">{item.titulo}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

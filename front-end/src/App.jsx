@@ -15,9 +15,9 @@ import NewsDetails from '@/pages/NewsDetails';
 
 function App() {
   return (
-    <div className="min-h-screen pt-20 md:pt-16">
+    <div className="min-h-screen pt-16">
       <Navbar />
-      <div className="container mx-auto px-3 py-2">
+      <div className="container mx-auto py-2">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

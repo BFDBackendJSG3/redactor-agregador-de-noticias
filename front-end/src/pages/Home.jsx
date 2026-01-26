@@ -42,10 +42,14 @@ function Home() {
   const meta = data?.meta;
   const totalPages = meta?.totalPages || 1;
   const pages = generatePages(page, totalPages);
-  console.log(news);
 
-  const mainNews = news[0];
-  const otherNews = news.slice(1);
+  const heroNews = news[0];
+  const firstSectionNews = news.slice(1, 5);
+  const secondSectionNews = news.slice(5);
+
+  console.log(heroNews);
+  console.log(firstSectionNews);
+  console.log(secondSectionNews);
 
   if (isLoading) {
     return (
@@ -70,72 +74,80 @@ function Home() {
   }
   return (
     <div className="mt-4 space-y-8">
-      {/* HERO */}
-      {mainNews && (
+      {/* hero */}
+      {heroNews && (
         <section className="relative overflow-hidden rounded-lg">
-          <NewsHero noticia={mainNews} />
+          <NewsHero noticia={heroNews} />
         </section>
       )}
 
-      {/* CONTEÚDO PRINCIPAL */}
-      <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
-        {/* Feed principal */}
-        <section className="space-y-5">
-          {otherNews.map((item) => (
+      {/* conteudo principal */}
+      <div className="gap-8">
+        {/* Primeira sessao */}
+        <section className="grid grid-cols-1 gap-6 pb-6 lg:grid-cols-12">
+          {/* Notícias */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:col-span-8">
+            {firstSectionNews.map((item) => (
+              <NewsRow key={item.id} noticia={item} />
+            ))}
+          </div>
+
+          {/* Sidebar */}
+          <div className="col-span-full lg:col-span-4">
+            <SidebarWidget news={news.slice(0, 6)} />
+          </div>
+        </section>
+        {/* Segunda sessao */}
+        <section className="grid grid-cols-1 gap-4 pb-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {secondSectionNews.map((item) => (
             <NewsRow key={item.id} noticia={item} />
           ))}
-
-          {/* Paginação */}
-          {totalPages > 1 && (
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    onClick={() => setPage((p) => Math.max(p - 1, 1))}
-                    className={
-                      page === 1
-                        ? 'pointer-events-none opacity-50'
-                        : 'cursor-pointer'
-                    }
-                  />
-                </PaginationItem>
-
-                {pages.map((p) => (
-                  <PaginationItem key={p}>
-                    <PaginationLink
-                      isActive={p === page}
-                      onClick={() => setPage(p)}
-                    >
-                      {p}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
-
-                <PaginationItem>
-                  <PaginationNext
-                    onClick={() =>
-                      setPage((p) =>
-                        meta?.totalPages
-                          ? Math.min(p + 1, meta.totalPages)
-                          : p + 1
-                      )
-                    }
-                    className={
-                      page === totalPages
-                        ? 'pointer-events-none opacity-50'
-                        : 'cursor-pointer'
-                    }
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          )}
         </section>
+        {/* componente de paginação  */}
+        {totalPages > 1 && (
+          <Pagination className="mb-5">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                  className={
+                    page === 1
+                      ? 'pointer-events-none opacity-50'
+                      : 'cursor-pointer'
+                  }
+                />
+              </PaginationItem>
 
-        {/* SIDEBAR */}
-        <aside className="space-y-6">
-          <SidebarWidget />
-        </aside>
+              {pages.map((p) => (
+                <PaginationItem key={p}>
+                  <PaginationLink
+                    isActive={p === page}
+                    onClick={() => setPage(p)}
+                  >
+                    {p}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() =>
+                    setPage((p) =>
+                      meta?.totalPages
+                        ? Math.min(p + 1, meta.totalPages)
+                        : p + 1
+                    )
+                  }
+                  className={
+                    page === totalPages
+                      ? 'pointer-events-none opacity-50'
+                      : 'cursor-pointer'
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        )}
       </div>
     </div>
   );
