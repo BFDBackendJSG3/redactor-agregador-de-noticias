@@ -3,7 +3,7 @@ import { api } from './api';
 export async function listarNoticias(page = 1, filtros = {}) {
   const params = {
     page,
-    limit: 10,
+    limit: 21,
     ...filtros, // tema, municipio, dataInicio, dataFim, search
   };
   const res = await api.get('/noticias', { params });
