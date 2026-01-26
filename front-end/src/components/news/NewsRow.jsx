@@ -5,7 +5,7 @@ function NewsRow({ noticia }) {
     <Link to={`/noticia/${noticia.id}`} className="rounded-md transition">
       <img
         src={noticia.imagemUrl}
-        className="h-40 w-full rounded-md object-cover"
+        className="w-full rounded-md object-cover md:h-40 xl:h-45"
       />
 
       <div className="mt-1 flex flex-col justify-between">
