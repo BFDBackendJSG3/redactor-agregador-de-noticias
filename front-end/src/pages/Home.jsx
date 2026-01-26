@@ -1,5 +1,5 @@
 import { listarNoticias } from '@/services/news-service';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Loader2Icon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
@@ -15,6 +15,8 @@ import { useSearchParams } from 'react-router';
 import SidebarWidget from '@/components/news/SidebarWidget';
 import NewsHero from '@/components/news/NewsHero';
 import NewsCard from '@/components/news/NewsCard';
+import { addNewsToFavorites } from '@/services/users-service';
+import { toast } from 'sonner';
 
 function Home() {
   const [page, setPage] = useState(1);
@@ -38,6 +40,22 @@ function Home() {
     keepPreviousData: true,
   });
 
+  const addFavoriteNewsMutation = useMutation({
+    mutationFn: addNewsToFavorites,
+    onSuccess: () => {
+      toast.success('Notícia salva!');
+    },
+    onError: (error) => {
+      toast.error(
+        `Erro ao salvar notícia: ${error.response?.data?.error || error.message}`
+      );
+    },
+  });
+
+  const handleFavorite = (id) => {
+    addFavoriteNewsMutation.mutate(id);
+  };
+
   const news = data?.data || [];
   const meta = data?.meta;
   const totalPages = meta?.totalPages || 1;
@@ -46,10 +64,6 @@ function Home() {
   const heroNews = news[0];
   const firstSectionNews = news.slice(1, 5);
   const secondSectionNews = news.slice(5);
-
-  console.log(heroNews);
-  console.log(firstSectionNews);
-  console.log(secondSectionNews);
 
   if (isLoading) {
     return (
@@ -77,7 +91,7 @@ function Home() {
       {/* hero */}
       {heroNews && (
         <section className="relative overflow-hidden rounded-lg">
-          <NewsHero noticia={heroNews} />
+          <NewsHero noticia={heroNews} handleFavorite={handleFavorite} />
         </section>
       )}
 
@@ -88,7 +102,11 @@ function Home() {
           {/* Notícias */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:col-span-8">
             {firstSectionNews.map((item) => (
-              <NewsCard key={item.id} noticia={item} />
+              <NewsCard
+                key={item.id}
+                noticia={item}
+                handleFavorite={handleFavorite}
+              />
             ))}
           </div>
 

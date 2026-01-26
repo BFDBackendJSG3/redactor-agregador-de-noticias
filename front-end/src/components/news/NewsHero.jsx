@@ -1,10 +1,7 @@
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-function NewsHero({ noticia }) {
-  const handleFavorite = () => {
-    console.log('gg');
-  };
+function NewsHero({ noticia, handleFavorite }) {
   return (
     <Link to={`/noticia/${noticia.id}`}>
       <div className="group relative h-80 w-full overflow-hidden rounded-lg">
@@ -15,11 +12,11 @@ function NewsHero({ noticia }) {
             alt={noticia.titulo}
           />
           <button
-            className="bg-background/60 hover:bg-background absolute top-2 right-2 z-50 rounded-full p-1 backdrop-blur"
+            className="bg-background/60 hover:bg-background absolute top-2 right-2 z-35 rounded-full p-1 backdrop-blur"
             onClick={(e) => {
               e.preventDefault(); // impede navegação
               e.stopPropagation(); // impede bubble
-              handleFavorite();
+              handleFavorite(noticia.id);
             }}
           >
             <Star className="h-5 w-5" />

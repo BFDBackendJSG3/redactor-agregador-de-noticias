@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
+import { formateDateShort } from '@/utils/formatDate';
 
-function NewsCard({ noticia }) {
-  const handleFavorite = () => {
-    console.log('gg');
-  };
-
+function NewsCard({ noticia, handleFavorite }) {
   return (
     <Link to={`/noticia/${noticia.id}`} className="group flex flex-col">
       {/* IMAGE WRAPPER */}
@@ -16,11 +13,11 @@ function NewsCard({ noticia }) {
           alt={noticia.titulo}
         />
         <button
-          className="bg-background/60 hover:bg-background absolute top-2 right-2 z-50 rounded-full p-1 backdrop-blur"
+          className="bg-background/60 hover:bg-background absolute top-2 right-2 z-35 rounded-full p-1 backdrop-blur"
           onClick={(e) => {
             e.preventDefault(); // impede navegação
             e.stopPropagation(); // impede bubble
-            handleFavorite();
+            handleFavorite(noticia.id);
           }}
         >
           <Star className="h-5 w-5" />
@@ -35,9 +32,7 @@ function NewsCard({ noticia }) {
           </span>
 
           <span className="text-muted-foreground text-[12px]">
-            {new Intl.DateTimeFormat('pt-BR', {
-              dateStyle: 'short',
-            }).format(new Date(noticia.dataDePublicacao))}
+            {formateDateShort(new Date(noticia.dataDePublicacao))}
           </span>
         </div>
 
