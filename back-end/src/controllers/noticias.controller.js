@@ -20,9 +20,9 @@ class NoticiasController {
         dataInicio: req.query.dataInicio,
         dataFim: req.query.dataFim,
         search: req.query.search,
-
         // Especificação do tipo de usuario
         tipoUsuario: req.userRole || 'VISITANTE',
+        userId: req.userId || null,
       };
 
       const resultado = await ListarNoticiasService.execute(filtros);
