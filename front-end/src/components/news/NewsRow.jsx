@@ -26,7 +26,7 @@ function NewsRow({ noticia }) {
           </span>
         </div>
 
-        <h3 className="line-clamp-2 leading-snug font-semibold">
+        <h3 className="group-hover:text-muted-foreground line-clamp-2 leading-snug transition-colors">
           {noticia.titulo}
         </h3>
       </div>
