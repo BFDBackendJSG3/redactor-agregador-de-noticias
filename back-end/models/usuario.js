@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       // Usuario.hasMany(models.Alerta)
 
       Usuario.hasMany(models.Favorito, {
-        foreignKey: 'usuarioId',
+        foreignKey: 'userId',
         as: 'favoritos',
       });
     }

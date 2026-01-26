@@ -2,7 +2,7 @@ const favoritoService = require('../services/favorito.service');
 
 async function favoritar(req, res) {
   try {
-    const userId = req.user.id;
+    const userId = req.userId;
     const { noticiaId } = req.body;
 
     await favoritoService.favoritar(userId, noticiaId);
