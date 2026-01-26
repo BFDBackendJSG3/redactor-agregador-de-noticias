@@ -23,4 +23,5 @@ async function listarMaisVirais(limit = 10) {
 
 module.exports = {
   registrarClique,
+  listarMaisVirais,
 };
