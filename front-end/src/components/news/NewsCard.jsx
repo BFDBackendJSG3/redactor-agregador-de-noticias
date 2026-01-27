@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
-import { formateDateShort } from '@/utils/formatDate';
+import { formateDateShort } from '@/utils/formatDateAndText';
 import { useAuth } from '@/contexts/AuthContext';
 
 function NewsCard({ noticia, handleFavorite }) {

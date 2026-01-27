@@ -18,3 +18,8 @@ export const formateOnlyDate = (date) => {
     dateStyle: 'long',
   }).format(new Date(date));
 };
+
+export const capitalizeString = (string) => {
+  if (!string) return '';
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};

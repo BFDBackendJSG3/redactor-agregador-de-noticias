@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import DeleteNewsDialog from './DeleteNewsDialog';
 import EditNewsDialog from './EditNewsDialog';
-import { formateDateLong } from '@/utils/formatDate';
+import { formateDateLong } from '@/utils/formatDateAndText';
 
 function ListNews({
   isLoadingNews,
