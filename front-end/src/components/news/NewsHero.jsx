@@ -1,7 +1,10 @@
+import { useAuth } from '@/contexts/AuthContext';
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 function NewsHero({ noticia, handleFavorite }) {
+  const { user } = useAuth();
+
   return (
     <section className="relative overflow-hidden rounded-lg">
       <Link to={`/noticia/${noticia.id}`}>
@@ -12,20 +15,22 @@ function NewsHero({ noticia, handleFavorite }) {
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               alt={noticia.titulo}
             />
-            <button
-              className="bg-background/60 hover:bg-background absolute top-2 right-2 z-35 rounded-full p-1 backdrop-blur"
-              onClick={(e) => {
-                e.preventDefault(); // impede navegação
-                e.stopPropagation(); // impede bubble
-                handleFavorite(noticia.id);
-              }}
-            >
-              <Star
-                className={`h-5 w-5 transition ${
-                  noticia.isFavorito ? 'fill-yellow-400 text-yellow-400' : ''
-                }`}
-              />
-            </button>
+            {user && (
+              <button
+                className="bg-background/60 hover:bg-background absolute top-2 right-2 z-35 rounded-full p-1 backdrop-blur"
+                onClick={(e) => {
+                  e.preventDefault(); // impede navegação
+                  e.stopPropagation(); // impede bubble
+                  handleFavorite(noticia.id);
+                }}
+              >
+                <Star
+                  className={`h-5 w-5 transition ${
+                    noticia.isFavorito ? 'fill-yellow-400 text-yellow-400' : ''
+                  }`}
+                />
+              </button>
+            )}
           </div>
 
           <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />

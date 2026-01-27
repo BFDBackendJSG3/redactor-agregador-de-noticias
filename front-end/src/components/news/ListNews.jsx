@@ -18,7 +18,7 @@ function ListNews({
 }) {
   return (
     <div className="w-full lg:w-[80%] xl:w-[70%]">
-      <h2 className="mb-6 text-xl font-semibold">Administrar Notícias</h2>
+      <h2 className="mb-6 text-xl font-semibold">Notícias Importadas</h2>
 
       {isLoadingNews ? (
         <div className="flex w-full justify-center">
