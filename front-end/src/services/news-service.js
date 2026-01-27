@@ -39,6 +39,7 @@ export async function atualizarNoticia(id, payload) {
 
 export async function deletarNoticia(id) {
   const res = await api.delete(`/noticias/${id}`);
+
   return res.data;
 }
 
@@ -47,6 +48,17 @@ export async function aprovarNoticia({ id, noticiaAtual }) {
   const res = await api.put(`/noticias/${id}`, {
     ...noticiaAtual,
     status: 'publicado',
+  });
+  return res.data;
+}
+
+export async function addClickToNews(noticiaId) {
+  await api.post(`/noticias/${noticiaId}/clique`);
+}
+
+export async function listMostViewedNews(limit) {
+  const res = await api.get('/noticias/virais', {
+    params: { limit },
   });
   return res.data;
 }

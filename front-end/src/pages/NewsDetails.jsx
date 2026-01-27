@@ -1,12 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { detalharNoticia } from '@/services/news-service';
+import { addClickToNews, detalharNoticia } from '@/services/news-service';
 import { Clock10Icon, Loader2Icon } from 'lucide-react';
 import { formateOnlyDate } from '@/utils/formatDate';
 import { useAuth } from '@/contexts/AuthContext';
 import { toggleFavorite } from '@/services/users-service';
 import { toast } from 'sonner';
 import { Star } from 'lucide-react';
+import { readingTime } from '@/utils/readingTime';
+import { useEffect } from 'react';
 
 function NewsDetails() {
   const { id } = useParams();
@@ -21,6 +23,13 @@ function NewsDetails() {
     queryKey: ['news-detail', id],
     queryFn: () => detalharNoticia(id),
   });
+
+  //se carrega noticia adiciona um click
+  useEffect(() => {
+    if (noticia?.id) {
+      addClickToNews(noticia.id);
+    }
+  }, [noticia?.id]);
 
   const { mutate } = useMutation({
     mutationFn: toggleFavorite,
@@ -38,13 +47,6 @@ function NewsDetails() {
     },
   });
 
-  const calcularTempoLeitura = (texto) => {
-    const palavrasPorMinuto = 180;
-    const totalPalavras = texto?.trim().split(/\s+/).length;
-    const minutos = Math.ceil(totalPalavras / palavrasPorMinuto);
-    return minutos;
-  };
-
   if (isLoading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
@@ -61,7 +63,7 @@ function NewsDetails() {
     );
   }
 
-  const tempoLeitura = calcularTempoLeitura(noticia.conteudo);
+  const tempoLeitura = readingTime(noticia.conteudo);
 
   return (
     <article className="mx-auto mt-2 max-w-4xl space-y-8 px-4 pb-10 md:mt-0 md:px-0">

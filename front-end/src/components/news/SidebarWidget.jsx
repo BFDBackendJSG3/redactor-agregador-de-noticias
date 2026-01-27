@@ -1,6 +1,34 @@
+import { listMostViewedNews } from '@/services/news-service';
+import { useQuery } from '@tanstack/react-query';
+import { Ban, Loader2Icon } from 'lucide-react';
 import { Link } from 'react-router';
 
-function SidebarWidget({ news }) {
+function SidebarWidget() {
+  const {
+    data: news,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['viral-news', 6],
+    queryFn: () => listMostViewedNews(6),
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Loader2Icon className="animate-spin" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Ban />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-3 rounded-xl border p-4">
       <h3 className="text-lg">Mais lidas da semana</h3>
@@ -17,7 +45,7 @@ function SidebarWidget({ news }) {
             </div>
             <div className="flex flex-col">
               <p className="text-sm text-emerald-600">
-                {item.temaPrincipal.nome}
+                {item.temaPrincipal?.nome || 'Sem tema'}
               </p>
               <p className="line-clamp-2 leading-snug">{item.titulo}</p>
             </div>

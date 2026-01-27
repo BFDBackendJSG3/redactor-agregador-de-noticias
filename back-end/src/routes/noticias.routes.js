@@ -9,9 +9,6 @@ const router = Router();
 //precisei criar o optionalAuth para retornar se a noticia foi marcada como favorito
 //garante Não está revelando favoritos de ninguém
 router.get('/noticias', optionalAuth, NoticiasController.listar);
-
-router.get('/noticias/virais', NoticiasController.listarMaisVirais);
-
 router.get(
   '/noticias/admin',
   authMiddleware,
@@ -23,6 +20,7 @@ router.get('/noticias/tema/:temaId', NoticiasController.listarPorTema);
 router.get('/noticia/:id', optionalAuth, NoticiasController.detalhar);
 
 router.post('/noticias/:id/clique', NoticiasController.registrarClique);
+router.get('/noticias/virais', NoticiasController.listarMaisVirais);
 
 router.post(
   '/noticias',

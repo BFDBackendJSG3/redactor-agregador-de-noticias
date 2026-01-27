@@ -17,7 +17,7 @@ function NewsSectionWithWidget({ news, handleFavorite }) {
 
       {/* Sidebar */}
       <div className="col-span-full lg:col-span-4">
-        <SidebarWidget news={news} />
+        <SidebarWidget />
       </div>
     </section>
   );

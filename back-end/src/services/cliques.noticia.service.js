@@ -18,6 +18,12 @@ async function listarMaisVirais(limit = 10) {
   return await Noticia.findAll({
     order: [['cliques', 'DESC']],
     limit,
+    include: [
+      {
+        association: 'temaPrincipal',
+        attributes: ['id', 'nome'],
+      },
+    ],
   });
 }
 

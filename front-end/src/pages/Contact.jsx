@@ -10,7 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 function Contact() {
   return (
-    <div className="flex justify-center md:py-10">
+    <div className="flex justify-center">
       <Card className="w-full max-w-2xl">
         <CardTitle className="text-center text-xl">Contato</CardTitle>
         <CardDescription className="px-3 text-center">
