@@ -6,6 +6,8 @@ import { api } from '@/services/api';
 import { toast } from 'sonner';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Loader2Icon } from 'lucide-react';
+import { capitalizeString } from '@/utils/formatDateAndText';
+import { Badge } from '@/components/ui/badge';
 
 function MyProfile() {
   const { user, setUser } = useAuth();
@@ -69,6 +71,7 @@ function MyProfile() {
       setLoading(false);
     }
   }
+  console.log(user);
 
   return (
     <div className="flex justify-center">
@@ -78,13 +81,22 @@ function MyProfile() {
         </CardTitle>
         <CardContent>
           <div className="space-y-4">
-            <div>
-              <label className="text-muted-foreground text-sm">Nome</label>
-              <Input
-                value={nome}
-                disabled={!editando}
-                onChange={(e) => setNome(e.target.value)}
-              />
+            <div className="gap-3 md:flex">
+              <div className="flex-1">
+                <label className="text-muted-foreground text-sm">Nome</label>
+                <Input
+                  value={nome}
+                  disabled={!editando}
+                  onChange={(e) => setNome(e.target.value)}
+                />
+              </div>
+              <div className="mt-5 flex items-center gap-2">
+                <span className="text-muted-foreground text-sm">Perfil:</span>
+
+                <Badge variant="secondary" className="text-xs">
+                  {capitalizeString(user.tipoUsuario)}
+                </Badge>
+              </div>
             </div>
 
             <div>
@@ -116,18 +128,6 @@ function MyProfile() {
             ) : (
               <div className="flex gap-2">
                 <Button
-                  onClick={handleSave}
-                  disabled={loading}
-                  className="flex-1"
-                >
-                  {loading ? (
-                    <Loader2Icon className="animate-spin" />
-                  ) : (
-                    'Salvar'
-                  )}
-                </Button>
-
-                <Button
                   variant="outline"
                   onClick={() => {
                     setEditando(false);
@@ -138,6 +138,17 @@ function MyProfile() {
                   className="flex-1"
                 >
                   Cancelar
+                </Button>
+                <Button
+                  onClick={handleSave}
+                  disabled={loading}
+                  className="flex-1"
+                >
+                  {loading ? (
+                    <Loader2Icon className="animate-spin" />
+                  ) : (
+                    'Salvar'
+                  )}
                 </Button>
               </div>
             )}
