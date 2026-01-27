@@ -11,8 +11,11 @@ import CreateNewsForm from '@/components/news/CreateNewsForm';
 import ListNews from '@/components/news/ListNews';
 import { generatePages } from '@/utils/generatePages';
 import PaginationIcons from '@/components/PaginationIcons';
+import { useAuth } from '@/contexts/AuthContext';
 
 function DashboardNews() {
+  const { user } = useAuth();
+
   const [page, setPage] = useState(1);
   const [formData, setFormData] = useState({
     titulo: '',
@@ -134,6 +137,14 @@ function DashboardNews() {
     queryClient.invalidateQueries(['admin-news']);
   };
 
+  if (!user || user.tipoUsuario === 'USER') {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <p className="text-muted-foreground">Acesso não autorizado.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center space-y-8">
       <CreateNewsForm
@@ -142,6 +153,7 @@ function DashboardNews() {
         handleSubmit={handleSubmit}
         createNewsMutation={createNewsMutation}
       />
+
       <ListNews
         isLoadingNews={isLoadingNews}
         handleApprove={handleApprove}

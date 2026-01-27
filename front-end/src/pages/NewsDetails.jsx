@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { addClickToNews, detalharNoticia } from '@/services/news-service';
 import { Clock10Icon, Loader2Icon } from 'lucide-react';
-import { formateOnlyDate } from '@/utils/formatDate';
+import { formateOnlyDate } from '@/utils/formatDateAndText';
 import { useAuth } from '@/contexts/AuthContext';
 import { toggleFavorite } from '@/services/users-service';
 import { toast } from 'sonner';
