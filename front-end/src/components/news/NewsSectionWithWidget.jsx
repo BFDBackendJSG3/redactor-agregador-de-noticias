@@ -1,7 +1,7 @@
 import NewsCard from './NewsCard';
 import SidebarWidget from './SidebarWidget';
 
-function NewsSectionWithWidget({ news, handleFavorite }) {
+function NewsSectionWithWidget({ news, handleFavorite, isSearchQuery }) {
   return (
     <section className="grid grid-cols-1 gap-6 pb-6 lg:grid-cols-12">
       {/* Notícias */}
@@ -16,9 +16,11 @@ function NewsSectionWithWidget({ news, handleFavorite }) {
       </div>
 
       {/* Sidebar */}
-      <div className="col-span-full lg:col-span-4">
-        <SidebarWidget />
-      </div>
+      {!isSearchQuery && (
+        <div className="col-span-full lg:col-span-4">
+          <SidebarWidget />
+        </div>
+      )}
     </section>
   );
 }

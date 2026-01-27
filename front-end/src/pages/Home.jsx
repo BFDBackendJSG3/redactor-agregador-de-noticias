@@ -17,15 +17,31 @@ function Home() {
   const [searchParams] = useSearchParams();
   const search = searchParams.get('search') || '';
   const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [isSearchQuery, setIsSearhQuery] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
+    //se n tiver busca seta como vazio
+    if (!search) {
+      setIsSearhQuery(false);
+      setDebouncedSearch('');
+      return;
+    }
+    //da um tempo para nao fazer uma query a cada letra digitada
+    //seta isSearchQuery como true para n mostrar o sidebar na pesquisa
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
+      setIsSearhQuery(true);
       setPage(1); // reseta paginação ao buscar
     }, 500);
-
     return () => clearTimeout(timer);
+  }, [search]);
+
+  //se não tiver pesquisa seta isSearchQuery como false pois esta na home
+  useEffect(() => {
+    if (!debouncedSearch) {
+      setIsSearhQuery(false);
+    }
   }, [search]);
 
   const { data, isLoading, isError } = useQuery({
@@ -95,6 +111,7 @@ function Home() {
         <NewsSectionWithWidget
           news={firstSectionNews}
           handleFavorite={handleFavorite}
+          isSearchQuery={isSearchQuery}
         />
         {/* Segunda sessao */}
         <NewsSection news={secondSectionNews} handleFavorite={handleFavorite} />

@@ -29,7 +29,6 @@ function DashboardNews() {
   });
 
   const news = newsData?.data || [];
-  console.log(news);
 
   // Mutation para criar notícia
   const createNewsMutation = useMutation({
