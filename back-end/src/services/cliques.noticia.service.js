@@ -15,16 +15,19 @@ async function registrarClique(noticiaId) {
 }
 
 async function listarMaisVirais(limit = 10) {
-  return await Noticia.findAll({
+  const { TemaPrincipal } = require('../../models');
+  const noticias = await Noticia.findAll({
     order: [['cliques', 'DESC']],
     limit,
     include: [
       {
-        association: 'temaPrincipal',
+        model: TemaPrincipal,
+        as: 'temaPrincipal',
         attributes: ['id', 'nome'],
       },
     ],
   });
+  return noticias;
 }
 
 module.exports = {
