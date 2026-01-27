@@ -24,7 +24,7 @@ async function executarImportacao() {
     const itens = feed.items.map((item) => ({
       title: item.title,
       link: item.link,
-      description: item.contentSnippet || '',
+      description: item.content || item['content:encoded'] || item.contentSnippet || '',
       publishedAt: item.isoDate || item.pubDate,
       imagemUrl: extrairImagemRSS(item),
     }));
