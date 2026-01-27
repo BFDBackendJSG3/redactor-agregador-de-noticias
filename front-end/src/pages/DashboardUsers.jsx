@@ -26,7 +26,11 @@ function DashboardUsers() {
   }, []);
 
   if (user?.tipoUsuario !== 'ADMIN') {
-    return <p>Acesso negado</p>;
+    return (
+      <div className="text-muted-foreground flex min-h-screen w-full items-center justify-center">
+        <p>Acesso Negado.</p>
+      </div>
+    );
   }
 
   async function carregarUsuarios() {

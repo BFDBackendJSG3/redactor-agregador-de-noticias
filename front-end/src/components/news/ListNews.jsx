@@ -1,11 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { Loader2Icon, CheckCircle } from 'lucide-react';
+import { Loader2Icon, CheckCircle, Eye } from 'lucide-react';
 import { NEWS_STATUS } from '@/constants/news-status';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import DeleteNewsDialog from './DeleteNewsDialog';
 import EditNewsDialog from './EditNewsDialog';
 import { formateDateLong } from '@/utils/formatDateAndText';
+import { useNavigate } from 'react-router';
 
 function ListNews({
   isLoadingNews,
@@ -15,9 +16,9 @@ function ListNews({
   deleteNewsMutation,
   news,
   onSuccess,
-  // eslint-disable-next-line no-unused-vars
   user,
 }) {
+  const navigete = useNavigate();
   return (
     <div className="w-full lg:w-[80%] xl:w-[70%]">
       <h2 className="mb-6 text-xl font-semibold">Notícias Importadas</h2>
@@ -50,26 +51,44 @@ function ListNews({
                   </div>
 
                   {/* Ações Desktop */}
-                  <div className="hidden gap-2 md:flex">
-                    {item.status === 'aguardando_revisao' && (
-                      <Button
-                        size="sm"
-                        onClick={() => handleApprove(item)}
-                        disabled={approveNewsMutation.isPending}
-                        className="bg-green-600 hover:bg-green-700"
-                      >
-                        <CheckCircle className="h-4 w-4" />
-                      </Button>
-                    )}
+                  {user !== 'ESTAGIARIO' && (
+                    <div className="hidden gap-1 md:flex md:flex-col">
+                      <div className="flex w-full gap-2">
+                        <EditNewsDialog
+                          item={item}
+                          onSuccess={onSuccess}
+                          className={user === 'JORNALISTA' ? 'flex-1' : ''}
+                        />
+                        {user !== 'JORNALISTA' && (
+                          <>
+                            <Button
+                              size="sm"
+                              onClick={() => handleApprove(item)}
+                              disabled={approveNewsMutation.isPending}
+                              className="bg-green-600 hover:bg-green-700"
+                            >
+                              <CheckCircle className="h-4 w-4" />
+                            </Button>
 
-                    <EditNewsDialog item={item} onSuccess={onSuccess} />
-                    <DeleteNewsDialog
-                      item={item}
-                      deleteNewsMutation={deleteNewsMutation}
-                      handleDelete={handleDelete}
-                      isMobile={false}
-                    />
-                  </div>
+                            <DeleteNewsDialog
+                              item={item}
+                              deleteNewsMutation={deleteNewsMutation}
+                              handleDelete={handleDelete}
+                              isMobile={false}
+                            />
+                          </>
+                        )}
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => navigete(`/noticia/${item.id}`)}
+                      >
+                        <Eye className="h-4 w-4" />
+                        Preview
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </CardHeader>
 
@@ -82,30 +101,40 @@ function ListNews({
                 </div>
 
                 {/* Ações Mobile */}
-                <div className="mt-4 flex gap-1 md:hidden">
-                  {item.status === 'aguardando_revisao' && (
-                    <Button
-                      size="sm"
-                      onClick={() => handleApprove(item)}
-                      disabled={approveNewsMutation.isPending}
-                      className="flex-1 bg-green-600 hover:bg-green-700"
-                    >
-                      <CheckCircle className="h-4 w-4" />
-                      Aprovar
+                {user !== 'ESTAGIARIO' && (
+                  <div className="mt-4 flex flex-col gap-2 md:hidden">
+                    <div className="flex gap-1">
+                      <EditNewsDialog
+                        item={item}
+                        onSuccess={onSuccess}
+                        isMobile={true}
+                      />
+                      {user !== 'JORNALISTA' && (
+                        <>
+                          <Button
+                            size="sm"
+                            onClick={() => handleApprove(item)}
+                            disabled={approveNewsMutation.isPending}
+                            className="flex-1 bg-green-600 hover:bg-green-700"
+                          >
+                            <CheckCircle className="h-4 w-4" />
+                            Aprovar
+                          </Button>
+                          <DeleteNewsDialog
+                            item={item}
+                            deleteNewsMutation={deleteNewsMutation}
+                            handleDelete={handleDelete}
+                            isMobile={true}
+                          />
+                        </>
+                      )}
+                    </div>
+                    <Button variant="outline" className="flex-1">
+                      <Eye className="h-4 w-4" />
+                      Preview
                     </Button>
-                  )}
-                  <EditNewsDialog
-                    item={item}
-                    onSuccess={onSuccess}
-                    isMobile={true}
-                  />
-                  <DeleteNewsDialog
-                    item={item}
-                    deleteNewsMutation={deleteNewsMutation}
-                    handleDelete={handleDelete}
-                    isMobile={true}
-                  />
-                </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           ))}

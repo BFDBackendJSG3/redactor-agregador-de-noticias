@@ -64,10 +64,19 @@ function NewsDetails() {
   }
 
   const tempoLeitura = readingTime(noticia.conteudo);
+  const isPreview = noticia.status === 'aguardando_revisao';
 
   return (
     <article className="mx-auto mt-2 max-w-4xl space-y-8 px-4 pb-10 md:mt-0 md:px-0">
       {/* HEADER */}
+      {isPreview && (
+        <div className="flex items-center justify-center gap-2 rounded-lg border border-yellow-400/40 bg-yellow-100/50 px-4 py-2 text-sm text-yellow-800 dark:border-yellow-500/30 dark:bg-yellow-500/10 dark:text-yellow-500">
+          <Clock10Icon className="h-4 w-4" />
+          <span>
+            Esta notícia é um <strong>preview</strong> e pode sofrer alterações.
+          </span>
+        </div>
+      )}
       <header className="space-y-3">
         <h1 className="text-2xl leading-tight font-bold md:text-3xl lg:text-4xl">
           {noticia.titulo}
