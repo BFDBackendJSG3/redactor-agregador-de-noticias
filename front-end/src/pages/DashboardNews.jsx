@@ -9,8 +9,11 @@ import {
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import CreateNewsForm from '@/components/news/CreateNewsForm';
 import ListNews from '@/components/news/ListNews';
+import { generatePages } from '@/utils/generatePages';
+import PaginationIcons from '@/components/PaginationIcons';
 
 function DashboardNews() {
+  const [page, setPage] = useState(1);
   const [formData, setFormData] = useState({
     titulo: '',
     subtitulo: '',
@@ -24,11 +27,15 @@ function DashboardNews() {
 
   // Buscar notícias para administração
   const { data: newsData, isLoading: isLoadingNews } = useQuery({
-    queryKey: ['admin-news'],
-    queryFn: () => listarNoticiasAdmin(1, { status: 'aguardando_revisao' }),
+    queryKey: ['admin-news', page],
+    queryFn: () => listarNoticiasAdmin(page, { status: 'aguardando_revisao' }),
+    keepPreviousData: true,
   });
 
   const news = newsData?.data || [];
+  const meta = newsData?.meta;
+  const totalPages = meta?.totalPages || 1;
+  const pages = generatePages(page, totalPages);
 
   // Mutation para criar notícia
   const createNewsMutation = useMutation({
@@ -144,6 +151,15 @@ function DashboardNews() {
         news={news}
         onSuccess={handleInvalidateQueries}
       />
+      {totalPages > 1 && (
+        <PaginationIcons
+          page={page}
+          pages={pages}
+          setPage={setPage}
+          metaData={meta}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 }

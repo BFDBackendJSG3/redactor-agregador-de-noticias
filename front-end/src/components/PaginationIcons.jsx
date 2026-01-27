@@ -22,7 +22,11 @@ function PaginationIcons({ page, pages, setPage, metaData, totalPages }) {
 
         {pages.map((p) => (
           <PaginationItem key={p}>
-            <PaginationLink isActive={p === page} onClick={() => setPage(p)}>
+            <PaginationLink
+              isActive={p === page}
+              onClick={() => setPage(p)}
+              className={p === page ? 'text-emerald-600' : ''}
+            >
               {p}
             </PaginationLink>
           </PaginationItem>
