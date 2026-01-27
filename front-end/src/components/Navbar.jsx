@@ -35,6 +35,7 @@ import {
 } from './ui/dropdown-menu';
 import { CITIES_MENU, THEMES_MENU } from '@/constants/nav-links';
 import ThemeToggleButton from './ThemeToggleButton';
+import { capitalizeString } from '@/utils/formatDateAndText';
 
 function Navbar() {
   const location = useLocation();
@@ -141,7 +142,7 @@ function Navbar() {
                       className="bg-background"
                     >
                       <DropdownMenuLabel className="font-semibold">
-                        Olá, {user.nome}
+                        Olá, {capitalizeString(user.nome)}
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => navigate('/perfil')}>
@@ -248,7 +249,7 @@ function Navbar() {
                       className="bg-card"
                     >
                       <DropdownMenuLabel className="font-semibold">
-                        Olá, {user.nome}
+                        Olá, {capitalizeString(user.nome)}
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
@@ -279,7 +280,8 @@ function Navbar() {
                       )}
                       {(user.tipoUsuario === 'ADMIN' ||
                         user.tipoUsuario === 'JORNALISTA' ||
-                        user.tipoUsuario === 'EDITOR') && (
+                        user.tipoUsuario === 'EDITOR' ||
+                        user.tipoUsuario === 'ESTAGIARIO') && (
                         <DropdownMenuItem
                           onClick={() => {
                             setIsMenuOpen(false);

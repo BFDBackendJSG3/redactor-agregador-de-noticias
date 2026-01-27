@@ -15,6 +15,8 @@ function ListNews({
   deleteNewsMutation,
   news,
   onSuccess,
+  // eslint-disable-next-line no-unused-vars
+  user,
 }) {
   return (
     <div className="w-full lg:w-[80%] xl:w-[70%]">

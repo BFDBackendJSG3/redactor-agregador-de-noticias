@@ -12,7 +12,7 @@ router.get('/noticias', optionalAuth, NoticiasController.listar);
 router.get(
   '/noticias/admin',
   authMiddleware,
-  roleMiddleware(['JORNALISTA', 'EDITOR', 'ADMIN']),
+  roleMiddleware(['JORNALISTA', 'EDITOR', 'ADMIN', 'ESTAGIARIO']),
   NoticiasController.listarAdmin
 );
 

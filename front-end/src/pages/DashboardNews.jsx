@@ -147,13 +147,14 @@ function DashboardNews() {
 
   return (
     <div className="flex flex-col items-center space-y-8">
-      <CreateNewsForm
-        formData={formData}
-        setFormData={setFormData}
-        handleSubmit={handleSubmit}
-        createNewsMutation={createNewsMutation}
-      />
-
+      {user.tipoUsuario !== 'ESTAGIARIO' && (
+        <CreateNewsForm
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+          createNewsMutation={createNewsMutation}
+        />
+      )}
       <ListNews
         isLoadingNews={isLoadingNews}
         handleApprove={handleApprove}
@@ -161,6 +162,7 @@ function DashboardNews() {
         approveNewsMutation={approveNewsMutation}
         deleteNewsMutation={deleteNewsMutation}
         news={news}
+        user={user.tipoUsuario}
         onSuccess={handleInvalidateQueries}
       />
       {totalPages > 1 && (
