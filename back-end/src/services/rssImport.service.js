@@ -25,15 +25,17 @@ async function importarRSS({ itens, fonteId }) {
         continue;
       }
 
+      const conteudo = (item.description || '').trim();
+
       const temaPrincipalId = classificarNoticia({
         titulo: item.title,
-        conteudo: item.description || '',
+        conteudo,
       });
 
       await Noticia.create(
         {
           titulo: item.title,
-          conteudo: item.description || '',
+          conteudo,
           url: item.link,
           imagemUrl: item.imagemUrl,
           dataDePublicacao: item.publishedAt
