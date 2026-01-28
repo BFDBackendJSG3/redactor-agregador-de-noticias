@@ -51,44 +51,47 @@ function ListNews({
                   </div>
 
                   {/* Ações Desktop */}
-                  {user !== 'ESTAGIARIO' && (
-                    <div className="hidden gap-1 md:flex md:flex-col">
-                      <div className="flex w-full gap-2">
+                  <div className="hidden gap-1 md:flex md:flex-col">
+                    <div className="flex w-full gap-2">
+                      {user !== 'ESTAGIARIO' && (
                         <EditNewsDialog
                           item={item}
                           onSuccess={onSuccess}
                           className={user === 'JORNALISTA' ? 'flex-1' : ''}
+                          isEstagiario={
+                            user === 'ESTAGIARIO' || user === 'JORNALISTA'
+                          }
                         />
-                        {user !== 'JORNALISTA' && (
-                          <>
-                            <Button
-                              size="sm"
-                              onClick={() => handleApprove(item)}
-                              disabled={approveNewsMutation.isPending}
-                              className="bg-green-600 hover:bg-green-700"
-                            >
-                              <CheckCircle className="h-4 w-4" />
-                            </Button>
+                      )}
+                      {user !== 'ESTAGIARIO' && user !== 'JORNALISTA' && (
+                        <>
+                          <Button
+                            size="sm"
+                            onClick={() => handleApprove(item)}
+                            disabled={approveNewsMutation.isPending}
+                            className="bg-green-600 hover:bg-green-700"
+                          >
+                            <CheckCircle className="h-4 w-4" />
+                          </Button>
 
-                            <DeleteNewsDialog
-                              item={item}
-                              deleteNewsMutation={deleteNewsMutation}
-                              handleDelete={handleDelete}
-                              isMobile={false}
-                            />
-                          </>
-                        )}
-                      </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => navigete(`/noticia/${item.id}`)}
-                      >
-                        <Eye className="h-4 w-4" />
-                        Preview
-                      </Button>
+                          <DeleteNewsDialog
+                            item={item}
+                            deleteNewsMutation={deleteNewsMutation}
+                            handleDelete={handleDelete}
+                            isMobile={false}
+                          />
+                        </>
+                      )}
                     </div>
-                  )}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => navigete(`/noticia/${item.id}`)}
+                    >
+                      <Eye className="h-4 w-4" />
+                      Preview
+                    </Button>
+                  </div>
                 </div>
               </CardHeader>
 
