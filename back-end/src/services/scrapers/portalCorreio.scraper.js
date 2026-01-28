@@ -58,4 +58,3 @@ async function extrairConteudoPortalCorreio(url) {
 }
 
 module.exports = { extrairConteudoPortalCorreio };
-
