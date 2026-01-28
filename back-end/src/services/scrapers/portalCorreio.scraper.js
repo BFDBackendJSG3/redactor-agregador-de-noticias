@@ -6,44 +6,47 @@ async function extrairConteudoPortalCorreio(url) {
       headers: { 'User-Agent': 'Mozilla/5.0' },
     });
 
-    // Pega TODOS os blocos candidatos de conteúdo
-    const matches = [
-      ...html.matchAll(
-        /<div class="tdb-block-inner td-fix-index">([\s\S]*?)<\/div>/gi
-      ),
-      ...html.matchAll(/<div class="td-post-content[^>]*>([\s\S]*?)<\/div>/gi),
-      ...html.matchAll(/<div class="entry-content[^>]*>([\s\S]*?)<\/div>/gi),
-    ];
+    // 🎯 Pega especificamente o bloco onde ficam os parágrafos da matéria
+    const match = html.match(/<div class="bloco-texto[^>]*>([\s\S]*?)<\/div>/i);
 
-    if (!matches.length) return null;
+    if (!match) {
+      console.log('❌ Bloco de conteúdo não encontrado no Portal Correio');
+      return null;
+    }
 
-    // Escolhe o MAIOR bloco de texto (normalmente é a matéria)
-    let maiorBloco = matches
-      .map((m) => m[1])
-      .sort((a, b) => b.length - a.length)[0];
+    let conteudoHtml = match[1];
 
-    // Remove lixos
-    maiorBloco = maiorBloco
+    // ❌ Remove scripts, estilos, figuras, iframes
+    conteudoHtml = conteudoHtml
       .replace(/<script[\s\S]*?<\/script>/gi, '')
       .replace(/<style[\s\S]*?<\/style>/gi, '')
       .replace(/<figure[\s\S]*?<\/figure>/gi, '')
       .replace(/<iframe[\s\S]*?<\/iframe>/gi, '');
 
-    // Remove HTML
-    let textoLimpo = maiorBloco.replace(/<[^>]+>/g, ' ');
+    // ❌ Remove o rodapé automático do site
+    conteudoHtml = conteudoHtml.replace(
+      /O post .* apareceu primeiro em Portal Correio[\s\S]*/i,
+      ''
+    );
 
-    // Remove entidades
+    // 🧼 Mantém quebras de parágrafo
+    conteudoHtml = conteudoHtml
+      .replace(/<\/p>/gi, '\n')
+      .replace(/<br\s*\/?>/gi, '\n');
+
+    // 🧽 Remove todas as outras tags HTML
+    let textoLimpo = conteudoHtml.replace(/<[^>]+>/g, ' ');
+
+    // 🧹 Limpa entidades e espaços duplicados
     textoLimpo = textoLimpo
       .replace(/&nbsp;/g, ' ')
       .replace(/&#8230;/g, '...')
-      .replace(/&amp;/g, '&');
-
-    // Normaliza espaços
-    textoLimpo = textoLimpo
-      .replace(/\s{2,}/g, ' ')
+      .replace(/&amp;/g, '&')
       .replace(/\n{2,}/g, '\n')
+      .replace(/\s{2,}/g, ' ')
       .trim();
 
+    console.log('🕷 Conteúdo completo extraído do Portal Correio');
     return textoLimpo;
   } catch (err) {
     console.error('Erro ao fazer scraping Portal Correio:', err.message);
