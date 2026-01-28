@@ -6,37 +6,39 @@ async function extrairConteudoPortalCorreio(url) {
       headers: { 'User-Agent': 'Mozilla/5.0' },
     });
 
-    const patterns = [
-      /<div class="tdb-block-inner td-fix-index">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/i,
-      /<div class="td-post-content[^>]*>([\s\S]*?)<\/div>/i,
-      /<div class="entry-content[^>]*>([\s\S]*?)<\/div>/i,
+    // Pega TODOS os blocos candidatos de conteúdo
+    const matches = [
+      ...html.matchAll(
+        /<div class="tdb-block-inner td-fix-index">([\s\S]*?)<\/div>/gi
+      ),
+      ...html.matchAll(/<div class="td-post-content[^>]*>([\s\S]*?)<\/div>/gi),
+      ...html.matchAll(/<div class="entry-content[^>]*>([\s\S]*?)<\/div>/gi),
     ];
 
-    let conteudoHtml = null;
+    if (!matches.length) return null;
 
-    for (const pattern of patterns) {
-      const match = html.match(pattern);
-      if (match) {
-        conteudoHtml = match[1];
-        break;
-      }
-    }
+    // Escolhe o MAIOR bloco de texto (normalmente é a matéria)
+    let maiorBloco = matches
+      .map((m) => m[1])
+      .sort((a, b) => b.length - a.length)[0];
 
-    if (!conteudoHtml) return null;
-
-    conteudoHtml = conteudoHtml
+    // Remove lixos
+    maiorBloco = maiorBloco
       .replace(/<script[\s\S]*?<\/script>/gi, '')
       .replace(/<style[\s\S]*?<\/style>/gi, '')
       .replace(/<figure[\s\S]*?<\/figure>/gi, '')
       .replace(/<iframe[\s\S]*?<\/iframe>/gi, '');
 
-    let textoLimpo = conteudoHtml.replace(/<[^>]+>/g, ' ');
+    // Remove HTML
+    let textoLimpo = maiorBloco.replace(/<[^>]+>/g, ' ');
 
+    // Remove entidades
     textoLimpo = textoLimpo
       .replace(/&nbsp;/g, ' ')
       .replace(/&#8230;/g, '...')
       .replace(/&amp;/g, '&');
 
+    // Normaliza espaços
     textoLimpo = textoLimpo
       .replace(/\s{2,}/g, ' ')
       .replace(/\n{2,}/g, '\n')
