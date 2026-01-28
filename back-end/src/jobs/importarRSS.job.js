@@ -3,6 +3,7 @@ const Parser = require('rss-parser');
 const { importarRSS } = require('../services/rssImport.service');
 const { extrairImagemRSS } = require('../services/rssImageExtractor.service');
 const { Fonte } = require('../../models');
+const { extrairConteudoPortalCorreio } = require('../services/scrapers/portalCorreio.scraper');
 
 const parser = new Parser();
 
@@ -21,13 +22,31 @@ async function executarImportacao() {
 
     const feed = await parser.parseURL(fonte.url);
 
-    const itens = feed.items.map((item) => ({
-      title: item.title,
-      link: item.link,
-      description: item.contentSnippet || item.content || '',
-      publishedAt: item.isoDate || item.pubDate,
-      imagemUrl: extrairImagemRSS(item),
-    }));
+    const itens = [];
+
+    for (const item of feed.items) {
+      let conteudo = item.contentSnippet || item.content || '';
+
+      // 🕷️ REGRA ESPECIAL: Portal Correio precisa de scraping
+      if (fonte.responsavel && fonte.responsavel.toLowerCase().includes('portal correio')) {
+        const conteudoCompleto = await extrairConteudoPortalCorreio(item.link);
+
+        if (conteudoCompleto) {
+          conteudo = conteudoCompleto;
+          console.log('🕷 Conteúdo completo extraído via scraping (Portal Correio)');
+        } else {
+          console.log('⚠️ Não foi possível extrair conteúdo completo, usando RSS');
+        }
+      }
+
+      itens.push({
+        title: item.title,
+        link: item.link,
+        description: conteudo,
+        publishedAt: item.isoDate || item.pubDate,
+        imagemUrl: extrairImagemRSS(item),
+      });
+    }
 
     await importarRSS({
       itens,
