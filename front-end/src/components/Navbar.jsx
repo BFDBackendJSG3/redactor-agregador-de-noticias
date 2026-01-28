@@ -36,6 +36,7 @@ import {
 import { CITIES_MENU, THEMES_MENU } from '@/constants/nav-links';
 import ThemeToggleButton from './ThemeToggleButton';
 import { capitalizeString } from '@/utils/formatDateAndText';
+import { motion } from 'motion/react';
 
 function Navbar() {
   const location = useLocation();
@@ -74,7 +75,12 @@ function Navbar() {
   return (
     <div>
       <div className="bg-background fixed top-0 z-40 w-full border-b">
-        <div className="mx-auto max-w-7xl px-3 md:px-6">
+        <motion.div
+          className="mx-auto max-w-7xl px-3 md:px-6"
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: 'easeIn' }}
+        >
           <div className="flex h-16 items-center justify-between">
             {/* Coluna 1 */}
             <div className="md:hidden">
@@ -88,14 +94,17 @@ function Navbar() {
             </div>
 
             {/* Coluna 2 */}
-            <div className="flex justify-center">
+            <motion.div
+              className="flex justify-center"
+              whileHover={{ scale: 1.02 }}
+            >
               <Link to="/" className="font-mono text-xl">
                 Comuniq
                 <span className="text-emerald-600 hover:text-emerald-700">
                   .PB
                 </span>
               </Link>
-            </div>
+            </motion.div>
 
             {/* Coluna 3 */}
             <div className="flex">
@@ -186,7 +195,7 @@ function Navbar() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Side bar - Abre ao clicar no componente acima */}
         {isMenuOpen && (
@@ -417,7 +426,12 @@ function Navbar() {
       </div>
       {/* Barra de links desktop */}
       <div className="bg-background hidden h-10 w-full border-b md:block">
-        <div className="mx-auto flex h-full max-w-7xl items-center justify-center gap-5.5 lg:gap-9">
+        <motion.div
+          className="mx-auto flex h-full max-w-7xl items-center justify-center gap-5.5 lg:gap-9"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        >
           <Link
             to="/"
             className={`text-sm transition-colors hover:text-emerald-600 ${
@@ -510,7 +524,7 @@ function Navbar() {
             </Link>
           )}
           <ThemeToggleButton />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
