@@ -1,18 +1,24 @@
 const { Noticia, sequelize } = require('../../models');
 const { classificarNoticia } = require('./noticiaClassificacao.service');
 
+function normalizarEspacos(texto) {
+  return texto
+    .replace(/\r/g, '')
+    .replace(/\t/g, ' ')
+    .replace(/\n{2,}/g, '\n') // remove blocos gigantes de linhas vazias
+    .replace(/[ ]{2,}/g, ' ') // remove espaços duplicados
+    .trim();
+}
+
 function limparHtmlBasico(texto) {
   return texto
-    .replace(/<img[^>]*>/gi, '') // remove imagens
+    .replace(/<img[^>]*>/gi, '')
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/p>/gi, '\n')
-    .replace(/<[^>]+>/g, ' ') // remove qualquer tag
+    .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;/g, ' ')
     .replace(/&#8230;/g, '...')
-    .replace(/&amp;/g, '&')
-    .replace(/\s{2,}/g, ' ') // remove espaços duplicados
-    .replace(/\n{2,}/g, '\n') // remove linhas em branco gigantes
-    .trim();
+    .replace(/&amp;/g, '&');
 }
 
 async function importarRSS({ itens, fonteId }) {
@@ -39,11 +45,13 @@ async function importarRSS({ itens, fonteId }) {
         continue;
       }
 
-      let conteudo = (item.description || '').trim();
+      let conteudo = item.description || '';
 
       if (conteudo.includes('<')) {
         conteudo = limparHtmlBasico(conteudo);
       }
+
+      conteudo = normalizarEspacos(conteudo);
 
       const temaPrincipalId = classificarNoticia({
         titulo: item.title,

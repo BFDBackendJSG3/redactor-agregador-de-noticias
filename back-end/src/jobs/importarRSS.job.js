@@ -30,10 +30,7 @@ async function executarImportacao() {
       let conteudo = item.contentSnippet || item.content || '';
 
       // 🕷️ REGRA ESPECIAL: Portal Correio precisa de scraping
-      if (
-        fonte.responsavel &&
-        fonte.responsavel.toLowerCase().includes('portal correio')
-      ) {
+      if (fonte.url.includes('portalcorreio')) {
         const conteudoCompleto = await extrairConteudoPortalCorreio(item.link);
 
         if (conteudoCompleto) {
