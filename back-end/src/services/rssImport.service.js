@@ -1,6 +1,20 @@
 const { Noticia, sequelize } = require('../../models');
 const { classificarNoticia } = require('./noticiaClassificacao.service');
 
+function limparHtmlBasico(texto) {
+  return texto
+    .replace(/<img[^>]*>/gi, '') // remove imagens
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<[^>]+>/g, ' ') // remove qualquer tag
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&#8230;/g, '...')
+    .replace(/&amp;/g, '&')
+    .replace(/\s{2,}/g, ' ') // remove espaços duplicados
+    .replace(/\n{2,}/g, '\n') // remove linhas em branco gigantes
+    .trim();
+}
+
 async function importarRSS({ itens, fonteId }) {
   console.log(
     `📥 Iniciando importação: ${itens.length} itens | fonteId=${fonteId}`
@@ -25,7 +39,11 @@ async function importarRSS({ itens, fonteId }) {
         continue;
       }
 
-      const conteudo = (item.description || '').trim();
+      let conteudo = (item.description || '').trim();
+
+      if (conteudo.includes('<')) {
+        conteudo = limparHtmlBasico(conteudo);
+      }
 
       const temaPrincipalId = classificarNoticia({
         titulo: item.title,

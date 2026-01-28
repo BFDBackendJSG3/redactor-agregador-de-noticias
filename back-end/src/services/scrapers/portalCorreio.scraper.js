@@ -3,42 +3,54 @@ const axios = require('axios');
 async function extrairConteudoPortalCorreio(url) {
   try {
     const { data: html } = await axios.get(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0',
-      },
+      headers: { 'User-Agent': 'Mozilla/5.0' },
     });
 
-    // 📰 Pega só a área do conteúdo da notícia
-    const match = html.match(
-      /<div class="entry-content[^>]*>([\s\S]*?)<\/div>/i
-    );
+    // 🧠 Tenta vários padrões possíveis do site
+    const patterns = [
+      /<div class="entry-content[^>]*>([\s\S]*?)<\/div>/i,
+      /<div class="td-post-content[^>]*>([\s\S]*?)<\/div>/i,
+      /<article[\s\S]*?<div class="td-post-content[^>]*>([\s\S]*?)<\/div>[\s\S]*?<\/article>/i,
+    ];
 
-    if (!match) return null;
+    let conteudoHtml = null;
 
-    let conteudoHtml = match[1];
+    for (const pattern of patterns) {
+      const match = html.match(pattern);
+      if (match) {
+        conteudoHtml = match[1];
+        break;
+      }
+    }
 
-    // ❌ Remove scripts, estilos e figuras
+    if (!conteudoHtml) return null;
+
+    // ❌ Remove scripts, estilos, figuras, iframes
     conteudoHtml = conteudoHtml
       .replace(/<script[\s\S]*?<\/script>/gi, '')
       .replace(/<style[\s\S]*?<\/style>/gi, '')
-      .replace(/<figure[\s\S]*?<\/figure>/gi, '');
+      .replace(/<figure[\s\S]*?<\/figure>/gi, '')
+      .replace(/<iframe[\s\S]*?<\/iframe>/gi, '');
 
-    // ❌ Remove o rodapé padrão do Portal Correio
+    // ❌ Remove rodapé padrão
     conteudoHtml = conteudoHtml.replace(
       /O post .* apareceu primeiro em Portal Correio[\s\S]*/i,
       ''
     );
 
-    // 🧼 Remove TODAS as tags HTML
-    let textoLimpo = conteudoHtml.replace(/<[^>]+>/g, '');
+    // 🧼 Remove todas as tags HTML
+    let textoLimpo = conteudoHtml.replace(/<[^>]+>/g, ' ');
 
-    // 🧹 Remove entidades HTML (&nbsp; etc)
+    // 🧹 Remove entidades HTML
     textoLimpo = textoLimpo
       .replace(/&nbsp;/g, ' ')
       .replace(/&#8230;/g, '...')
       .replace(/&amp;/g, '&');
 
-    return textoLimpo.trim();
+    // ✨ Remove espaços duplicados e linhas vazias gigantes
+    textoLimpo = textoLimpo.replace(/\s{2,}/g, ' ').trim();
+
+    return textoLimpo;
   } catch (err) {
     console.error('Erro ao fazer scraping Portal Correio:', err.message);
     return null;
@@ -46,3 +58,4 @@ async function extrairConteudoPortalCorreio(url) {
 }
 
 module.exports = { extrairConteudoPortalCorreio };
+
