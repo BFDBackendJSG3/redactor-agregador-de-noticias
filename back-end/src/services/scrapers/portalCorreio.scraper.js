@@ -6,11 +6,10 @@ async function extrairConteudoPortalCorreio(url) {
       headers: { 'User-Agent': 'Mozilla/5.0' },
     });
 
-    // 🧠 Tenta vários padrões possíveis do site
     const patterns = [
-      /<div class="entry-content[^>]*>([\s\S]*?)<\/div>/i,
+      /<div class="tdb-block-inner td-fix-index">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/i,
       /<div class="td-post-content[^>]*>([\s\S]*?)<\/div>/i,
-      /<article[\s\S]*?<div class="td-post-content[^>]*>([\s\S]*?)<\/div>[\s\S]*?<\/article>/i,
+      /<div class="entry-content[^>]*>([\s\S]*?)<\/div>/i,
     ];
 
     let conteudoHtml = null;
@@ -25,30 +24,23 @@ async function extrairConteudoPortalCorreio(url) {
 
     if (!conteudoHtml) return null;
 
-    // ❌ Remove scripts, estilos, figuras, iframes
     conteudoHtml = conteudoHtml
       .replace(/<script[\s\S]*?<\/script>/gi, '')
       .replace(/<style[\s\S]*?<\/style>/gi, '')
       .replace(/<figure[\s\S]*?<\/figure>/gi, '')
       .replace(/<iframe[\s\S]*?<\/iframe>/gi, '');
 
-    // ❌ Remove rodapé padrão
-    conteudoHtml = conteudoHtml.replace(
-      /O post .* apareceu primeiro em Portal Correio[\s\S]*/i,
-      ''
-    );
-
-    // 🧼 Remove todas as tags HTML
     let textoLimpo = conteudoHtml.replace(/<[^>]+>/g, ' ');
 
-    // 🧹 Remove entidades HTML
     textoLimpo = textoLimpo
       .replace(/&nbsp;/g, ' ')
       .replace(/&#8230;/g, '...')
       .replace(/&amp;/g, '&');
 
-    // ✨ Remove espaços duplicados e linhas vazias gigantes
-    textoLimpo = textoLimpo.replace(/\s{2,}/g, ' ').trim();
+    textoLimpo = textoLimpo
+      .replace(/\s{2,}/g, ' ')
+      .replace(/\n{2,}/g, '\n')
+      .trim();
 
     return textoLimpo;
   } catch (err) {

@@ -5,8 +5,10 @@ function normalizarEspacos(texto) {
   return texto
     .replace(/\r/g, '')
     .replace(/\t/g, ' ')
-    .replace(/\n{2,}/g, '\n') // remove blocos gigantes de linhas vazias
-    .replace(/[ ]{2,}/g, ' ') // remove espaços duplicados
+    .replace(/[\u00A0]/g, ' ') // remove &nbsp; invisível
+    .replace(/ +/g, ' ') // múltiplos espaços → 1
+    .replace(/ *\n */g, '\n') // remove espaços ao redor de quebras
+    .replace(/\n{2,}/g, '\n') // várias linhas vazias → 1
     .trim();
 }
 
