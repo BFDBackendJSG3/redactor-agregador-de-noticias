@@ -3,7 +3,9 @@ const Parser = require('rss-parser');
 const { importarRSS } = require('../services/rssImport.service');
 const { extrairImagemRSS } = require('../services/rssImageExtractor.service');
 const { Fonte } = require('../../models');
-const { extrairConteudoPortalCorreio } = require('../services/scrapers/portalCorreio.scraper');
+const {
+  extrairConteudoPortalCorreio,
+} = require('../services/scrapers/portalCorreio.scraper');
 
 const parser = new Parser();
 
@@ -28,14 +30,21 @@ async function executarImportacao() {
       let conteudo = item.contentSnippet || item.content || '';
 
       // 🕷️ REGRA ESPECIAL: Portal Correio precisa de scraping
-      if (fonte.responsavel && fonte.responsavel.toLowerCase().includes('portal correio')) {
+      if (
+        fonte.responsavel &&
+        fonte.responsavel.toLowerCase().includes('portal correio')
+      ) {
         const conteudoCompleto = await extrairConteudoPortalCorreio(item.link);
 
         if (conteudoCompleto) {
           conteudo = conteudoCompleto;
-          console.log('🕷 Conteúdo completo extraído via scraping (Portal Correio)');
+          console.log(
+            '🕷 Conteúdo completo extraído via scraping (Portal Correio)'
+          );
         } else {
-          console.log('⚠️ Não foi possível extrair conteúdo completo, usando RSS');
+          console.log(
+            '⚠️ Não foi possível extrair conteúdo completo, usando RSS'
+          );
         }
       }
 
