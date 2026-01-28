@@ -11,7 +11,7 @@ sequelize
     console.log('Banco conectado com sucesso');
     require('./jobs/cron.job');
 
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Servidor rodando na porta ${PORT}`);
     });
   })
