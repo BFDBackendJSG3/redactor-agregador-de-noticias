@@ -34,7 +34,7 @@ import {
 import { CITIES_MENU, THEMES_MENU } from '@/constants/nav-links';
 import ThemeToggleButton from './ThemeToggleButton';
 import { capitalizeString } from '@/utils/formatDateAndText';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function Navbar() {
   const location = useLocation();
@@ -196,249 +196,276 @@ function Navbar() {
         </motion.div>
 
         {/* Side bar - Abre ao clicar no componente acima */}
-        {isMenuOpen && (
-          <>
-            {/* overlay clicável */}
-            <div
-              className="bg-background/20 fixed inset-0 z-40 backdrop-blur-xs"
-              onClick={() => setIsMenuOpen(false)}
-            />
-            {/* sidebar */}
-            <div className="bg-card fixed top-0 left-0 z-50 h-full w-65 border-r shadow-lg md:w-90">
-              <div className="flex h-16 items-center justify-center">
-                <Link
-                  to="/"
-                  className="font-mono text-xl"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Comuniq<span className="text-emerald-600">.PB</span>
-                </Link>
-              </div>
-              <div className="flex w-full justify-center">
-                <Button size="icon" variant="ghost" onClick={toggleTheme}>
-                  {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-                </Button>
-              </div>
-              <div>
-                {!user ? (
+        <AnimatePresence>
+          {isMenuOpen && (
+            <>
+              {/* overlay clicável */}
+              <motion.div
+                className="bg-background/20 fixed inset-0 z-40 backdrop-blur-xs"
+                onClick={() => setIsMenuOpen(false)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              />
+              {/* sidebar */}
+              <motion.div
+                className="bg-card fixed top-0 left-0 z-50 h-full w-65 border-r shadow-lg md:w-90"
+                initial={{ x: '-100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '-100%' }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+              >
+                <div className="flex h-16 items-center justify-center">
                   <Link
-                    to="/login"
+                    to="/"
+                    className="font-mono text-xl"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Comuniq<span className="text-emerald-600">.PB</span>
+                  </Link>
+                </div>
+                <div className="flex w-full justify-center">
+                  <Button size="icon" variant="ghost" onClick={toggleTheme}>
+                    {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                  </Button>
+                </div>
+                <div>
+                  {!user ? (
+                    <Link
+                      to="/login"
+                      className={
+                        isAuthRoute
+                          ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                          : 'flex gap-1 border-b px-4 py-4'
+                      }
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <CircleUserRound strokeWidth={1.25} />
+                      Login
+                    </Link>
+                  ) : (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <div className="flex cursor-pointer items-center justify-between border-b px-4 py-4">
+                          <div
+                            className={
+                              isUserRoute
+                                ? 'flex gap-1 text-emerald-600'
+                                : 'flex gap-1'
+                            }
+                          >
+                            <CircleUserRound strokeWidth={1.25} />
+                            {capitalizeString(user.nome)}
+                          </div>
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        alignOffset={100}
+                        sideOffset={-50}
+                        align="right"
+                        className="bg-card"
+                      >
+                        <DropdownMenuLabel className="font-semibold">
+                          Olá, {capitalizeString(user.nome)}
+                        </DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          onClick={() => {
+                            navigate('/perfil');
+                            setIsMenuOpen(false);
+                          }}
+                        >
+                          Minha Conta
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            navigate('/noticias-salvas');
+                          }}
+                        >
+                          Notícias Salvas
+                        </DropdownMenuItem>
+                        {user.tipoUsuario === 'ADMIN' && (
+                          <DropdownMenuItem
+                            onClick={() => {
+                              navigate('/admin/usuarios');
+                              setIsMenuOpen(false);
+                            }}
+                          >
+                            Dashboard Usuários
+                          </DropdownMenuItem>
+                        )}
+                        {(user.tipoUsuario === 'ADMIN' ||
+                          user.tipoUsuario === 'JORNALISTA' ||
+                          user.tipoUsuario === 'EDITOR' ||
+                          user.tipoUsuario === 'ESTAGIARIO') && (
+                          <DropdownMenuItem
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              navigate('/adicionar-noticia');
+                            }}
+                          >
+                            Dashboard Notícias
+                          </DropdownMenuItem>
+                        )}
+                        <DropdownMenuItem
+                          onClick={() => {
+                            logout();
+                            navigate('/');
+                            setIsMenuOpen(false);
+                          }}
+                        >
+                          Sair
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )}
+                  <Link
+                    to="/"
                     className={
-                      isAuthRoute
+                      location.pathname === '/'
                         ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
                         : 'flex gap-1 border-b px-4 py-4'
                     }
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <CircleUserRound strokeWidth={1.25} />
-                    Login
+                    <House strokeWidth={1.25} />
+                    Inicio
                   </Link>
-                ) : (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <div className="flex cursor-pointer items-center justify-between border-b px-4 py-4">
                         <div
                           className={
-                            isUserRoute
+                            isCityRoute
                               ? 'flex gap-1 text-emerald-600'
                               : 'flex gap-1'
                           }
                         >
-                          <CircleUserRound strokeWidth={1.25} />
-                          {capitalizeString(user.nome)}
+                          <Building strokeWidth={1.25} />
+                          {activeCity?.label || 'Cidades'}
                         </div>
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                      alignOffset={100}
+                      alignOffset={70}
                       sideOffset={-50}
                       align="right"
                       className="bg-card"
                     >
-                      <DropdownMenuLabel className="font-semibold">
-                        Olá, {capitalizeString(user.nome)}
-                      </DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        onClick={() => {
-                          navigate('/perfil');
-                          setIsMenuOpen(false);
-                        }}
-                      >
-                        Minha Conta
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => {
-                          setIsMenuOpen(false);
-                          navigate('/noticias-salvas');
-                        }}
-                      >
-                        Notícias Salvas
-                      </DropdownMenuItem>
-                      {user.tipoUsuario === 'ADMIN' && (
+                      {CITIES_MENU.map((item) => (
                         <DropdownMenuItem
+                          className="transition-colors! hover:text-emerald-600!"
+                          key={item.slug}
                           onClick={() => {
-                            navigate('/admin/usuarios');
+                            navigate(`/noticias/cidade/${item.slug}`);
                             setIsMenuOpen(false);
                           }}
                         >
-                          Dashboard Usuários
+                          {item.label}
                         </DropdownMenuItem>
-                      )}
-                      {(user.tipoUsuario === 'ADMIN' ||
-                        user.tipoUsuario === 'JORNALISTA' ||
-                        user.tipoUsuario === 'EDITOR' ||
-                        user.tipoUsuario === 'ESTAGIARIO') && (
-                        <DropdownMenuItem
-                          onClick={() => {
-                            setIsMenuOpen(false);
-                            navigate('/adicionar-noticia');
-                          }}
-                        >
-                          Dashboard Notícias
-                        </DropdownMenuItem>
-                      )}
-                      <DropdownMenuItem
-                        onClick={() => {
-                          logout();
-                          navigate('/');
-                          setIsMenuOpen(false);
-                        }}
-                      >
-                        Sair
-                      </DropdownMenuItem>
+                      ))}
                     </DropdownMenuContent>
                   </DropdownMenu>
-                )}
-                <Link
-                  to="/"
-                  className={
-                    location.pathname === '/'
-                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
-                      : 'flex gap-1 border-b px-4 py-4'
-                  }
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <House strokeWidth={1.25} />
-                  Inicio
-                </Link>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <div className="flex cursor-pointer items-center justify-between border-b px-4 py-4">
-                      <div
-                        className={
-                          isCityRoute
-                            ? 'flex gap-1 text-emerald-600'
-                            : 'flex gap-1'
-                        }
-                      >
-                        <Building strokeWidth={1.25} />
-                        {activeCity?.label || 'Cidades'}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <div className="flex cursor-pointer items-center justify-between border-b px-4 py-4">
+                        <div
+                          className={
+                            activeTheme
+                              ? 'flex gap-1 text-emerald-600'
+                              : 'flex gap-1'
+                          }
+                        >
+                          <Newspaper strokeWidth={1.25} />
+                          {activeTheme?.label || 'Temas'}
+                        </div>
                       </div>
-                    </div>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent
-                    alignOffset={70}
-                    sideOffset={-50}
-                    align="right"
-                    className="bg-card"
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                      alignOffset={70}
+                      sideOffset={-50}
+                      align="right"
+                      className="bg-card"
+                    >
+                      {THEMES_MENU.map((item) => (
+                        <DropdownMenuItem
+                          className="transition-colors! hover:text-emerald-600!"
+                          key={item.slug}
+                          onClick={() => {
+                            navigate(`/noticias/tema/${item.slug}`);
+                            setIsMenuOpen(false);
+                          }}
+                        >
+                          {item.label}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <Link
+                    to="/sobre"
+                    className={
+                      location.pathname === '/sobre'
+                        ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                        : 'flex gap-1 border-b px-4 py-4'
+                    }
+                    onClick={() => setIsMenuOpen(false)}
                   >
-                    {CITIES_MENU.map((item) => (
-                      <DropdownMenuItem
-                        className="transition-colors! hover:text-emerald-600!"
-                        key={item.slug}
-                        onClick={() =>
-                          navigate(`/noticias/cidade/${item.slug}`)
-                        }
-                      >
-                        {item.label}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <div className="flex cursor-pointer items-center justify-between border-b px-4 py-4">
-                      <div
-                        className={
-                          activeTheme
-                            ? 'flex gap-1 text-emerald-600'
-                            : 'flex gap-1'
-                        }
-                      >
-                        <Newspaper strokeWidth={1.25} />
-                        {activeTheme?.label || 'Temas'}
-                      </div>
-                    </div>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent
-                    alignOffset={70}
-                    sideOffset={-50}
-                    align="right"
-                    className="bg-card"
+                    <Info strokeWidth={1.25} />
+                    Quem Somos
+                  </Link>
+                  <Link
+                    to="/contato"
+                    className={
+                      location.pathname === '/contato'
+                        ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
+                        : 'flex gap-1 border-b px-4 py-4'
+                    }
+                    onClick={() => setIsMenuOpen(false)}
                   >
-                    {THEMES_MENU.map((item) => (
-                      <DropdownMenuItem
-                        className="transition-colors! hover:text-emerald-600!"
-                        key={item.slug}
-                        onClick={() => navigate(`/noticias/tema/${item.slug}`)}
-                      >
-                        {item.label}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <Link
-                  to="/sobre"
-                  className={
-                    location.pathname === '/sobre'
-                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
-                      : 'flex gap-1 border-b px-4 py-4'
-                  }
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Info strokeWidth={1.25} />
-                  Quem Somos
-                </Link>
-                <Link
-                  to="/contato"
-                  className={
-                    location.pathname === '/contato'
-                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
-                      : 'flex gap-1 border-b px-4 py-4'
-                  }
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Mail strokeWidth={1.25} />
-                  Entre em Contato
-                </Link>
-              </div>
-            </div>
-          </>
-        )}
+                    <Mail strokeWidth={1.25} />
+                    Entre em Contato
+                  </Link>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
         {/* Barra de pesquisa */}
-        {isSearchMenuOpen && (
-          <>
-            <div
-              className="fixed inset-0 z-20"
-              onClick={() => setIsSearchMenuOpen(false)}
-            ></div>
-            <div className="bg-background fixed top-16 right-0 left-0 z-30 mx-auto flex h-20 w-[85%] items-center rounded-b-md border px-4 shadow-xl">
-              <Input
-                placeholder="Buscar"
-                className="rounded-r-none placeholder:text-sm"
-                value={search}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setSearchParams(value ? { search: value } : {});
+        <AnimatePresence>
+          {isSearchMenuOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-20"
+                onClick={() => setIsSearchMenuOpen(false)}
+              ></div>
+              <motion.div
+                className="bg-background fixed top-16 right-0 left-0 z-30 mx-auto flex h-20 w-[85%] items-center rounded-b-md border px-4 shadow-xl"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{
+                  duration: 0.25,
+                  ease: 'easeOut',
                 }}
-              />
-              <Button className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700">
-                <Search />
-              </Button>
-            </div>
-          </>
-        )}
+              >
+                <Input
+                  placeholder="Buscar"
+                  className="rounded-r-none placeholder:text-sm"
+                  autoFocus
+                  value={search}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setSearchParams(value ? { search: value } : {});
+                  }}
+                />
+                <Button className="rounded-l-none bg-emerald-600 shadow-xs hover:bg-emerald-700">
+                  <Search />
+                </Button>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </div>
       {/* Barra de links desktop */}
       <div className="bg-background hidden h-10 w-full border-b md:block">

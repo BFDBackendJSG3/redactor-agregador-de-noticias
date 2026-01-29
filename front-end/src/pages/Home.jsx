@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import NewsSectionWithWidget from '@/components/news/NewsSectionWithWidget';
 import NewsSection from '@/components/news/NewsSection';
 import PaginationIcons from '@/components/PaginationIcons';
+import { motion } from 'framer-motion';
 
 function Home() {
   const [page, setPage] = useState(1);
@@ -80,27 +81,51 @@ function Home() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen w-full items-center justify-center">
+      <motion.div
+        className="flex min-h-screen w-full items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <Loader2Icon className="animate-spin" />
-      </div>
+      </motion.div>
     );
   }
   if (isError) {
     return (
-      <div className="flex min-h-screen w-full items-center justify-center">
+      <motion.div
+        className="flex min-h-screen w-full items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <p>Erro ao carregar notícias</p>
-      </div>
+      </motion.div>
     );
   }
   if (!isLoading && news.length === 0) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
+      <motion.div
+        className="flex min-h-[60vh] items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <p className="text-muted-foreground">Nenhuma notícia encontrada.</p>
-      </div>
+      </motion.div>
     );
   }
   return (
-    <div className="space-y-8">
+    <motion.div
+      className="space-y-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       {/* hero */}
       {heroNews && (
         <NewsHero noticia={heroNews} handleFavorite={handleFavorite} />
@@ -126,7 +151,7 @@ function Home() {
           />
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
