@@ -43,7 +43,19 @@ function Home() {
     if (!debouncedSearch) {
       setIsSearhQuery(false);
     }
-  }, [search]);
+  }, [debouncedSearch]);
+
+  //use effect para scrolar para o todo ao mudar de pagina
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }, 50);
+
+    return () => clearTimeout(timeout);
+  }, [page]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['news', page, debouncedSearch],
@@ -121,10 +133,10 @@ function Home() {
   return (
     <motion.div
       className="space-y-8"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
+      exit={{ opacity: 0, y: -15 }}
+      transition={{ duration: 0.5 }}
     >
       {/* hero */}
       {heroNews && (
