@@ -5,11 +5,9 @@ import {
   Mail,
   Menu,
   Newspaper,
-  HeartHandshake,
-  Scale,
-  Notebook,
   Search,
   ChevronDown,
+  Building,
 } from 'lucide-react';
 import {
   Link,
@@ -242,8 +240,8 @@ function Navbar() {
                         <div
                           className={
                             isUserRoute
-                              ? 'flex gap-1 font-semibold text-emerald-600'
-                              : 'flex gap-1 font-semibold'
+                              ? 'flex gap-1 text-emerald-600'
+                              : 'flex gap-1'
                           }
                         >
                           <CircleUserRound strokeWidth={1.25} />
@@ -252,7 +250,7 @@ function Navbar() {
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                      alignOffset={140}
+                      alignOffset={100}
                       sideOffset={-50}
                       align="right"
                       className="bg-card"
@@ -324,54 +322,72 @@ function Navbar() {
                   <House strokeWidth={1.25} />
                   Inicio
                 </Link>
-                <Link
-                  to="/"
-                  className={
-                    location.pathname === '/ultimas-noticias'
-                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
-                      : 'flex gap-1 border-b px-4 py-4'
-                  }
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Newspaper strokeWidth={1.25} />
-                  Últimas Notícias
-                </Link>
-                <Link
-                  to="/noticias/tema/politica"
-                  className={
-                    location.pathname === '/noticias/tema/politica'
-                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
-                      : 'flex gap-1 border-b px-4 py-4'
-                  }
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Scale strokeWidth={1.25} />
-                  Política
-                </Link>
-                <Link
-                  to="/noticias/tema/saude"
-                  className={
-                    location.pathname === '/noticias/tema/saude'
-                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
-                      : 'flex gap-1 border-b px-4 py-4'
-                  }
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <HeartHandshake strokeWidth={1.25} />
-                  Saúde
-                </Link>
-                <Link
-                  to="/noticias/tema/educacao"
-                  className={
-                    location.pathname === '/noticias/tema/educacao'
-                      ? 'flex gap-1 border-b px-4 py-4 font-semibold text-emerald-600'
-                      : 'flex gap-1 border-b px-4 py-4'
-                  }
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Notebook strokeWidth={1.25} />
-                  Educação
-                </Link>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className="flex cursor-pointer items-center justify-between border-b px-4 py-4">
+                      <div
+                        className={
+                          isCityRoute
+                            ? 'flex gap-1 text-emerald-600'
+                            : 'flex gap-1'
+                        }
+                      >
+                        <Building strokeWidth={1.25} />
+                        {activeCity?.label || 'Cidades'}
+                      </div>
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    alignOffset={70}
+                    sideOffset={-50}
+                    align="right"
+                    className="bg-card"
+                  >
+                    {CITIES_MENU.map((item) => (
+                      <DropdownMenuItem
+                        className="transition-colors! hover:text-emerald-600!"
+                        key={item.slug}
+                        onClick={() =>
+                          navigate(`/noticias/cidade/${item.slug}`)
+                        }
+                      >
+                        {item.label}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <div className="flex cursor-pointer items-center justify-between border-b px-4 py-4">
+                      <div
+                        className={
+                          activeTheme
+                            ? 'flex gap-1 text-emerald-600'
+                            : 'flex gap-1'
+                        }
+                      >
+                        <Newspaper strokeWidth={1.25} />
+                        {activeTheme?.label || 'Temas'}
+                      </div>
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    alignOffset={70}
+                    sideOffset={-50}
+                    align="right"
+                    className="bg-card"
+                  >
+                    {THEMES_MENU.map((item) => (
+                      <DropdownMenuItem
+                        className="transition-colors! hover:text-emerald-600!"
+                        key={item.slug}
+                        onClick={() => navigate(`/noticias/tema/${item.slug}`)}
+                      >
+                        {item.label}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <Link
                   to="/sobre"
                   className={
