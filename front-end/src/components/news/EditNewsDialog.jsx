@@ -106,7 +106,7 @@ function EditNewsDialog({
           className={`${isMobile ? 'flex-1' : ''} ${className || ''}`}
         >
           <Edit className="h-4 w-4" />
-          {isMobile || (isEstagiario && 'Editar')}
+          {(isMobile || isEstagiario) && 'Editar'}
         </Button>
       </DialogTrigger>
       <DialogContent className="top-[50%]! sm:max-w-[90%]! md:max-w-[70%]! lg:max-w-[60%]! xl:max-w-225!">

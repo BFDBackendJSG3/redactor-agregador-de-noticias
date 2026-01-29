@@ -104,40 +104,44 @@ function ListNews({
                 </div>
 
                 {/* Ações Mobile */}
-                {user !== 'ESTAGIARIO' && (
-                  <div className="mt-4 flex flex-col gap-2 md:hidden">
-                    <div className="flex gap-1">
+                <div className="mt-4 flex flex-col gap-2 md:hidden">
+                  <div className="flex gap-1">
+                    {user !== 'ESTAGIARIO' && (
                       <EditNewsDialog
                         item={item}
                         onSuccess={onSuccess}
                         isMobile={true}
                       />
-                      {user !== 'JORNALISTA' && (
-                        <>
-                          <Button
-                            size="sm"
-                            onClick={() => handleApprove(item)}
-                            disabled={approveNewsMutation.isPending}
-                            className="flex-1 bg-green-600 hover:bg-green-700"
-                          >
-                            <CheckCircle className="h-4 w-4" />
-                            Aprovar
-                          </Button>
-                          <DeleteNewsDialog
-                            item={item}
-                            deleteNewsMutation={deleteNewsMutation}
-                            handleDelete={handleDelete}
-                            isMobile={true}
-                          />
-                        </>
-                      )}
-                    </div>
-                    <Button variant="outline" className="flex-1">
-                      <Eye className="h-4 w-4" />
-                      Preview
-                    </Button>
+                    )}
+                    {user !== 'ESTAGIARIO' && user !== 'JORNALISTA' && (
+                      <>
+                        <Button
+                          size="sm"
+                          onClick={() => handleApprove(item)}
+                          disabled={approveNewsMutation.isPending}
+                          className="flex-1 bg-green-600 hover:bg-green-700"
+                        >
+                          <CheckCircle className="h-4 w-4" />
+                          Aprovar
+                        </Button>
+                        <DeleteNewsDialog
+                          item={item}
+                          deleteNewsMutation={deleteNewsMutation}
+                          handleDelete={handleDelete}
+                          isMobile={true}
+                        />
+                      </>
+                    )}
                   </div>
-                )}
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => navigete(`/noticia/${item.id}`)}
+                  >
+                    <Eye className="h-4 w-4" />
+                    Preview
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}

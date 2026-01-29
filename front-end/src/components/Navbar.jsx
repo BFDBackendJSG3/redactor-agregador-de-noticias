@@ -34,7 +34,7 @@ import {
 import { CITIES_MENU, THEMES_MENU } from '@/constants/nav-links';
 import ThemeToggleButton from './ThemeToggleButton';
 import { capitalizeString } from '@/utils/formatDateAndText';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 function Navbar() {
   const location = useLocation();
@@ -94,7 +94,7 @@ function Navbar() {
             {/* Coluna 2 */}
             <motion.div
               className="flex justify-center"
-              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.96 }}
             >
               <Link to="/" className="font-mono text-xl">
                 Comuniq
@@ -245,7 +245,7 @@ function Navbar() {
                           }
                         >
                           <CircleUserRound strokeWidth={1.25} />
-                          {user.nome}
+                          {capitalizeString(user.nome)}
                         </div>
                       </div>
                     </DropdownMenuTrigger>
