@@ -1,13 +1,11 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const token = req.cookies.token;
 
-  if (!authHeader) {
-    return res.status(401).json({ message: 'Token não fornecido' });
+  if (!token) {
+    return res.status(401).json({ message: 'Não autenticado' });
   }
-
-  const [, token] = authHeader.split(' ');
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -18,6 +16,6 @@ module.exports = (req, res, next) => {
     return next();
   } catch (err) {
     console.log(err);
-    return res.status(401).json({ message: 'Token inválido ou expirado' });
+    return res.status(401).json({ message: 'Sessão expirada' });
   }
 };

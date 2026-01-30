@@ -13,13 +13,27 @@ class AuthController {
 
       const result = await authService.login(email, password);
 
-      return res.json(result);
+      res.cookie('token', result.token, {
+        httpOnly: true,
+        secure: false,
+        semeSite: 'lax',
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
+      return res.json({
+        user: result.user,
+      });
     } catch (error) {
       console.error(error);
       return res.status(401).json({
         message: 'Credenciais inválidas',
       });
     }
+  }
+
+  async logout(req, res) {
+    res.clearCookie('token');
+    return res.json({ message: 'Logout realizado' });
   }
 }
 

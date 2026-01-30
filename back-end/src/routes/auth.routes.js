@@ -17,5 +17,6 @@ const router = express.Router();
 
 router.post('/login', loginlimiter, AuthController.login);
 router.post('/register', UserController.criarPublico);
+router.post('/logout', AuthController.logout);
 
 module.exports = router;
