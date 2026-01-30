@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { login as loginRequest } from '@/services/auth-service';
+import { logout as logoutRequest } from '@/services/auth-service';
 
 //criacao do contexto usuario
 const AuthContext = createContext(null);
@@ -23,14 +24,12 @@ export function AuthProvider({ children }) {
   async function login(email, password) {
     const data = await loginRequest(email, password);
 
-    localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-
     setUser(data.user);
   }
 
-  function logout() {
-    localStorage.removeItem('token');
+  async function logout() {
+    await logoutRequest();
     localStorage.removeItem('user');
     setUser(null);
   }
